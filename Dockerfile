@@ -18,6 +18,9 @@ RUN pip wheel httpie httpie-edgegrid cffi
 
 FROM base
 ARG AKAMAI_CLI_HOME=/cli
+
+LABEL maintainer="opensource@akamai.com"
+
 ENV AKAMAI_CLI_HOME=$AKAMAI_CLI_HOME GOROOT=/usr/lib/go GOPATH=/go GO111MODULE=auto PATH=$PATH:$GOBIN
 RUN apk add --no-cache docker git bash python2 py2-pip python3 npm wget jq openssl openssh-client curl nodejs libffi vim nano util-linux tree bind-tools openjdk8 libc6-compat gcompat nss
 
