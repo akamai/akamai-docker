@@ -1,0 +1,34 @@
+# The following env vars are required and should be
+# set in Travis:
+#
+# DOCKER_NAME=akamai/akamai-docker
+# DOCKER_USERNAME=xyz
+# DOCKER_PASSWOR=xyz
+#
+# The full list of supported env vars with defaults is here:
+# ./travis/env.sh
+
+# This is optional, specifying for explicitness
+os: linux
+
+# We do not need to specify a specific linux distribution.
+# Default is xenial at time of writing.
+# dist: xenial
+
+# We do not need any specific language runtime,
+# minimal provides docker, that is enough
+language: minimal
+
+# Enable docker service
+services:
+  - docker
+
+# We only build master
+# branches:
+#   only:
+#     - feature/travis 
+
+script:
+  - bash ./scripts/docker-login.sh
+  - bash ./scripts/docker-build.sh
+  - bash ./scripts/docker-push.sh
