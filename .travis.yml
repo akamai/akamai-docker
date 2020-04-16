@@ -24,9 +24,9 @@ services:
   - docker
 
 # We only build master
-# branches:
-#   only:
-#     - feature/travis 
+branches:
+  only:
+    - feature/travis 
 
 script:
   - bash ./scripts/docker-login.sh
