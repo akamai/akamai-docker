@@ -3,10 +3,10 @@
 #
 # DOCKER_NAME=akamai/akamai-docker
 # DOCKER_USERNAME=xyz
-# DOCKER_PASSWOR=xyz
+# DOCKER_PASSWORD=xyz
 #
 # The full list of supported env vars with defaults is here:
-# ./travis/env.sh
+# ./scripts/env.sh
 
 # This is optional, specifying for explicitness
 os: linux
