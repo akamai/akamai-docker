@@ -33,6 +33,19 @@ RUN pip wheel httpie httpie-edgegrid cffi
 FROM base
 ARG AKAMAI_CLI_HOME=/cli
 
+# Labels
+ARG BUILD_DATE
+LABEL org.label-schema.build-date="${BUILD_DATE}"
+ARG NAME
+LABEL org.label-schema.name="${NAME}"
+ARG URL
+LABEL org.label-schema.url="${URL}"
+ARG VENDOR
+LABEL org.label-schema.vendor="${VENDOR}"
+ARG VCS_URL
+LABEL org.label-schema.vcs-url="${VCS_URL}"
+ARG VCS_REF
+LABEL org.label-schema.vcs-ref="${VCS_REF}"
 LABEL maintainer="opensource@akamai.com"
 
 ENV AKAMAI_CLI_HOME=$AKAMAI_CLI_HOME GOROOT=/usr/lib/go GOPATH=/go GO111MODULE=auto PATH=$PATH:$GOBIN

@@ -71,10 +71,12 @@ This way, the container is immediately removed when the execution is complete. Y
 
 ## Build
 
+Builds are automated via the scripts in the [scripts](scripts) directory.
+
+Just building locally can be accomplished by calling:
+
 ```bash
-docker build -t akamai/akamai-docker:YYYYmmddHH00 .
-docker tag akamai/akamai-docker:YYYYmmddHH00 akamai/akamai-docker:latest
-docker push akamai/akamai-docker
+docker build -t akamai-docker .
 ```
 
 ## License
