@@ -1,0 +1,6 @@
+base
+base cli
+cli dns
+cli property
+cli auth
+dns property auth shell

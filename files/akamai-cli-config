@@ -1,0 +1,9 @@
+[cli]
+cache-path            = /cli/.akamai-cli/cache
+config-version        = 1.1
+enable-cli-statistics = true
+last-ping             = 2018-08-08T00:00:12Z
+client-id             = devops-sandbox
+install-in-path       =
+last-upgrade-check    = ignore
+stats-version         = 1.1
