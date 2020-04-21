@@ -22,7 +22,7 @@ docker start -i akamai
 
 ## Authentication
 
-The standard authentication method for most Akamai APIs is called Edgegrid. Creating an Edgegrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
+The standard authentication method for most Akamai APIs is called EdgeGrid. Creating an EdgeGrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
 
 You will typically create an `.edgerc` file in your home directory with contents similar to this:
 
