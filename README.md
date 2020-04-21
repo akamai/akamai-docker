@@ -20,6 +20,26 @@ To return to already created environment:
 docker start -i akamai
 ```
 
+## Authentication
+
+The standard authentication method for most Akamai APIs is called Edgegrid. Creating an Edgegrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
+
+You will typically create an `.edgerc` file in your home directory with contents similar to this:
+
+```ini
+[default]
+client_secret = 'your_client_secret'
+host = 'your_host'
+access_token = 'your_access_token'
+client_token = 'your_client_token'
+```
+
+We recommend mounting this file directly into your containers; the following example illustrates this by verifying the credentials from within a container:
+
+```
+docker run -it --name akamai akamai/akamai-docker -v "~/.edgerc:/root/.edgerc:ro" akamai auth verify
+```
+
 ### Sandbox
 
 > *Note: Credits go to Nick Le Mouton for his awesome blog post: <https://www.noodles.net.nz/2018/10/12/running-akamai-sandbox-in-docker-with-https/>*
