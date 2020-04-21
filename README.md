@@ -28,10 +28,10 @@ You will typically create an `.edgerc` file in your home directory with contents
 
 ```ini
 [default]
-client_secret = 'your_client_secret'
-host = 'your_host'
-access_token = 'your_access_token'
-client_token = 'your_client_token'
+client_secret = your_client_secret
+host = your_host
+access_token = your_access_token
+client_token = your_client_token
 ```
 
 We recommend mounting this file directly into your containers; the following example illustrates this by verifying the credentials from within a container:
