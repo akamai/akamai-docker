@@ -37,7 +37,7 @@ client_token = your_client_token
 We recommend mounting this file directly into your containers; the following example illustrates this by verifying the credentials from within a container:
 
 ```
-docker run -it --name akamai akamai/akamai-docker -v "~/.edgerc:/root/.edgerc:ro" akamai auth verify
+docker run -it --name akamai akamai/akamai-docker -v $HOME/.edgerc:/root/.edgerc:ro akamai auth verify
 ```
 
 ### Sandbox
