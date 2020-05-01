@@ -8,24 +8,23 @@ build_img() {
     docker build -t $1 -f $2 .
   elif [ "$#" == 3 ];
   then
-    docker build -t $1 -f $2 --build-arg BASE=$3 .
+    docker build --squash -t $1 -f $2 --build-arg BASE=$3 .
   fi
 }
 
 build_chain() {
   if [ "$#" == 1 ];
   then
-    build_img akamai/akamai-docker-$1 dockerfiles/akamai-docker-$1.Dockerfile
+    build_img akamai/$1 dockerfiles/$1.Dockerfile
   else
     local base=$1; shift
     while [ "$#" -gt 1 ];
     do
       local tag=$1; shift
-      build_img akamai/akamai-docker-$tag-chain dockerfiles/akamai-docker-$tag.Dockerfile akamai/akamai-docker-$base
-      [ "$base" =~ "-chain" ] && docker rmi akamai/akamai-docker-$base
+      build_img akamai/$tag-chain dockerfiles/$tag.Dockerfile akamai/$base
       base=$tag-chain
     done
-    build_img akamai/akamai-docker-$1 dockerfiles/akamai-docker-$1.Dockerfile akamai/akamai-docker-$base
+    build_img akamai/$1 dockerfiles/$1.Dockerfile akamai/$base
   fi
 }
 

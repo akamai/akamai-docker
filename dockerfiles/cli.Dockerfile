@@ -16,32 +16,29 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/akamai-docker-cli:latest
+ARG BASE=akamai/base
 
 #####################
 # BUILDER
 #########
 
-FROM $BASE as builder
+FROM golang:alpine as builder
 
-# alpine golang does not have git
-RUN apk add --no-cache git npm \
-  # install cli-property from git
-  # (akamai install does not add the --production flag, which increases
-  # the footprint of the package since devDependencies are installed)
-  && git clone --depth 1 https://github.com/akamai/cli-property.git \
-  && cd cli-property \
-  && npm install --production
+RUN apk add --no-cache git \
+  && go get -d github.com/akamai/cli \
+  && cd $GOPATH/src/github.com/akamai/cli \
+  && go mod init \
+  && go mod tidy \
+  && go build -o /usr/local/bin/akamai -ldflags="-s -w"
 
 #####################
 # FINAL
 #########
 
-FROM $BASE
+FROM ${BASE}
 
-RUN apk add --no-cache nodejs \
-  && mkdir -p /cli/.akamai-cli/src
+RUN mkdir -p /cli/.akamai-cli
 
-COPY --from=builder /cli-property /cli/.akamai-cli/src/cli-property
+COPY --from=builder /usr/local/bin/akamai /usr/local/bin/akamai
 
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-property/bin/akamaiProperty"]
+ENTRYPOINT ["/usr/local/bin/akamai"]

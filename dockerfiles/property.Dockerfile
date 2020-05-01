@@ -16,26 +16,31 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/akamai-docker-base
+ARG BASE=akamai/base
+
+#####################
+# BUILDER
+#########
+
+FROM node:alpine as builder
+
+RUN apk add --no-cache git npm \
+  # install cli-property from git
+  # (akamai install does not add the --production flag, which increases
+  # the footprint of the package since devDependencies are installed)
+  && git clone --depth 1 https://github.com/akamai/cli-property.git \
+  && cd cli-property \
+  && npm install --production
 
 #####################
 # FINAL
 #########
 
-FROM ${BASE}
+FROM $BASE
 
-# This is the interactive shell container, so people will be more
-# familiar with bash than ash
-RUN apk add --no-cache bash jq git
+RUN apk add --no-cache nodejs \
+  && mkdir -p /cli/.akamai-cli/src
 
-# The CLI wrapper needs this to operate
-ENV AKAMAI_CLI_HOME=/cli/
+COPY --from=builder /cli-property /cli/.akamai-cli/src/cli-property
 
-COPY files/motd /etc/motd
-COPY files/akamai-cli-config /cli/.akamai-cli/config
-
-# This pattern allows us to execute a command
-# `docker run ... akamai property ...`
-# ... or simply run bash
-# `docker run ...`
-ENTRYPOINT ["/bin/bash", "-c", "${0} ${1+\"$@\"}"]
+ENTRYPOINT ["/cli/.akamai-cli/src/cli-property/bin/akamaiProperty"]

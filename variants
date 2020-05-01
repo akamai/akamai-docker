@@ -1,6 +1,6 @@
 base
 base cli
-cli dns
-cli property
-cli auth
-dns property auth shell
+base dns
+base property
+base auth
+dns property auth cli shell

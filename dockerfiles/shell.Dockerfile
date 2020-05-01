@@ -16,21 +16,7 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/akamai-docker-base
-
-#####################
-# BUILDER
-#########
-
-FROM golang:alpine as builder
-
-# alpine golang does not have git
-RUN apk add --no-cache git \
-  && go get -d github.com/akamai/cli \
-  && cd $GOPATH/src/github.com/akamai/cli \
-  && go mod init \
-  && go mod tidy \
-  && go build -o /usr/local/bin/akamai
+ARG BASE=akamai/base
 
 #####################
 # FINAL
@@ -38,8 +24,18 @@ RUN apk add --no-cache git \
 
 FROM ${BASE}
 
-RUN mkdir -p /cli/.akamai-cli
+# This is the interactive shell container, so people will be more
+# familiar with bash than ash
+RUN apk add --no-cache bash jq git
 
-COPY --from=builder /usr/local/bin/akamai /usr/local/bin/akamai
+# The CLI wrapper needs this to operate
+ENV AKAMAI_CLI_HOME=/cli/
 
-ENTRYPOINT ["/usr/local/bin/akamai"]
+COPY files/motd /etc/motd
+COPY files/akamai-cli-config /cli/.akamai-cli/config
+
+# This pattern allows us to execute a command
+# `docker run ... akamai property ...`
+# ... or simply run bash
+# `docker run ...`
+ENTRYPOINT ["/bin/bash", "-c", "${0} ${1+\"$@\"}"]

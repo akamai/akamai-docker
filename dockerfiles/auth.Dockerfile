@@ -16,22 +16,21 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/akamai-docker-cli:latest
+ARG BASE=akamai/base
 
 #####################
 # BUILDER
 #########
 
-FROM golang:alpine as builder
+FROM node:alpine as builder
 
-# alpine golang does not have git
-RUN apk add --no-cache git \
-  # building requires Dep package manager
-  && wget -O - https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
-  && go get -d github.com/akamai/cli-dns \
-  && cd "${GOPATH}/src/github.com/akamai/cli-dns" \
-  && dep ensure \
-  && go build -o /usr/local/bin/akamai-dns
+RUN apk add --no-cache git npm \
+  # install cli-property from git
+  # (akamai install does not add the --production flag, which increases
+  # the footprint of the package since devDependencies are installed)
+  && git clone --depth 1 https://github.com/akamai/cli-auth.git \
+  && cd cli-auth \
+  && npm install --production
 
 #####################
 # FINAL
@@ -39,7 +38,9 @@ RUN apk add --no-cache git \
 
 FROM $BASE
 
-RUN mkdir -p /cli/.akamai-cli/src/cli-dns/bin
-COPY --from=builder /usr/local/bin/akamai-dns /cli/.akamai-cli/src/cli-dns/bin/akamai-dns
+RUN apk add --no-cache nodejs \
+  && mkdir -p /cli/.akamai-cli/src
 
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-dns/bin/akamai-dns"]
+COPY --from=builder /cli-auth /cli/.akamai-cli/src/cli-auth
+
+ENTRYPOINT ["/cli/.akamai-cli/src/cli-auth/bin/akamaiAuth"]
