@@ -24,12 +24,15 @@ ARG BASE=akamai/base
 
 FROM golang:alpine as builder
 
-RUN apk add --no-cache git \
+RUN apk add --no-cache git upx \
   && go get -d github.com/akamai/cli \
   && cd $GOPATH/src/github.com/akamai/cli \
   && go mod init \
   && go mod tidy \
-  && go build -o /usr/local/bin/akamai -ldflags="-s -w"
+  # -ldflags="-s -w" strips debug information from the executable 
+  && go build -o /usr/local/bin/akamai -ldflags="-s -w" \
+  # upx creates a self-extracting compressed executable
+  && upx --brute -o/usr/local/bin/akamai.upx /usr/local/bin/akamai
 
 #####################
 # FINAL
@@ -39,6 +42,6 @@ FROM ${BASE}
 
 RUN mkdir -p /cli/.akamai-cli
 
-COPY --from=builder /usr/local/bin/akamai /usr/local/bin/akamai
+COPY --from=builder /usr/local/bin/akamai.upx /usr/local/bin/akamai
 
 ENTRYPOINT ["/usr/local/bin/akamai"]

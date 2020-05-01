@@ -24,14 +24,18 @@ ARG BASE=akamai/cli
 
 FROM golang:alpine as builder
 
-RUN apk add --no-cache git \
+RUN apk add --no-cache git upx \
   # building requires Dep package manager
   && wget -O - https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
   && go get -d github.com/akamai/cli-dns \
   && cd "${GOPATH}/src/github.com/akamai/cli-dns" \
   && dep ensure \
   # -ldflags="-s -w" strips debug information from the executable 
-  && go build -o /usr/local/bin/akamai-dns -ldflags="-s -w"
+  && go build -o /usr/local/bin/akamaiDns -ldflags="-s -w" \
+  # upx creates a self-extracting compressed executable
+  && upx --brute -o/usr/local/bin/akamaiDns.upx /usr/local/bin/akamaiDns \
+  # we need to include the cli.json file as well
+  && cp "${GOPATH}/src/github.com/akamai/cli-dns/cli.json" /cli.json
 
 #####################
 # FINAL
@@ -40,6 +44,7 @@ RUN apk add --no-cache git \
 FROM $BASE
 
 RUN mkdir -p /cli/.akamai-cli/src/cli-dns/bin
-COPY --from=builder /usr/local/bin/akamai-dns /cli/.akamai-cli/src/cli-dns/bin/akamai-dns
+COPY --from=builder /usr/local/bin/akamaiDns.upx /cli/.akamai-cli/src/cli-dns/bin/akamaiDns
+COPY --from=builder /cli.json /cli/.akamai-cli/src/cli-dns/cli.json
 
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-dns/bin/akamai-dns"]
+ENTRYPOINT ["/cli/.akamai-cli/src/cli-dns/bin/akamaiDns"]

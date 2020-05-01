@@ -43,4 +43,4 @@ RUN apk add --no-cache nodejs \
 
 COPY --from=builder /cli-auth /cli/.akamai-cli/src/cli-auth
 
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-auth/bin/akamaiAuth"]
+ENTRYPOINT ["/cli/.akamai-cli/src/cli-auth/bin/akamai-auth"]
