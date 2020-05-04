@@ -1,6 +1,8 @@
 base
+base appsec
+base auth
 base cli
+base cps
 base dns
 base property
-base auth
-dns property auth cli shell
+base appsec auth cli cps dns property shell

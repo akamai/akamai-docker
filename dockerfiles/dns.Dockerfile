@@ -16,7 +16,7 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/cli
+ARG BASE=akamai/base
 
 #####################
 # BUILDER

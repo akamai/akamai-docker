@@ -5,10 +5,10 @@ set -e
 build_img() {
   if [ "$#" == 2 ];
   then
-    docker build -t $1 -f $2 .
+    docker build --quiet --force-rm -t $1 -f $2 .
   elif [ "$#" == 3 ];
   then
-    docker build --squash -t $1 -f $2 --build-arg BASE=$3 .
+    docker build --quiet --force-rm --squash -t $1 -f $2 --build-arg BASE=$3 .
   fi
 }
 
