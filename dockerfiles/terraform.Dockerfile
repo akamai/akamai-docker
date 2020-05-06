@@ -23,8 +23,14 @@ ARG BASE=akamai/base
 #########
 
 FROM alpine as builder
-ARG TERRAFORM_VERSION=0.12.24
-ARG TERRAFORM_SHA256SUM=602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11
+ARG TERRAFORM_VERSION=0.12.20
+ARG TERRAFORM_SHA256SUM=46bd906f8cb9bbb871905ecb23ae7344af8017d214d735fbb6d6c8e0feb20ff3
+
+# Because the builder downloads the latest akamai provider,
+# subsequent terraform init calls will download to this directory
+# if required, and create a hard link otherwise.
+ARG TF_PLUGIN_CACHE_DIR="/var/terraform/plugins"
+ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
 
 # ca-certificates: Required by `terraform init` when downloading provider plugins.
 # curl: depends on ca-certificates, but specifying ca-certificates explicitly
@@ -37,30 +43,38 @@ RUN apk add --no-cache ca-certificates curl upx \
     && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform
 
+# initialize latest akamai provider;
+# upx (just above) takes very long to run, it's worth creating
+# a new layer for the following to avoid recompressing when adding
+# a new provider
+# ca-certificates: Required by `terraform init` when downloading provider plugins.
+RUN mkdir -p ${TF_PLUGIN_CACHE_DIR} \
+    # these are commonly used, we preinstall and compress them with upx
+    && echo 'provider "akamai" {}' >> /init.tf \
+    && echo 'provider "null" {}' >> /init.tf \
+    && echo 'provider "local" {}' >> /init.tf \
+    && terraform init -input=false -backend=false -get-plugins=true -verify-plugins=true \
+    && rm init.tf \
+    && find ${TF_PLUGIN_CACHE_DIR} -type f -exec upx --brute -o{}.upx {} \; \
+    # for some reason, using mv at this step fails (the operation works, but file not found raised)
+    && find ${TF_PLUGIN_CACHE_DIR} -type f -not -name '*.upx' -exec cp {}.upx {} \; \
+    # ... so we do it in two steps
+    && find ${TF_PLUGIN_CACHE_DIR} -type f -name '*.upx' -exec rm {} \;
+
 #####################
 # FINAL
 #########
 
 FROM $BASE
 
-COPY --from=builder /usr/local/bin/terraform.upx /usr/local/bin/terraform
-
-# Because the builder downloads the latest akamai provider,
-# subsequent terraform init calls will download to this directory
-# if required, and create a hard link otherwise.
-ARG TF_PLUGIN_CACHE_DIR="/.terraform/plugins"
+ARG TF_PLUGIN_CACHE_DIR="/var/terraform/plugins"
 ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
 
-# initialize latest akamai provider;
-# upx (just above) takes very long to run, it's worth creating
-# a new layer for the following to avoid recompressing when adding
-# a new provider
-# ca-certificates: Required by `terraform init` when downloading provider plugins.
-RUN apk add --no-cache curl ca-certificates \
-    && mkdir -p /.terraform/.plugins \
-    && echo 'provider "akamai" {}' >> /init.tf \
-    && echo 'provider "null" {}' >> /init.tf \
-    && echo 'provider "local" {}' >> /init.tf \
-    && TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}" terraform init -input=false -backend=false -get-plugins=true -verify-plugins=true
+RUN apk add --no-cache curl ca-certificates
+
+COPY --from=builder /usr/local/bin/terraform.upx /usr/local/bin/terraform
+# we copy over the plugin directory; terraform init will link plugins to
+# the files in this directory if available
+COPY --from=builder /var/terraform /var/terraform
 
 ENTRYPOINT ["/usr/local/bin/terraform"]

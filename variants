@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This file specifies the images that are built by this package.
+#
 # Each line describes an image that is pushed to dockerhub.
 # The last word of each line determines the tag, e.g. appsec -> akamai/appsec.
 
@@ -23,11 +25,14 @@ base
 base appsec
 base auth
 base cli
+base cloudlets
 base cps
 base dns
+base edgeworkers
 base httpie
 base property
 base sandbox
+base terraform
 
 # interactive variant with all the things, for experimentation.
-base appsec auth cli cps dns httpie property sandbox shell
+base appsec auth cli cloudlets cps dns edgeworkers httpie property sandbox terraform shell
