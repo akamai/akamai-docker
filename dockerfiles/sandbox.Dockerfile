@@ -47,9 +47,12 @@ RUN apk add --no-cache git npm \
 
 FROM $BASE
 
-RUN apk add --no-cache nodejs openjdk8 libc6-compat gcompat nss
+RUN apk add --no-cache nodejs openjdk8-jre-base libc6-compat gcompat nss
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+
+# workaround
+RUN touch $JAVA_HOME/bin/javac
 
 COPY --from=builder /cli-sandbox $AKAMAI_CLI_HOME/cli-sandbox
 
