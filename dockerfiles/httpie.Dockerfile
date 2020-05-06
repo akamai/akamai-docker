@@ -24,12 +24,11 @@ ARG BASE=akamai/base
 
 FROM ${BASE}
 
-RUN mkdir -p /cli/.akamai-cli/src \
-  && apk add --no-cache python3 \
-  && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
-  && git clone --depth 1 https://github.com/akamai/cli-cps.git /cli/.akamai-cli/src/cli-cps \
+# httpie depends on setuptools at runtime
+RUN apk add --no-cache python3 py3-setuptools \
+  && apk add --no-cache --virtual dev git gcc python3-dev libffi-dev musl-dev openssl-dev \
   && pip3 install --upgrade pip setuptools \
-  && pip3 install -r /cli/.akamai-cli/src/cli-cps/requirements.txt \
+  && pip3 install httpie httpie-edgegrid \
   # Drop dev dependencies
   && apk del dev \
   # Drop created wheels
@@ -37,5 +36,5 @@ RUN mkdir -p /cli/.akamai-cli/src \
   # Drop ~20MB by removing bytecode cache created by pip
   && find / -name __pycache__ | xargs rm -rf
 
-ENTRYPOINT ["python3", "/cli/.akamai-cli/src/cli-cps/bin/akamai-cps"]
+ENTRYPOINT ["http", "-A", "edgegrid"]
 
