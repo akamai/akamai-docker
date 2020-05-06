@@ -2,6 +2,13 @@
 
 set -e
 
+chalk() {
+  local code=$1; shift;
+  [ -t 2 ] && 
+    echo -e "\033[$code$@\033[0m" ||
+    echo $@
+}
+
 debug() {
   1>&2 echo "[DEBUG] $@"
 }
@@ -24,7 +31,7 @@ build_img() {
 }
 
 build_chain() {
-  info "build_chain: $@"
+  info $(chalk 1\;93m "build_chain: $@")
   if [ "$#" == 1 ];
   then
     build_img akamai/$1 dockerfiles/$1.Dockerfile
