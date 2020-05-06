@@ -2,7 +2,18 @@
 
 set -e
 
+debug() {
+  1>&2 echo "[DEBUG] $@"
+}
+info() {
+  1>&2 echo "[INFO] $@"
+}
+err() {
+  1>&2 echo "[ERR] $@"
+}
+
 build_img() {
+  info "build_img: $1"
   if [ "$#" == 2 ];
   then
     docker build --quiet --force-rm -t $1 -f $2 .
@@ -13,6 +24,7 @@ build_img() {
 }
 
 build_chain() {
+  info "build_chain: $@"
   if [ "$#" == 1 ];
   then
     build_img akamai/$1 dockerfiles/$1.Dockerfile
@@ -30,7 +42,7 @@ build_chain() {
 
 #  `|| [ -n "$line" ]` catches the final line if it is not
 # terminated with a newline
-cat variants | while read line || [ -n "$line" ];
+sed -E 's/\s*#.*$//g; /^$/ d' variants | while read line || [ -n "$line" ];
 do
   build_chain $line
 done
