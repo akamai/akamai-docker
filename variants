@@ -25,7 +25,7 @@ base auth
 base cli
 base cps
 base dns
-ase httpie
+base httpie
 base property
 
 # interactive variant with all the things, for experimentation.
