@@ -16,10 +16,10 @@ build_img() {
   info "build_img: $1"
   if [ "$#" == 2 ];
   then
-    docker build --quiet --force-rm -t $1 -f $2 .
+    docker build --force-rm -t $1 -f $2 .
   elif [ "$#" == 3 ];
   then
-    docker build --quiet --force-rm --squash -t $1 -f $2 --build-arg BASE=$3 .
+    docker build --force-rm --squash -t $1 -f $2 --build-arg BASE=$3 .
   fi
 }
 

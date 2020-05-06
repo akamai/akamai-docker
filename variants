@@ -27,6 +27,7 @@ base cps
 base dns
 base httpie
 base property
+base sandbox
 
 # interactive variant with all the things, for experimentation.
-base appsec auth cli cps dns httpie property shell
+base appsec auth cli cps dns httpie property sandbox shell
