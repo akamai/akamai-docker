@@ -26,7 +26,7 @@ build_img() {
     docker build --force-rm -t $1 -f $2 .
   elif [ "$#" == 3 ];
   then
-    docker build --force-rm --squash -t $1 -f $2 --build-arg BASE=$3 .
+    docker build --force-rm -t $1 -f $2 --build-arg BASE=$3 .
   fi
 }
 
