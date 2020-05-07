@@ -30,11 +30,17 @@ base cloudlets
 base cps
 base dns
 base edgeworkers
+base firewall
 base httpie
 base property
 base purge
 base sandbox
 base terraform
 
+# Some CLIs provide multiple commands; these can be built
+# as variants of the "main" CLI, but do not need to be included
+# in the akamai/shell image
+firewall site-shield
+
 # interactive variant with all the things, for experimentation.
-base appsec auth cli cloudlets cps dns edgeworkers httpie property purge sandbox terraform shell
+base appsec auth cli cloudlets cps dns edgeworkers firewall httpie property purge sandbox terraform shell
