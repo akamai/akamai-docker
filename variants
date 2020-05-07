@@ -21,6 +21,7 @@
 # DO NOT DELETE this line
 base
 
+
 # specialized variants
 base appsec
 base auth
@@ -31,8 +32,9 @@ base dns
 base edgeworkers
 base httpie
 base property
+base purge
 base sandbox
 base terraform
 
 # interactive variant with all the things, for experimentation.
-base appsec auth cli cloudlets cps dns edgeworkers httpie property sandbox terraform shell
+base appsec auth cli cloudlets cps dns edgeworkers httpie property purge sandbox terraform shell
