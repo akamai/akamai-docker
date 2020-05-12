@@ -1,0 +1,11 @@
+--- a/src/template/client-config.json
++++ b/src/template/client-config.json
+@@ -2,7 +2,7 @@
+   "sandboxServerInfo": {
+     "secure": false,
+     "port": 9550,
+-    "host": "127.0.0.1"
++    "host": "0.0.0.0"
+   },
+   "advanced": {
+     "requestDetail": false
