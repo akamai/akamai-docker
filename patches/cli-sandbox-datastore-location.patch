@@ -1,0 +1,11 @@
+--- a/src/service/sandbox-client-manager.ts
++++ b/src/service/sandbox-client-manager.ts
+@@ -28,7 +28,7 @@ const CLIENT_INSTALL_PATH = path.join(SANDBOX_CLI_HOME, CONNECTOR_FOLDER_NAME);
+ const JAR_FILE_PATH = path.join(CLIENT_INSTALL_PATH, path.join('/lib', JAR_FILE_NAME));
+ const LOG_CONFIG_FILE = path.join(CLIENT_INSTALL_PATH, '/conf/logback.xml');
+ 
+-const DATASTORE_FILE_PATH = path.join(SANDBOX_CLI_HOME + '.datastore');
++const DATASTORE_FILE_PATH = path.join(SANDBOXES_DIR + '.datastore');
+ 
+ if (!fs.existsSync(SANDBOX_CLI_HOME)) {
+   fs.mkdirSync(SANDBOX_CLI_HOME);
