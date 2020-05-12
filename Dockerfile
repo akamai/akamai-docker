@@ -21,14 +21,28 @@ RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli
 RUN apk add --no-cache docker git bash python2 python2-dev py2-pip python3 python3-dev npm wget jq openssl openssl-dev curl nodejs build-base libffi libffi-dev vim nano util-linux go dep tree bind-tools 
 RUN go get -d github.com/akamai/cli && cd $GOPATH/src/github.com/akamai/cli && go mod init && go mod tidy && go build -o /usr/local/bin/akamai
 RUN pip install --upgrade pip && pip3 install --upgrade pip
+RUN npm config set unsafe-perm true
 RUN curl -s https://developer.akamai.com/cli/package-list.json -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:42.0) Gecko/20100101 Firefox/42.0" | jq '.packages[].name' | sed s/\"//g | xargs akamai install --force 
+
+# sandbox originally binds to 127.0.0.1 which doesn't work with Docker's port mapping
+# the patch changes the ip to 0.0.0.0
+COPY patches/ /tmp/patches/
+RUN cd $AKAMAI_CLI_HOME/.akamai-cli/src/cli-sandbox \
+    && git apply --ignore-whitespace /tmp/patches/*.patch  \
+    && npm run build \
+    && rm -rf /tmp/patches
+
 RUN go get github.com/spf13/cast && akamai install cli-api-gateway 
 # https://github.com/akamai/cli-sandbox/issues/24
-RUN akamai install sandbox && cd $AKAMAI_CLI_HOME/.akamai-cli/src/cli-sandbox/ && npm run build
 RUN cd $AKAMAI_CLI_HOME/.akamai-cli/src/cli-edgeworkers/ && npm run build
 WORKDIR /wheels
 RUN pip install wheel
 RUN pip wheel httpie httpie-edgegrid cffi
+
+# cleanup
+RUN find $AKAMAI_CLI_HOME -name .git -type d | xargs rm -rf \
+    && cd /cli/.akamai-cli/src \
+    && for p in $(find -name node_modules -maxdepth 2 | awk -F/ '{ print $2 }'); do (cd $p && npm prune --production) done
 
 FROM base
 ARG AKAMAI_CLI_HOME=/cli
@@ -49,7 +63,10 @@ LABEL org.label-schema.vcs-ref="${VCS_REF}"
 LABEL maintainer="opensource@akamai.com"
 
 ENV AKAMAI_CLI_HOME=$AKAMAI_CLI_HOME GOROOT=/usr/lib/go GOPATH=/go GO111MODULE=auto PATH=$PATH:$GOBIN
-RUN apk add --no-cache docker git bash python2 py2-pip python3 npm wget jq openssl openssh-client curl nodejs libffi vim nano util-linux tree bind-tools openjdk8 libc6-compat gcompat nss
+RUN apk add --no-cache docker git bash python2 py2-pip python3 npm wget jq openssl openssh-client curl nodejs libffi vim nano util-linux tree bind-tools openjdk8-jre-base libc6-compat gcompat nss
+
+# workaround
+RUN touch $JAVA_HOME/bin/javac
 
 COPY --from=builder /wheels /wheels
 RUN pip install --upgrade pip && \
