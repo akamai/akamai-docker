@@ -122,6 +122,18 @@ RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS
 
+ENV AKAMAI_CLI_CACHE_PATH=$AKAMAI_CLI_HOME/.akamai-cli/cache
+RUN mkdir -p $AKAMAI_CLI_CACHE_PATH/sandbox-cli \
+  && mkdir -p /sandboxes && ln -s /sandboxes $AKAMAI_CLI_CACHE_PATH/sandbox-cli/sandboxes \
+  # .edgerc file is needed to install sandbox-client
+  # however it can be empty
+  && touch /root/.edgerc \
+  && $AKAMAI_CLI_HOME/.akamai-cli/src/cli-sandbox/akamai-sandbox install \
+  && rm /root/.edgerc \
+  && rm -rf $AKAMAI_CLI_CACHE_PATH/sandbox-cli/downloads
+
+VOLUME /sandboxes
+
 RUN mkdir /root/pipeline && ln -s /root/pipeline /pipeline
 
 VOLUME /root
