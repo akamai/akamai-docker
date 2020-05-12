@@ -24,7 +24,6 @@ base
 # specialized variants
 base adaptive-acceleration
 base appsec
-base auth
 base cli
 base cloudlets
 base cps
@@ -46,4 +45,4 @@ firewall site-shield
 pipeline snippets
 
 # interactive variant with all the things, for experimentation.
-base adaptive-acceleration appsec auth cli cloudlets cps dns edgeworkers firewall httpie image-manager property pipeline purge sandbox terraform shell
+base adaptive-acceleration appsec cli cloudlets cps dns edgeworkers firewall httpie image-manager property pipeline purge sandbox terraform shell
