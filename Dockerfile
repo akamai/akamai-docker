@@ -65,6 +65,8 @@ LABEL maintainer="opensource@akamai.com"
 ENV AKAMAI_CLI_HOME=$AKAMAI_CLI_HOME GOROOT=/usr/lib/go GOPATH=/go GO111MODULE=auto PATH=$PATH:$GOBIN
 RUN apk add --no-cache docker git bash python2 py2-pip python3 npm wget jq openssl openssh-client curl nodejs libffi vim nano util-linux tree bind-tools openjdk8-jre-base libc6-compat gcompat nss
 
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+
 # workaround
 RUN touch $JAVA_HOME/bin/javac
 
