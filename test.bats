@@ -116,3 +116,9 @@
   run akamai sandbox --help
   [ "$status" -eq 0 ]
 }
+
+@test "cli: visitor-prioritization is executable" {
+  # does not use --help, but help subcommand
+  run akamai visitor-prioritization help
+  [ "$status" -eq 0 ]
+}

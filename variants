@@ -39,6 +39,7 @@ cli property-manager
 cli property
 cli purge
 cli sandbox
+cli visitor-prioritization
 
 # Non-Akamai CLI utilities
 # httpie + edgegrid
@@ -47,4 +48,4 @@ base httpie
 base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager purge sandbox terraform shell
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager purge sandbox terraform visitor-prioritization shell
