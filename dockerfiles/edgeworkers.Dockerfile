@@ -34,7 +34,9 @@ RUN apk add --no-cache git npm \
   && npm run build \
   # we can remove src (all .ts has been transpiled to bin/**.js)
   && rm -rf src node_modules \
-  && npm install --production
+  && npm install --production \
+  # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
+  && rm -rf /cli/.akamai-cli/src/cli-edgeworkers/.git
 
 #####################
 # FINAL
@@ -46,5 +48,3 @@ RUN apk add --no-cache nodejs \
   && mkdir -p /cli/.akamai-cli/src
 
 COPY --from=builder /cli-edgeworkers /cli/.akamai-cli/src/cli-edgeworkers
-
-ENTRYPOINT ["node", "/cli/.akamai-cli/src/cli-edgeworkers/bin/cli-main.js"]

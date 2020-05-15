@@ -21,28 +21,30 @@
 # DO NOT DELETE this line
 base
 
-# specialized variants
-base adaptive-acceleration
-base appsec
+# cli: base + akamai cli wrapper
+# DO NOT DELETE this line
 base cli
-base cloudlets
-base cps
-base dns
-base edgeworkers
-base firewall
+
+# specialized variants
+cli adaptive-acceleration
+cli api-gateway
+cli appsec
+cli cloudlets
+cli cps
+cli dns
+cli edgeworkers
+cli firewall
+cli image-manager
+cli property-manager
+cli property
+cli purge
+cli sandbox
+
+# Non-Akamai CLI utilities
+# httpie + edgegrid
 base httpie
-base image-manager
-base pipeline
-base property
-base purge
-base sandbox
+# terraform + akamai provider
 base terraform
 
-# Some CLIs provide multiple commands; these can be built
-# as variants of the "main" CLI, but do not need to be included
-# in the akamai/shell image
-firewall site-shield
-pipeline snippets
-
 # interactive variant with all the things, for experimentation.
-base adaptive-acceleration appsec cli cloudlets cps dns edgeworkers firewall httpie image-manager property pipeline purge sandbox terraform shell
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager purge sandbox terraform shell

@@ -28,9 +28,6 @@ FROM ${BASE}
 # familiar with bash than ash
 RUN apk add --no-cache bash jq git
 
-# The CLI wrapper needs this to operate
-ENV AKAMAI_CLI_HOME=/cli/
-
 COPY files/motd /etc/motd
 COPY files/akamai-cli-config /cli/.akamai-cli/config
 

@@ -39,8 +39,8 @@ RUN apk add --no-cache git npm \
 FROM $BASE
 
 RUN apk add --no-cache nodejs \
-  && mkdir -p /cli/.akamai-cli/src
+  && mkdir -p /cli/.akamai-cli/src \
+  # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
+  && rm -rf /cli/.akamai-cli/src/cli-property-manager/.git
 
 COPY --from=builder /cli-property-manager /cli/.akamai-cli/src/cli-property-manager
-
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-property-manager/bin/akamai-pipeline"]

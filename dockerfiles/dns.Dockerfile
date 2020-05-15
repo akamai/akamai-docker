@@ -31,11 +31,13 @@ RUN apk add --no-cache git upx \
   && cd "${GOPATH}/src/github.com/akamai/cli-dns" \
   && dep ensure \
   # -ldflags="-s -w" strips debug information from the executable 
-  && go build -o /usr/local/bin/akamaiDns -ldflags="-s -w" \
+  && go build -o /akamaiDns -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
-  && upx --brute -o/usr/local/bin/akamaiDns.upx /usr/local/bin/akamaiDns \
+  && upx --brute -o/akamaiDns.upx /akamaiDns \
   # we need to include the cli.json file as well
-  && cp "${GOPATH}/src/github.com/akamai/cli-dns/cli.json" /cli.json
+  && cp "${GOPATH}/src/github.com/akamai/cli-dns/cli.json" /cli.json \
+  # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
+  && rm -rf /cli/.akamai-cli/src/cli-dns/.git
 
 #####################
 # FINAL
@@ -44,7 +46,5 @@ RUN apk add --no-cache git upx \
 FROM $BASE
 
 RUN mkdir -p /cli/.akamai-cli/src/cli-dns/bin
-COPY --from=builder /usr/local/bin/akamaiDns.upx /cli/.akamai-cli/src/cli-dns/bin/akamaiDns
+COPY --from=builder /akamaiDns.upx /cli/.akamai-cli/src/cli-dns/bin/akamaiDns
 COPY --from=builder /cli.json /cli/.akamai-cli/src/cli-dns/cli.json
-
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-dns/bin/akamaiDns"]

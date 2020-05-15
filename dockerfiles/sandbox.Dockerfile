@@ -66,5 +66,3 @@ RUN mkdir -p $AKAMAI_CLI_CACHE_PATH/sandbox-cli \
   && rm -rf $AKAMAI_CLI_CACHE_PATH/sandbox-cli/downloads
 
 VOLUME /sandboxes
-
-ENTRYPOINT ["/cli/cli-sandbox/akamai-sandbox"]

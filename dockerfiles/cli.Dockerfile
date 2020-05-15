@@ -30,9 +30,9 @@ RUN apk add --no-cache git upx \
   && go mod init \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable 
-  && go build -o /usr/local/bin/akamai -ldflags="-s -w" \
+  && go build -o /akamai -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
-  && upx --brute -o/usr/local/bin/akamai.upx /usr/local/bin/akamai
+  && upx --brute -o/akamai.upx /akamai
 
 #####################
 # FINAL
@@ -40,8 +40,14 @@ RUN apk add --no-cache git upx \
 
 FROM ${BASE}
 
-RUN mkdir -p /cli/.akamai-cli
+ARG AKAMAI_CLI_HOME=/cli
+ENV AKAMAI_CLI_HOME=${AKAMAI_CLI_HOME}
+ENV AKAMAI_CLI_CACHE_PATH=${AKAMAI_CLI_HOME}/.cache
 
-COPY --from=builder /usr/local/bin/akamai.upx /usr/local/bin/akamai
+RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli ${AKAMAI_CLI_CACHE_PATH}
 
-ENTRYPOINT ["/usr/local/bin/akamai"]
+COPY --from=builder /akamai.upx /bin/akamai
+
+ADD files/akamai-cli-config ${AKAMAI_CLI_HOME}/.akamai-cli/config
+
+RUN akamai config set cli.cache-path ${AKAMAI_CLI_CACHE_PATH}

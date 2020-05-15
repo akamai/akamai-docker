@@ -31,9 +31,9 @@ RUN apk add --no-cache git upx \
   && cd "${GOPATH}/src/github.com/akamai/cli-purge" \
   && dep ensure \
   # -ldflags="-s -w" strips debug information from the executable 
-  && go build -o /usr/local/bin/akamai-purge -ldflags="-s -w" \
+  && go build -o /akamai-purge -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
-  && upx --brute -o/usr/local/bin/akamai-purge.upx /usr/local/bin/akamai-purge \
+  && upx --brute -o/akamai-purge.upx /akamai-purge \
   # we need to include the cli.json file as well
   && cp "${GOPATH}/src/github.com/akamai/cli-purge/cli.json" /cli.json
 
@@ -44,7 +44,5 @@ RUN apk add --no-cache git upx \
 FROM $BASE
 
 RUN mkdir -p /cli/.akamai-cli/src/cli-purge/bin
-COPY --from=builder /usr/local/bin/akamai-purge.upx /cli/.akamai-cli/src/cli-purge/bin/akamai-purge
+COPY --from=builder /akamai-purge.upx /cli/.akamai-cli/src/cli-purge/bin/akamai-purge
 COPY --from=builder /cli.json /cli/.akamai-cli/src/cli-purge/cli.json
-
-ENTRYPOINT ["/cli/.akamai-cli/src/cli-purge/bin/akamai-purge"]

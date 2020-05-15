@@ -38,7 +38,8 @@ RUN mkdir -p /cli/.akamai-cli/src \
   # Drop created wheels
   && rm -rf /root/.cache \
   # Drop ~20MB by removing bytecode cache created by pip
-  && find / -name __pycache__ | xargs rm -rf
+  && find / -name __pycache__ | xargs rm -rf \
+  # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
+  && rm -rf /cli/.akamai-cli/src/cli-adaptive-acceleration/.git
 
-ENTRYPOINT ["python3", "/cli/.akamai-cli/src/cli-adaptive-acceleration/bin/akamai-adaptive-acceleration"]
 

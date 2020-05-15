@@ -36,5 +36,4 @@ RUN apk add --no-cache python3 py3-setuptools \
   # Drop ~20MB by removing bytecode cache created by pip
   && find / -name __pycache__ | xargs rm -rf
 
-ENTRYPOINT ["http", "-A", "edgegrid"]
-
+ADD files/httpie-config.json /root/.httpie/config.json

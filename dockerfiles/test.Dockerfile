@@ -12,20 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This image should be build on a variant to run a series of tests.
+
 #####################
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/firewall
+ARG BASE=akamai/shell
 
 #####################
-# FINAL
+# INSTALL BATS
 #########
 
 FROM ${BASE}
 
+ARG TEST_SUITE=test.bats
 
-ENV HACK_ALLOW_SQUASH = "foobar"
+RUN apk add --no-cache git bash \
+  && git clone https://github.com/bats-core/bats-core.git \
+  && cd bats-core \
+  && ./install.sh /
 
-ENTRYPOINT ["python3", "/cli/.akamai-cli/src/cli-firewall/bin/akamai-site-shield"]
+ADD ${TEST_SUITE} /root/test.bats
 
+RUN bats /test.bats
