@@ -24,24 +24,23 @@ set -e
 # Assume PWD is root of the repo
 source ./scripts/env.sh
 
-#####################
-# BUILD
-#########
-
-docker build \
-  --build-arg "BUILD_DATE=${LABEL_BUILD_DATE}" \
-  --build-arg "NAME=${LABEL_NAME}" \
-  --build-arg "URL=${LABEL_URL}" \
-  --build-arg "VENDOR=${LABEL_VENDOR}" \
-  --build-arg "VCS_URL=${LABEL_VCS_URL}" \
-  --build-arg "VCS_REF=${LABEL_VCS_REF}" \
-  -t "${DOCKER_NAME}" \
-  -f "${DOCKER_DOCKERFILE}" \
-  "${DOCKER_PATH}"
+# Print all lines from ./variants, excluding comments
+# and blank lines.
+variants() {
+  #  `|| [ -n "$line" ]` catches the final line if it is not
+  # terminated with a newline
+  sed -E 's/\s*#.*$//g; /^\s*$/d' variants |
+    while read line || [ -n "$line" ];
+    do
+      echo "$line"
+    done
+}
 
 #####################
-# TAG
+# BUILD ALL
 #########
 
-docker tag "${DOCKER_NAME}" "${DOCKER_NAME}:latest"
-docker tag "${DOCKER_NAME}" "${DOCKER_NAME}:${DOCKER_TAG}"
+variants | while read chain;
+do
+  ./scripts/build-chain.sh "$chain"
+done

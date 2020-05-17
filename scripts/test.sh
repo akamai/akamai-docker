@@ -24,9 +24,29 @@ set -e
 # Assume PWD is root of the repo
 source ./scripts/env.sh
 
+# Make sure the test container is removed
+# when the shell exits, in error or not
+atexit() {
+  info removing test container
+  docker rm -f ${containerId}
+}
+trap atexit EXIT
+
 #####################
-# LOGIN
+# MAIN
 #########
 
-echo "${DOCKER_PASSWORD}" |
-  docker login -u "${DOCKER_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+info starting test container
+containerId=$(docker run -d --name test akamai/shell sleep 3600)
+
+docker cp ./test.bats ${containerId}:/test.bats
+docker exec -i ${containerId} bash <<EOF
+set -e
+
+apk add --no-cache git bash
+git clone https://github.com/bats-core/bats-core.git
+cd bats-core
+./install.sh /
+cd /
+bats /test.bats
+EOF
