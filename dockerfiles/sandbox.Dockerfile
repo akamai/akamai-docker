@@ -54,14 +54,14 @@ ENV JAVA_HOME=/usr/lib/jvm/default-jvm
 # workaround
 RUN touch $JAVA_HOME/bin/javac
 
-COPY --from=builder /cli-sandbox $AKAMAI_CLI_HOME/cli-sandbox
+COPY --from=builder /cli-sandbox $AKAMAI_CLI_HOME/.akamai-cli/src/cli-sandbox
 
 RUN mkdir -p $AKAMAI_CLI_CACHE_PATH/sandbox-cli \
   && mkdir -p /sandboxes && ln -s /sandboxes $AKAMAI_CLI_CACHE_PATH/sandbox-cli/sandboxes \
   # .edgerc file is needed to install sandbox-client
   # however it can be empty
   && touch .edgerc \
-  && $AKAMAI_CLI_HOME/cli-sandbox/akamai-sandbox install \
+  && $AKAMAI_CLI_HOME/.akamai-cli/src/cli-sandbox/akamai-sandbox install \
   && rm .edgerc \
   && rm -rf $AKAMAI_CLI_CACHE_PATH/sandbox-cli/downloads
 
