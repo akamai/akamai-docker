@@ -29,10 +29,11 @@ FROM ${BASE}
 RUN apk add --no-cache bash jq git
 
 COPY files/motd /etc/motd
+COPY files/profile /etc/profile
 COPY files/akamai-cli-config /cli/.akamai-cli/config
 
 # This pattern allows us to execute a command
 # `docker run ... akamai property ...`
 # ... or simply run bash
 # `docker run ...`
-ENTRYPOINT ["/bin/bash", "-c", "${0} ${1+\"$@\"}"]
+ENTRYPOINT ["/bin/bash", "-lc", "${0} ${1+\"$@\"}"]
