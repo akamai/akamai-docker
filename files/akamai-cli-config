@@ -1,0 +1,8 @@
+[cli]
+enable-cli-statistics = true
+last-upgrade-check    = ignore
+client-id             = akamai/akamai-docker
+config-version        = 1.1
+stats-version         = 1.1
+install-in-path       = 
+last-ping             = 2050-01-01T00:00:00Z

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Copyright 2020 Akamai Technologies
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,5 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source ~/.profile
-exec "$@"
+#####################
+# BUILD ARGS
+#########
+
+ARG BASE=alpine:3.11
+
+#####################
+# FINAL
+#########
+
+FROM ${BASE}
+
+WORKDIR /root

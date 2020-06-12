@@ -1,0 +1,15 @@
+cat /etc/motd
+
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+export LS_OPTIONS='--color=auto'
+
+# aliases
+alias ls='ls $LS_OPTIONS'
+
+
+function prompt {
+    export PS1="\[\e[38;2;255;165;0m\]Akamai DevOps [\w] >>\[\e[m\] "
+}
+
+prompt

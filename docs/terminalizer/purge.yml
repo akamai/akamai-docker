@@ -1,0 +1,449 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/ahogg/git/akamai-docker
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 120
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 20
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: -1
+  
+  # Quality
+  # 1 - 100
+  quality: 85
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 600
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: "Akamai Docker : Purge"
+    style:
+      border: 0px black solid
+      boxShadow: none
+      margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 100
+    content: d
+  - delay: 82
+    content: o
+  - delay: 118
+    content: c
+  - delay: 73
+    content: k
+  - delay: 141
+    content: e
+  - delay: 92
+    content: r
+  - delay: 105
+    content: ' '
+  - delay: 160
+    content: p
+  - delay: 200
+    content: u
+  - delay: 212
+    content: l
+  - delay: 132
+    content: l
+  - delay: 128
+    content: ' '
+  - delay: 174
+    content: a
+  - delay: 106
+    content: k
+  - delay: 127
+    content: a
+  - delay: 25
+    content: m
+  - delay: 133
+    content: a
+  - delay: 92
+    content: i
+  - delay: 259
+    content: /
+  - delay: 194
+    content: p
+  - delay: 186
+    content: u
+  - delay: 83
+    content: r
+  - delay: 204
+    content: g
+  - delay: 77
+    content: e
+  - delay: 266
+    content: "\r\n"
+  - delay: 37
+    content: "Using default tag: latest\r\n"
+  - delay: 1538
+    content: "latest: Pulling from akamai/purge\r\n\r\n\e[1A\e[2K\rcbdbe7a5bc2a: Already exists \r\e[1B"
+  - delay: 8
+    content: "\r\n\e[1A\e[2K\r43705631afd8: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\r376887f653e7: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\r646ec7e1985d: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\re9d33482ff56: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\r4356bdcafa69: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\r04775b120121: Pulling fs layer \r\e[1B\r\n\e[1A\e[2K\r4a85b6d20756: Pulling fs layer \r\e[1B\e[3A\e[2K\r4356bdcafa69: Waiting \r\e[3B\e[1A\e[2K\r4a85b6d20756: Waiting \r\e[1B\e[2A\e[2K\r04775b120121: Waiting \r\e[2B\e[4A\e[2K\re9d33482ff56: Waiting \r\e[4B"
+  - delay: 722
+    content: "\e[7A\e[2K\r43705631afd8: Downloading [==================================================>]     165B/165B\r\e[7B\e[7A\e[2K\r43705631afd8: Download complete \r\e[7B\e[7A\e[2K\r43705631afd8: Extracting [==================================================>]     165B/165B\r\e[7B\e[7A\e[2K\r43705631afd8: Extracting [==================================================>]     165B/165B\r\e[7B\e[6A\e[2K\r376887f653e7: Downloading [>                                                  ]  48.19kB/4.8MB\r\e[6B"
+  - delay: 19
+    content: "\e[5A\e[2K\r646ec7e1985d: Download complete \r\e[5B"
+  - delay: 82
+    content: "\e[6A\e[2K\r376887f653e7: Downloading [===========>                                       ]  1.096MB/4.8MB\r\e[6B"
+  - delay: 19
+    content: "\e[7A\e[2K\r43705631afd8: Pull complete \r\e[7B"
+  - delay: 85
+    content: "\e[6A\e[2K\r376887f653e7: Downloading [========================>                          ]  2.366MB/4.8MB\r\e[6B"
+  - delay: 100
+    content: "\e[6A\e[2K\r376887f653e7: Downloading [=====================================>             ]  3.591MB/4.8MB\r\e[6B"
+  - delay: 141
+    content: "\e[6A\e[2K\r376887f653e7: Verifying Checksum \r\e[6B\e[6A\e[2K\r376887f653e7: Download complete \r\e[6B\e[6A\e[2K\r376887f653e7: Extracting [>                                                  ]  65.54kB/4.8MB\r\e[6B"
+  - delay: 100
+    content: "\e[6A\e[2K\r376887f653e7: Extracting [==========================================>        ]  4.063MB/4.8MB\r\e[6B"
+  - delay: 9
+    content: "\e[6A\e[2K\r376887f653e7: Extracting [==================================================>]    4.8MB/4.8MB\r\e[6B"
+  - delay: 29
+    content: "\e[6A\e[2K\r376887f653e7: Pull complete \r\e[6B"
+  - delay: 8
+    content: "\e[5A\e[2K\r646ec7e1985d: Extracting [==================================================>]     287B/287B\r\e[5B\e[5A\e[2K\r646ec7e1985d: Extracting [==================================================>]     287B/287B\r\e[5B"
+  - delay: 80
+    content: "\e[5A\e[2K\r646ec7e1985d: Pull complete \r\e[5B"
+  - delay: 153
+    content: "\e[4A\e[2K\re9d33482ff56: Downloading [==================================================>]     300B/300B\r\e[4B\e[4A\e[2K\re9d33482ff56: Verifying Checksum \r\e[4B\e[4A\e[2K\re9d33482ff56: Download complete \r\e[4B\e[4A\e[2K\re9d33482ff56: Extracting [==================================================>]     300B/300B\r\e[4B\e[4A\e[2K\re9d33482ff56: Extracting [==================================================>]     300B/300B\r\e[4B"
+  - delay: 87
+    content: "\e[4A\e[2K\re9d33482ff56: Pull complete \r\e[4B"
+  - delay: 16
+    content: "\e[2A\e[2K\r04775b120121: Downloading [>                                                  ]  33.33kB/3.287MB\r\e[2B"
+  - delay: 103
+    content: "\e[2A\e[2K\r04775b120121: Downloading [===============>                                   ]  994.5kB/3.287MB\r\e[2B"
+  - delay: 103
+    content: "\e[2A\e[2K\r04775b120121: Downloading [=================================>                 ]  2.206MB/3.287MB\r\e[2B"
+  - delay: 72
+    content: "\e[2A\e[2K\r04775b120121: Verifying Checksum \r\e[2B\e[2A\e[2K\r04775b120121: Download complete \r\e[2B"
+  - delay: 465
+    content: "\e[1A\e[2K\r4a85b6d20756: Downloading [==================================================>]     420B/420B\r\e[1B\e[1A\e[2K\r4a85b6d20756: Verifying Checksum \r\e[1B\e[1A\e[2K\r4a85b6d20756: Download complete \r\e[1B"
+  - delay: 135
+    content: "\e[3A\e[2K\r4356bdcafa69: Downloading [==================================================>]     206B/206B\r\e[3B\e[3A\e[2K\r4356bdcafa69: Verifying Checksum \r\e[3B\e[3A\e[2K\r4356bdcafa69: Download complete \r\e[3B\e[3A\e[2K\r4356bdcafa69: Extracting [==================================================>]     206B/206B\r\e[3B\e[3A\e[2K\r4356bdcafa69: Extracting [==================================================>]     206B/206B\r\e[3B"
+  - delay: 92
+    content: "\e[3A\e[2K\r4356bdcafa69: Pull complete \r\e[3B"
+  - delay: 5
+    content: "\e[2A\e[2K\r04775b120121: Extracting [>                                                  ]  65.54kB/3.287MB\r\e[2B"
+  - delay: 88
+    content: "\e[2A\e[2K\r04775b120121: Extracting [==================================================>]  3.287MB/3.287MB\r\e[2B"
+  - delay: 25
+    content: "\e[2A\e[2K\r04775b120121: Pull complete \r\e[2B"
+  - delay: 5
+    content: "\e[1A\e[2K\r4a85b6d20756: Extracting [==================================================>]     420B/420B\r\e[1B\e[1A\e[2K\r4a85b6d20756: Extracting [==================================================>]     420B/420B\r\e[1B"
+  - delay: 70
+    content: "\e[1A\e[2K\r4a85b6d20756: Pull complete \r\e[1B"
+  - delay: 7
+    content: "Digest: sha256:ec1f61afa4ea6273f909b1d4ceb4c7bb09e2b6a5a799ff9d03bd1ccb8cb60e74\r\nStatus: Downloaded newer image for akamai/purge:latest\r\ndocker.io/akamai/purge:latest\r\n$ "
+  - delay: 1085
+    content: d
+  - delay: 97
+    content: o
+  - delay: 125
+    content: c
+  - delay: 100
+    content: k
+  - delay: 143
+    content: e
+  - delay: 85
+    content: r
+  - delay: 138
+    content: ' '
+  - delay: 398
+    content: r
+  - delay: 140
+    content: u
+  - delay: 84
+    content: 'n'
+  - delay: 85
+    content: ' '
+  - delay: 232
+    content: '-'
+  - delay: 240
+    content: i
+  - delay: 205
+    content: t
+  - delay: 106
+    content: ' '
+  - delay: 247
+    content: '-'
+  - delay: 221
+    content: '-'
+  - delay: 363
+    content: r
+  - delay: 142
+    content: m
+  - delay: 77
+    content: ' '
+  # - delay: 427
+  #   content: a
+  # - delay: 677
+  #   content: "\b\e[K"
+  - delay: 227
+    content: '-'
+  - delay: 205
+    content: v
+  - delay: 419
+    content: ' '
+  - delay: 1937
+    content: $
+  - delay: 437
+    content: H
+  - delay: 156
+    content: O
+  - delay: 156
+    content: M
+  - delay: 131
+    content: E
+  - delay: 161
+    content: /
+  - delay: 256
+    content: .
+  - delay: 283
+    content: e
+  - delay: 127
+    content: d
+  - delay: 208
+    content: g
+  - delay: 88
+    content: e
+  - delay: 266
+    content: r
+  - delay: 206
+    content: c
+  - delay: 1073
+    content: ':'
+  - delay: 684
+    content: /
+  - delay: 262
+    content: r
+  - delay: 81
+    content: o
+  - delay: 158
+    content: o
+  - delay: 85
+    content: t
+  - delay: 342
+    content: /
+  - delay: 224
+    content: .
+  - delay: 201
+    content: e
+  - delay: 142
+    content: d
+  - delay: 215
+    content: g
+  - delay: 93
+    content: e
+  - delay: 214
+    content: r
+  - delay: 223
+    content: c
+  - delay: 492
+    content: ':'
+  - delay: 306
+    content: r
+  - delay: 112
+    content: o
+  - delay: 1418
+    content: ' '
+  - delay: 824
+    content: a
+  - delay: 102
+    content: k
+  - delay: 79
+    content: a
+  - delay: 92
+    content: m
+  - delay: 84
+    content: a
+  - delay: 173
+    content: i
+  - delay: 493
+    content: /
+  - delay: 312
+    content: p
+  - delay: 253
+    content: u
+  - delay: 97
+    content: r
+  - delay: 205
+    content: g
+  - delay: 77
+    content: e
+  - delay: 159
+    content: ' '
+  - delay: 1039
+    content: a
+  - delay: 96
+    content: k
+  - delay: 96
+    content: a
+  - delay: 73
+    content: m
+  - delay: 89
+    content: a
+  - delay: 126
+    content: i
+  - delay: 147
+    content: ' '
+  - delay: 147
+    content: p
+  - delay: 192
+    content: u
+  - delay: 99
+    content: r
+  - delay: 202
+    content: g
+  - delay: 62
+    content: e
+  - delay: 94
+    content: ' '
+  - delay: 188
+    content: i
+  - delay: 85
+    content: 'n'
+  - delay: 154
+    content: v
+  - delay: 109
+    content: a
+  - delay: 92
+    content: l
+  - delay: 104
+    content: i
+  - delay: 100
+    content: d
+  - delay: 71
+    content: a
+  - delay: 173
+    content: t
+  - delay: 157
+    content: e
+  - delay: 273
+    content: ' '
+  - delay: 757
+    content: '-'
+  - delay: 361
+    content: '-'
+  - delay: 391
+    content: c
+  - delay: 125
+    content: p
+  - delay: 237
+    content: c
+  - delay: 114
+    content: o
+  - delay: 152
+    content: d
+  - delay: 92
+    content: e
+  - delay: 191
+    content: ' '
+  - delay: 1736
+    content: '1'
+  - delay: 1019
+    content: '2'
+  - delay: 776
+    content: "3"
+  - delay: 704
+    content: '4'
+  - delay: 984
+    content: '5'
+  - delay: 563
+    content: '6'
+  - delay: 1268
+    content: "\r\n"
+  - delay: 649
+    content: "Purging...\e[37m.\e[0m "
+  - delay: 503
+    content: "\b\b\b\b\b\b\b\b\b\b\b\b\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\b\b\b\b\b\b\b\b\b\b\b\b\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[KPurging...\e[37m..\e[0m "
+  - delay: 263
+    content: "\b\b\b\b\b\b\b\b\b\b\b\b\b\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\x7F\b\b\b\b\b\b\b\b\b\b\b\b\b\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[K\e[KPurging...... [\e[32mOK\e[0m]\r\nPurged \e[34m1\e[0m objects (ETA: \e[34m5\e[0m seconds)\r\nPurge ID: \e[34m6d38760c-ab70-11ea-ad17-cd43d7daaead\e[0m\r\n"
+  - delay: 188
+    content: '$ '

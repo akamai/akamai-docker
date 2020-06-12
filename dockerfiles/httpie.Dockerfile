@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Copyright 2020 Akamai Technologies
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +13,27 @@
 # limitations under the License.
 
 #####################
-# SETUP
+# BUILD ARGS
 #########
 
-# Fail fast
-set -e
-
-# Assume PWD is root of the repo
-source ./scripts/env.sh
+ARG BASE=akamai/base
 
 #####################
-# PUSH
+# FINAL
 #########
 
-docker push "${DOCKER_NAME}:latest"
+FROM ${BASE}
 
-sleep 60
+# httpie depends on setuptools at runtime
+RUN apk add --no-cache python3 py3-setuptools \
+  && apk add --no-cache --virtual dev git gcc python3-dev libffi-dev musl-dev openssl-dev \
+  && pip3 install --upgrade pip setuptools \
+  && pip3 install httpie httpie-edgegrid \
+  # Drop dev dependencies
+  && apk del dev \
+  # Drop created wheels
+  && rm -rf /root/.cache \
+  # Drop ~20MB by removing bytecode cache created by pip
+  && find / -name __pycache__ | xargs rm -rf
 
-docker push "${DOCKER_NAME}:${DOCKER_TAG}"
+ADD files/httpie-config.json /root/.httpie/config.json

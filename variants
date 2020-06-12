@@ -1,0 +1,51 @@
+# Copyright 2020 Akamai Technologies
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This file specifies the images that are built by this package.
+#
+# Each line describes an image that is pushed to dockerhub.
+# The last word of each line determines the tag, e.g. appsec -> akamai/appsec.
+
+# base: shared base image for all variants
+# DO NOT DELETE this line
+base
+
+# cli: base + akamai cli wrapper
+# DO NOT DELETE this line
+base cli
+
+# specialized variants
+cli adaptive-acceleration
+cli api-gateway
+cli appsec
+cli cloudlets
+cli cps
+cli dns
+cli edgeworkers
+cli firewall
+cli image-manager
+cli property-manager
+cli property
+cli purge
+cli sandbox
+cli visitor-prioritization
+
+# Non-Akamai CLI utilities
+# httpie + edgegrid
+base httpie
+# terraform + akamai provider
+base terraform
+
+# interactive variant with all the things, for experimentation.
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager purge sandbox terraform visitor-prioritization shell

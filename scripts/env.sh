@@ -17,38 +17,74 @@
 # Fail fast
 set -e
 
-# Required arguments
-export DOCKER_NAME="${DOCKER_NAME:?DOCKER_NAME must be set}"
-export DOCKER_USERNAME="${DOCKER_USERNAME:?DOCKER_USERNAME must be set}"
-export DOCKER_PASSWORD="${DOCKER_PASSWORD:?DOCKER_PASSWORD must be set}"
+# Because this file may be sourced multiple times in one build, variable
+# assignments should always check for a pre-existing value.
 
-# Override to use a different registry
-export DOCKER_REGISTRY="${DOCKER_REGISTRY}"
+# Used to label the created images
+export BUILD_TIMESTAMP=${BUILD_TIMESTAMP:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}
+# Used as a tag for images created by a scheduled build (monthly)
+export BUILD_TIME_TAG=${BUILD_TIME_TAG:-$(date -u +"%Y%m%d")}
 
-# Override to use a different Dockerfile
-export DOCKER_DOCKERFILE="Dockerfile"
-# Override to use a different docker path
-export DOCKER_PATH="."
+# The build number is only available in CI context; we default to "local"
+# in order to assign that label in other contexts as well. This is mainly
+# to simplify listing the images created during a build:
+#
+# docker images --filter org.label-schema.build-number=local
+#
+# Also see the `current_build_tags()` function below.
+export BUILD_NUMBER=${BUILD_NUMBER:-${TRAVIS_BUILD_NUMBER:-local}}
 
-# Define the tag, use reasonable defaults:
-# - local build : provide DOCKER_TAG explicitly, will default to "latest"
-# - travis push, api, pull requestion : will default to latest unless overridden in .travis.yml
-# - travis cron : will default to timestamp unless overridden in .travis.yml
+# Enable docker buildkit; optimizes build speed and output (set to 1)
+# Currently disabled because unsupported OOTB by docker on travis, we
+# probably need to do some monkey patching of the daemon config.
+export DOCKER_BUILDKIT=0
+
+# Get currently built branch from travis env, or git if building locally
+export BRANCH=${TRAVIS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
+
+# Guess which tags need to be built, based on the environment
 guess_tag() {
+  # Master branch gets tagged as latest, others as branch-name.
+  # Docker tags cannot have "/" so we normalize as "-".
+  # Ultimately, it is up to CI to decide which branches to build,
+  # see travis config and .travis.yml
+  local branchName=$(echo "$BRANCH" | tr '/' '-')
+  local latest=latest
+  if [ "${branchName}" != "master" ]
+  then
+    latest="${branchName}"
+  fi
+
+  # Final list of tags depends on the context:
+  # - local build : will default to a value depending on the current branch, see above
+  # - travis push, api, pull requestion : same as local build
+  # - travis cron : same as local build, with an extra timestamp tag
   case "$TRAVIS_EVENT_TYPE" in
-    cron) date -u +"%Y%m%d%H00";;
-    push) echo latest;;
-    api) echo latest;;
-    *) echo latest;;
+    cron) echo ${latest} ${BUILD_TIME_TAG};;
+    push) echo ${latest};;
+    api) echo ${latest};;
+    *) echo ${latest};;
   esac
 }
 export DOCKER_TAG="${DOCKER_TAG:-$(guess_tag)}"
 
-# Build-time labels
-# http://label-schema.org/rc1/
-export LABEL_BUILD_DATE="${LABEL_BUILD_DATE:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}"
-export LABEL_NAME="${LABEL_NAME:-${DOCKER_NAME}}"
-export LABEL_URL="${LABEL_URL:-https://developer.akamai.com}"
-export LABEL_VENDOR="${LABEL_VENDOR:-Akamai Technologies}"
-export LABEL_VCS_URL="${LABEL_VCS_URL:-$(git remote get-url origin)}"
-export LABEL_VCS_REF="${LABEL_VCS_REF:-$(git rev-parse --short HEAD)}"
+#####################
+# SHARED UTILS
+#########
+
+chalk() {
+  local code=$1; shift;
+  [ -t 2 ] && 
+    echo -e "\033[$code$@\033[0m" ||
+    echo $@
+}
+
+debug() {
+  1>&2 echo "[DEBUG] $@"
+}
+info() {
+  1>&2 echo "[INFO] $@"
+}
+err() {
+  1>&2 echo "[ERR] $@"
+}

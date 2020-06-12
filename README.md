@@ -1,26 +1,107 @@
-# Akamai Docker Image
+# Akamai Docker
 
-Environment setup for Akamai Docker:
+[![master build](https://travis-ci.com/akamai/akamai-docker.svg?branch=master)](https://travis-ci.com/akamai/akamai-docker)
 
-- Akamai CLI and all modules available
-- Terraform + Akamai provider
-- curl and httpie with EdgeGrid addons
+> Run Akamai command line tools in docker.
 
-## How to use it
+![](docs/purge.gif)
 
-To create a new environment:
+This project provides images in two flavors:
+
+* small, single tool images
+
+  *Good choices for integrating exactly what you need in automation.*
+
+* larger image combining them all
+
+  *Perfect for experimentation or automation when all-in-one is more convenient.*
+
+## Variants
+
+| REPOSITORY                    | SIZE   | DOCS                                                                       |
+|-------------------------------|--------|----------------------------------------------------------------------------|
+| akamai/shell                  | 400MB  | [GitHub](https://github.com/akamai/akamai-docker)                          |
+| akamai/terraform              | 48.4MB | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
+| akamai/httpie                 | 45.2MB | [GitHub](https://github.com/akamai/httpie-edgegrid)                        |
+| akamai/visitor-prioritization | 45.1MB | [GitHub](https://github.com/akamai/cli-visitor-prioritization)             |
+| akamai/sandbox                | 158MB  | [GitHub](https://github.com/akamai/cli-sandbox)                            |
+| akamai/purge                  | 14.1MB | [GitHub](https://github.com/akamai/cli-purge)                              |
+| akamai/property               | 71.5MB | [GitHub](https://github.com/akamai/cli-property)                           |
+| akamai/property-manager       | 64.3MB | [GitHub](https://github.com/akamai/cli-property-manager)                   |
+| akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
+| akamai/firewall               | 45.5MB | [GitHub](https://github.com/akamai/cli-firewall)                           |
+| akamai/edgeworkers            | 58.2MB | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
+| akamai/dns                    | 14.2MB | [GitHub](https://github.com/akamai/cli-dns)                                |
+| akamai/cps                    | 46.2MB | [GitHub](https://github.com/akamai/cli-cps)                                |
+| akamai/cloudlets              | 45.5MB | [GitHub](https://github.com/akamai/cli-cloudlets)                          |
+| akamai/appsec                 | 56.6MB | [GitHub](https://github.com/akamai/cli-appsec)                             |
+| akamai/api-gateway            | 21.1MB | [GitHub](https://github.com/akamai/cli-api-gateway)                        |
+| akamai/adaptive-acceleration  | 45.2MB | [GitHub](https://github.com/akamai/cli-adaptive-acceleration)              |
+
+All variants use an Alpine Linux base.
+
+The `akamai/shell` image also provides some extra utilities:
+
+* git
+* vim
+* tree
+* bind-tools
+* jq
+* jsonnet
+
+## Tags
+
+We publish three tags for each image:
+
+* `YYYYMMDD`: monthly builds on `master`
+* `latest`: built when a commit is pushed to `master`
+* `dev`: built when a commit is pushed to `dev`
+
+## General Usage
+
+> This section describes how to operate the docker images. Please find detailed usage instructions for each tool linked in the [variants table](#Variants).
+
+Most images follow the same conventions, summarized by the following example:
+
+```bash
+docker run -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
+```
+
+* Expects `.edgerc` file at `/root/.edgerc` (See [Authentication](#Authentication))
+* No `ENTRYPOINT` defined, you must write the full command
+
+### Long-Running Container
+
+> Good for interactive use, Jenkins pipelines
+
+Run the container in the background:
+
+```bash
+docker run -d --name akshell -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell sleep infinity
+```
+
+Then execute commands using `docker exec`.
+
+```bash
+docker exec -it akshell akamai purge invalidate --cpcode 123456
+```
+
+You can stop and start this container by running:
+
+```bash
+docker stop akshell
+docker start akshell
+```
+
+### One-Shot Container
+
+> Good for occasional interactive use, automation
 
 ```
-docker run -it --name akamai akamai/akamai-docker
+docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
 ```
 
-To return to already created environment:
-
-```
-docker start -i akamai
-```
-
-## Authentication
+### Authentication
 
 The standard authentication method for most Akamai APIs is called EdgeGrid. Creating an EdgeGrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
 
@@ -34,11 +115,34 @@ access_token = your_access_token
 client_token = your_client_token
 ```
 
-We recommend mounting this file directly into your containers; the following example illustrates this by verifying the credentials from within a container:
+The following example illustrates this by displaying the Akamai CLI help screen from within a container:
 
+```bash
+docker run -it --name akamai -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai --help
 ```
-docker run -it --name akamai akamai/akamai-docker -v $HOME/.edgerc:/root/.edgerc:ro akamai auth verify
+
+Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corruption or tampering.
+
+## Image Specifics
+
+Some images require special handling in docker.
+
+### Terraform
+
+Because the docker container will be running with `/` as the working directory, you cannot simply mount your configuration and run `terraform apply`.
+
+The easiest approach is to specify the mount path in the container as an argument to terraform commands:
+
+```bash
+docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro \
+  -v $HOME/terraform-config:/tf:ro \
+  akamai/terraform \
+    terraform apply /tf
 ```
+
+### HTTPIE
+
+When using HTTPIE non-interactively in docker (without `-it`), you may wish to read the [Scripting Best Practices](https://httpie.org/docs#best-practices) section of the documentation.
 
 ### Sandbox
 
@@ -74,7 +178,7 @@ Assuming you run a webserver locally on port 5000 and sandbox is exposed on port
   ],
   ```
 
-### non-interactive sessions
+### Non-Interactive Sandbox
 
 The above use case assumes that user starts bash sessions and invokes commands inside of it. However, it's also possible to use this docker image to execute commands straight like on the following example:
 
@@ -91,13 +195,7 @@ This way, the container is immediately removed when the execution is complete. Y
 
 ## Build
 
-Builds are automated via the scripts in the [scripts](scripts) directory.
-
-Just building locally can be accomplished by calling:
-
-```bash
-docker build -t akamai-docker .
-```
+The build system is described at length in [docs/BUILD.md](docs/BUILD.md).
 
 ## License
 Copyright 2020 Akamai Technologies, Inc.
