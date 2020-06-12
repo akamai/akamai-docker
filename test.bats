@@ -122,3 +122,9 @@
   run akamai visitor-prioritization help
   [ "$status" -eq 0 ]
 }
+
+@test "cli: terraform is executable" {
+  run akamai terraform --help
+  [ "$status" -eq 0 ]
+}
+

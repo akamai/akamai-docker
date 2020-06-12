@@ -20,8 +20,9 @@ This project provides images in two flavors:
 
 | REPOSITORY                    | SIZE   | DOCS                                                                       |
 |-------------------------------|--------|----------------------------------------------------------------------------|
-| akamai/shell                  | 400MB  | [GitHub](https://github.com/akamai/akamai-docker)                          |
+| akamai/shell                  | 403MB  | [GitHub](https://github.com/akamai/akamai-docker)                          |
 | akamai/terraform              | 48.4MB | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
+| akamai/terraform-cli          | 14.7MB | [GitHub](https://github.com/terraform-providers/cli-terraform)             |
 | akamai/httpie                 | 45.2MB | [GitHub](https://github.com/akamai/httpie-edgegrid)                        |
 | akamai/visitor-prioritization | 45.1MB | [GitHub](https://github.com/akamai/cli-visitor-prioritization)             |
 | akamai/sandbox                | 158MB  | [GitHub](https://github.com/akamai/cli-sandbox)                            |
