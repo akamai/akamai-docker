@@ -79,7 +79,7 @@ build_chain() {
   fi
 
   # Tag image
-  for tag in "${DOCKER_TAG}";
+  for tag in ${DOCKER_TAG};
   do
     docker tag "akamai/$1" "akamai/$1:$tag"
   done
