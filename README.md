@@ -65,7 +65,7 @@ We publish three tags for each image:
 Most images follow the same conventions, summarized by the following example:
 
 ```bash
-docker run -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
+docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
 ```
 
 * Expects `.edgerc` file at `/root/.edgerc` (See [Authentication](#Authentication))
