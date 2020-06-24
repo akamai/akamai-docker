@@ -1,4 +1,4 @@
-# Akamai Docker
+# Akamai Docker Development Environment
 
 [![master build](https://travis-ci.com/akamai/akamai-docker.svg?branch=master)](https://travis-ci.com/akamai/akamai-docker)
 
@@ -12,7 +12,7 @@ This project provides images in two flavors:
 
   *Good choices for integrating exactly what you need in automation.*
 
-* larger image combining them all
+* larger image combining them all (shell)
 
   *Perfect for experimentation or automation when all-in-one is more convenient.*
 
@@ -62,18 +62,22 @@ We publish three tags for each image:
 
 > This section describes how to operate the docker images. Please find detailed usage instructions for each tool linked in the [variants table](#Variants).
 
-Most images follow the same conventions, summarized by the following example:
+### Short-lived Container
+
+> Good for interactive exploration of APIs
 
 ```bash
-docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
+docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell
 ```
 
-* Expects `.edgerc` file at `/root/.edgerc` (See [Authentication](#Authentication))
-* No `ENTRYPOINT` defined, you must write the full command
+Tip: You can store this command on a shell alias which allows to start the Akamai Development Environment with a single command like `akadev`:
+```bash
+alias akadev='docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell'
+```
 
 ### Long-Running Container
 
-> Good for interactive use, Jenkins pipelines
+> Good for interactive tools that run commands at regular intervals, like Jenkins pipelines
 
 Run the container in the background:
 
@@ -96,10 +100,12 @@ docker start akshell
 
 ### One-Shot Container
 
-> Good for occasional interactive use, automation
+> Good for occasional interactive use, like ephemeral tool automation
+
+The example below invalidates a cached image on the Akamai production network (default)
 
 ```
-docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
+docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate http://www.example.com/logo.png
 ```
 
 ### Authentication
@@ -116,10 +122,10 @@ access_token = your_access_token
 client_token = your_client_token
 ```
 
-The following example illustrates this by displaying the Akamai CLI help screen from within a container:
+The following example illustrates this by displaying the list of groups using the Akamai CLI Property Manager package ("pm" is an alias for "property-manager" and "lg" is an alias for "list-groups"):
 
 ```bash
-docker run -it --name akamai -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai --help
+docker run -it --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai pm lg
 ```
 
 Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corruption or tampering.
@@ -197,6 +203,10 @@ This way, the container is immediately removed when the execution is complete. Y
 ## Build
 
 The build system is described at length in [docs/BUILD.md](docs/BUILD.md).
+
+## Tutorial
+
+You can find further usage examples on [docs/TUTORIAL.md](docs/TUTORIAL.md).
 
 ## License
 Copyright 2020 Akamai Technologies, Inc.
