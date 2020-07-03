@@ -6,6 +6,36 @@
 
 ![](docs/purge.gif)
 
+
+## Quickstart
+
+Enter a shell with all the tools (skip to [Authentication](#Authentication) for a refresher on `.edgerc`):
+
+```bash
+docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell
+```
+
+Purge a CP Code:
+
+```bash
+docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai purge invalidate --cpcode 123456
+```
+
+Purge a CP Code (using the slim variant):
+
+```bash
+docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
+```
+
+Start a long-running container in the background, execute commands against:
+
+```bash
+docker run -d --name akshell -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell sleep infinity
+docker exec -it akshell akamai purge invalidate --cpcode 123456
+```
+
+## About The Images
+
 This project provides images in two flavors:
 
 * small, single tool images
@@ -62,6 +92,28 @@ We publish three tags for each image:
 
 > This section describes how to operate the docker images. Please find detailed usage instructions for each tool linked in the [variants table](#Variants).
 
+### Authentication
+
+The standard authentication method for most Akamai APIs is called EdgeGrid. Creating an EdgeGrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
+
+You will typically create an `.edgerc` file in your home directory with contents similar to this:
+
+```ini
+[default]
+client_secret = your_client_secret
+host = your_host
+access_token = your_access_token
+client_token = your_client_token
+```
+
+The following example illustrates this by displaying the list of groups using the Akamai CLI Property Manager package ("pm" is an alias for "property-manager" and "lg" is an alias for "list-groups"):
+
+```bash
+docker run -it --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai pm lg
+```
+
+Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corruption or tampering.
+
 ### Short-lived Container
 
 > Good for interactive exploration of APIs
@@ -107,28 +159,6 @@ The example below invalidates a cached image on the Akamai production network (d
 ```
 docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate http://www.example.com/logo.png
 ```
-
-### Authentication
-
-The standard authentication method for most Akamai APIs is called EdgeGrid. Creating an EdgeGrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
-
-You will typically create an `.edgerc` file in your home directory with contents similar to this:
-
-```ini
-[default]
-client_secret = your_client_secret
-host = your_host
-access_token = your_access_token
-client_token = your_client_token
-```
-
-The following example illustrates this by displaying the list of groups using the Akamai CLI Property Manager package ("pm" is an alias for "property-manager" and "lg" is an alias for "list-groups"):
-
-```bash
-docker run -it --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai pm lg
-```
-
-Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corruption or tampering.
 
 ## Image Specifics
 
