@@ -4,8 +4,7 @@
 
 > Run Akamai command line tools in docker. See the [tutorial](docs/TUTORIAL.md) for more usage examples.
 
-![](docs/purge.gif)
-
+![animated image showing how to purge using the akamai docker purge package](docs/purge.gif)
 
 ## Quickstart
 
@@ -71,7 +70,7 @@ This project provides images in two flavors:
 
 All variants use an Alpine Linux base.
 
-The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities:
+The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities: 
 
 * git
 * vim
@@ -123,6 +122,7 @@ docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell
 ```
 
 Tip: You can store this command on a shell alias which allows to start the Akamai Development Environment with a single command like `akadev`:
+
 ```bash
 alias akadev='docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell'
 ```
@@ -156,7 +156,7 @@ docker start akshell
 
 The example below invalidates a cached image on the Akamai production network (default)
 
-```
+```bash
 docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate http://www.example.com/logo.png
 ```
 
@@ -187,13 +187,15 @@ When using HTTPIE non-interactively in docker (without `-it`), you may wish to r
 
 Assuming you run a webserver locally on port 5000 and sandbox is exposed on port 9550:
 
-- ensure you run docker with port mapping:
-  ```
+* ensure you run docker with port mapping:
+
+  ```bash
   docker run -it -p 9550:9550 --name mylab akamai/akamai-docker
   ```
 
-- set up sandbox client to listen on address `0.0.0.0`:
-  ```
+* set up sandbox client to listen on address `0.0.0.0`:
+
+  ```json
   "sandboxServerInfo": {
     "secure": false,
     "port": 9550,
@@ -201,8 +203,9 @@ Assuming you run a webserver locally on port 5000 and sandbox is exposed on port
   },
   ```
 
-- setup origin mapping using a special docker hostname:
-  ```
+* setup origin mapping using a special docker hostname:
+
+  ```json
   "originMappings": [
     {
       "from": "",
@@ -219,7 +222,7 @@ Assuming you run a webserver locally on port 5000 and sandbox is exposed on port
 
 The above use case assumes that user starts bash sessions and invokes commands inside of it. However, it's also possible to use this docker image to execute commands straight like on the following example:
 
-```
+```bash
 ❯ docker run -it --rm -p 9550:9550 -v $HOME/.edgerc:/root/.edgerc -v $(pwd)/sandbox:/cli/.akamai-cli/cache/sandbox-cli akamai/akamai-docker akamai sandbox list
 Local sandboxes:
 
@@ -239,6 +242,7 @@ The build system is described at length in [docs/BUILD.md](docs/BUILD.md).
 You can find further usage examples on [docs/TUTORIAL.md](docs/TUTORIAL.md).
 
 ## License
+
 Copyright 2020 Akamai Technologies, Inc.
 
 See [Apache License 2.0](LICENSE)
