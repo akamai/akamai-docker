@@ -2,7 +2,7 @@
 
 [![master build](https://travis-ci.com/akamai/akamai-docker.svg?branch=master)](https://travis-ci.com/akamai/akamai-docker)
 
-> Run Akamai command line tools in docker.
+> Run Akamai command line tools in docker. See the [tutorial](docs/TUTORIAL.md) for more usage examples.
 
 ![](docs/purge.gif)
 
@@ -71,7 +71,7 @@ This project provides images in two flavors:
 
 All variants use an Alpine Linux base.
 
-The `akamai/shell` image also provides some extra utilities:
+The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities:
 
 * git
 * vim
