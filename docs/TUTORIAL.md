@@ -24,7 +24,7 @@ docker start -i akadev
 
 The files inside this docker container will persist in the host machine until the container is destroyed using `docker rm`. Once you remove the container using `docker rm` all the files inside will be lost.
 
-### Permanent container (fresh session each time) 
+### Permanent container (fresh session each time)
 
 Sometimes you want to start a container fresh each time (without any leftover files from previous sessions). To do that, you would start the container using `docker run` , than you add `-it` to indicate interactive, followed by `--rm` to indicate the container should be removed upon exit. When using fresh containers, it is often very useful to mount one or more files (or a folders) from the host system into the container, like for example to mount the file .edgerc containing the Akamai OPEN API client credentials
 

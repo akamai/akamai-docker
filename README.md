@@ -70,7 +70,7 @@ This project provides images in two flavors:
 
 All variants use an Alpine Linux base.
 
-The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities: 
+The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities:
 
 * git
 * vim
