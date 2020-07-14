@@ -58,6 +58,7 @@ This project provides images in two flavors:
 | akamai/purge                  | 14.1MB | [GitHub](https://github.com/akamai/cli-purge)                              |
 | akamai/property               | 71.5MB | [GitHub](https://github.com/akamai/cli-property)                           |
 | akamai/property-manager       | 64.3MB | [GitHub](https://github.com/akamai/cli-property-manager)                   |
+| akamai/onboard                | 99.7MB | [GitHub](https://github.com/akamai/cli-onboard)                            |
 | akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
 | akamai/firewall               | 45.5MB | [GitHub](https://github.com/akamai/cli-firewall)                           |
 | akamai/edgeworkers            | 58.2MB | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
@@ -70,7 +71,7 @@ This project provides images in two flavors:
 
 All variants use an Alpine Linux base.
 
-The `akamai/shell` image replace the previous akamai/akamai-docker image, and contains all the other variant images plus some extra utilities:
+The `akamai/shell` image replaces the previous `akamai/akamai-docker` image, and contains all the other variant images plus some extra utilities:
 
 * git
 * vim

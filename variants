@@ -36,6 +36,7 @@ cli edgeworkers
 cli firewall
 cli image-manager
 cli property-manager
+property-manager onboard
 cli property
 cli purge
 cli sandbox
@@ -49,4 +50,4 @@ base httpie
 base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager purge sandbox terraform terraform-cli visitor-prioritization shell
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns edgeworkers firewall httpie image-manager property property-manager onboard purge sandbox terraform terraform-cli visitor-prioritization shell
