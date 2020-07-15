@@ -92,6 +92,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: onboard is executable" {
+  run akamai onboard --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: property-manager: pipeline is executable" {
   run akamai pipeline --help
   [ "$status" -eq 0 ]
