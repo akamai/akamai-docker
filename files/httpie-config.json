@@ -1,6 +1,5 @@
 {
   "default_options": [
-    "--auth-type=edgegrid",
     "--timeout=300",
     "--style=autumn"
   ]
