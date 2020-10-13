@@ -61,6 +61,7 @@ This project provides images in two flavors:
 | akamai/onboard                | 99.7MB | [GitHub](https://github.com/akamai/cli-onboard)                            |
 | akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
 | akamai/firewall               | 45.5MB | [GitHub](https://github.com/akamai/cli-firewall)                           |
+| akamai/eaa                    | 45.3MB | [GitHub](https://github.com/akamai/cli-eaa)                                |
 | akamai/edgeworkers            | 58.2MB | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
 | akamai/dns                    | 14.2MB | [GitHub](https://github.com/akamai/cli-dns)                                |
 | akamai/cps                    | 46.2MB | [GitHub](https://github.com/akamai/cli-cps)                                |
