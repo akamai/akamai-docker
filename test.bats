@@ -72,6 +72,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: eaa is executable" {
+  run akamai eaa --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: edgeworkers is executable" {
   run akamai edgeworkers --help
   [ "$status" -eq 0 ]
