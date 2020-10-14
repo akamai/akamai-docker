@@ -19,21 +19,6 @@
 ARG BASE=akamai/base
 
 #####################
-# JSONNET BUILDER
-#########
-
-FROM golang:alpine as jsonnet
-
-RUN apk add --no-cache git upx \
-  && git clone https://github.com/google/go-jsonnet.git \
-  && cd go-jsonnet \
-  && go build -o /jsonnet -ldflags="-s -w" ./cmd/jsonnet \
-  && upx -3 -o/jsonnet.upx /jsonnet \
-  && go build -o /jsonnetfmt -ldflags="-s -w" ./cmd/jsonnetfmt \
-  && upx -3 -o/jsonnetfmt.upx /jsonnetfmt \
-  && chmod +x /jsonnet*
-
-#####################
 # FINAL
 #########
 
@@ -43,9 +28,6 @@ FROM ${BASE}
 # familiar with bash than ash
 # libstdc++: required by jsonnet
 RUN apk add --no-cache bash jq git vim tree bind-tools libstdc++
-
-COPY --from=jsonnet /jsonnet.upx /usr/bin/jsonnet
-COPY --from=jsonnet /jsonnetfmt.upx /usr/bin/jsonnetfmt
 
 COPY files/motd /etc/motd
 COPY files/profile /etc/profile

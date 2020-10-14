@@ -97,6 +97,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: jsonnet is executable" {
+  run akamai jsonnet --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: onboard is executable" {
   run akamai onboard --help
   [ "$status" -eq 0 ]
