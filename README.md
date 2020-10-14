@@ -60,6 +60,7 @@ This project provides images in two flavors:
 | akamai/property-manager       | 64.3MB | [GitHub](https://github.com/akamai/cli-property-manager)                   |
 | akamai/onboard                | 99.7MB | [GitHub](https://github.com/akamai/cli-onboard)                            |
 | akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
+| akamai/jsonnet                | 48.5MB | [GitHub](https://github.com/akamai-contrib/cli-jsonnet)                    |
 | akamai/firewall               | 45.5MB | [GitHub](https://github.com/akamai/cli-firewall)                           |
 | akamai/eaa                    | 45.3MB | [GitHub](https://github.com/akamai/cli-eaa)                                |
 | akamai/edgeworkers            | 58.2MB | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
