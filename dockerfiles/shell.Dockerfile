@@ -31,7 +31,6 @@ RUN apk add --no-cache bash jq git vim tree bind-tools libstdc++
 
 COPY files/motd /etc/motd
 COPY files/profile /etc/profile
-COPY files/akamai-cli-config /cli/.akamai-cli/config
 
 # This pattern allows us to execute a command
 # `docker run ... akamai property ...`
