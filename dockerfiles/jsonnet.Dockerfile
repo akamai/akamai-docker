@@ -28,7 +28,7 @@ ARG BASE=akamai/base
 # image since it is likely that the user will want to render the
 # templates, not just generate them.
 
-FROM golang:alpine3.11 as builder
+FROM golang:alpine3.11 as jsonnet
 
 RUN apk add --no-cache git upx \
   && git clone https://github.com/google/go-jsonnet.git \
