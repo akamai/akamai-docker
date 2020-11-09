@@ -49,5 +49,3 @@ RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli ${AKAMAI_CLI_CACHE_PATH}
 COPY --from=builder /akamai.upx /bin/akamai
 
 ADD files/akamai-cli-config ${AKAMAI_CLI_HOME}/.akamai-cli/config
-
-RUN akamai config set cli.cache-path ${AKAMAI_CLI_CACHE_PATH}
