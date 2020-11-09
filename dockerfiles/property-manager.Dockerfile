@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM node:alpine as builder
+FROM node:12-alpine3.11 as builder
 
 RUN apk add --no-cache git npm \
   # install cli-property-manager from git
