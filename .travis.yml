@@ -36,11 +36,12 @@ language: minimal
 services:
   - docker
 
-# We only build master & dev
+# We only build master, dev and semver tags
 branches:
   only:
     - master
     - dev
+    - /^v\d+\.\d+\.\d+$/
 
 script:
   - ./scripts/ci.sh
