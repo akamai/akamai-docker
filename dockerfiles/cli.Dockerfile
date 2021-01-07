@@ -42,6 +42,7 @@ FROM ${BASE}
 
 ARG AKAMAI_CLI_HOME=/cli
 ENV AKAMAI_CLI_HOME=${AKAMAI_CLI_HOME}
+# don't forget to update files/akamai-cli-config if you make any changes here
 ENV AKAMAI_CLI_CACHE_PATH=${AKAMAI_CLI_HOME}/.akamai-cli/cache
 
 RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli ${AKAMAI_CLI_CACHE_PATH}
