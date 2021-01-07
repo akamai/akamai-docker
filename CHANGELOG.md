@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+## v1.0.1 (2021-01-07)
+
+* Fix/missing cachedir in config (#47) - Łukasz Czerpak (9f4d984)
+
 ## v1.0.0 (2020-12-14)
 
 This is the first official release, marking the beginning of semver for this repository :sunrise:.
@@ -49,4 +53,5 @@ This is the first official release, marking the beginning of semver for this rep
 * initial version - Lukasz Czerpak (007bf98)
 * renamed repo name - Javier Garza (9da3cff)
 * Initial commit - Javier Garza (2c54e38)
+
 
