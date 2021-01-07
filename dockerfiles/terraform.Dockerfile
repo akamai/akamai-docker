@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM alpine as builder
+FROM alpine:3.11 as builder
 ARG TERRAFORM_VERSION=0.12.20
 ARG TERRAFORM_SHA256SUM=46bd906f8cb9bbb871905ecb23ae7344af8017d214d735fbb6d6c8e0feb20ff3
 
