@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM golang:alpine3.11 as builder
+FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
   # building requires Dep package manager

@@ -16,12 +16,14 @@
 # BUILD ARGS
 #########
 
-ARG BASE=alpine:3.11
+ARG BASE=alpine:3.12
 
 #####################
 # FINAL
 #########
 
 FROM ${BASE}
+
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 
 WORKDIR /root

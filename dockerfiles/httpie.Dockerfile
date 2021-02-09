@@ -25,7 +25,7 @@ ARG BASE=akamai/base
 FROM ${BASE}
 
 # httpie depends on setuptools at runtime
-RUN apk add --no-cache python3 py3-setuptools \
+RUN apk add --no-cache python3 py3-pip py3-setuptools \
   && apk add --no-cache --virtual dev git gcc python3-dev libffi-dev musl-dev openssl-dev \
   && pip3 install --upgrade pip setuptools \
   && pip3 install httpie httpie-edgegrid \

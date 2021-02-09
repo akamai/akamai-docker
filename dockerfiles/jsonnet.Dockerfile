@@ -28,7 +28,7 @@ ARG BASE=akamai/base
 # image since it is likely that the user will want to render the
 # templates, not just generate them.
 
-FROM golang:alpine3.11 as jsonnet
+FROM golang:alpine3.12 as jsonnet
 
 RUN apk add --no-cache git upx \
   && git clone https://github.com/google/go-jsonnet.git \
@@ -49,7 +49,7 @@ COPY --from=jsonnet /jsonnet.upx /usr/bin/jsonnet
 COPY --from=jsonnet /jsonnetfmt.upx /usr/bin/jsonnetfmt
 
 RUN mkdir -p /cli/.akamai-cli/src \
-  && apk add --no-cache python3 \
+  && apk add --no-cache python3 py3-pip \
   && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
   && git clone --depth 1 https://github.com/akamai-contrib/cli-jsonnet.git /cli/.akamai-cli/src/cli-jsonnet \
   && pip3 install --upgrade pip setuptools \

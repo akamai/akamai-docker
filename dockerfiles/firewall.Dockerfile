@@ -25,7 +25,7 @@ ARG BASE=akamai/base
 FROM ${BASE}
 
 RUN mkdir -p /cli/.akamai-cli/src \
-  && apk add --no-cache python3 \
+  && apk add --no-cache python3 py3-pip \
   && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
   && git clone --depth 1 https://github.com/akamai/cli-firewall.git /cli/.akamai-cli/src/cli-firewall \
   && pip3 install --upgrade pip setuptools \
