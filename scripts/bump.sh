@@ -102,7 +102,7 @@ $EDITOR $next_changelog
 ) > CHANGELOG.md
 
 git add CHANGELOG.md
-git commit -m "chore: update changelog (nochangelog)"
+git commit -m "chore: update changelog (nochangelog) [ci skip]"
 git tag -a -m "$(cat $next_changelog)" $next_version
 
 die 0 'success! next step, run git push --follow-tags'
