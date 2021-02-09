@@ -1,9 +1,15 @@
 # CHANGELOG
 
 
+## v1.0.2 (2021-02-09)
+
+* update alpine to 3.12
+* fix: temporary fix for cryptography package - Lukasz Czerpak (9b7f6cd)
+
 ## v1.0.1 (2021-01-07)
 
 * Fix/missing cachedir in config (#47) - Łukasz Czerpak (9f4d984)
+
 
 ## v1.0.0 (2020-12-14)
 
