@@ -25,15 +25,15 @@ ARG BASE=akamai/base
 FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
-  && go get -d github.com/akamai/cli-dns \
-  && cd "${GOPATH}/src/github.com/akamai/cli-dns" \
+  && git clone --depth=1 https://github.com/akamai/cli-dns \
+  && cd cli-dns \
   && go mod vendor \
   # -ldflags="-s -w" strips debug information from the executable 
   && go build -mod vendor -o /akamaiDns -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
   && upx -3 -o/akamaiDns.upx /akamaiDns \
   # we need to include the cli.json file as well
-  && cp "${GOPATH}/src/github.com/akamai/cli-dns/cli.json" /cli.json \
+  && cp cli.json /cli.json \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
   && rm -rf /cli/.akamai-cli/src/cli-dns/.git
 

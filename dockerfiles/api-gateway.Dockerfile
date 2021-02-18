@@ -25,13 +25,10 @@ ARG BASE=akamai/base
 FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
-  # building requires Dep package manager
-  && wget -O - https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
-  # go get -d xyz/... : indicates that we want to retrieve all the modules in the repo;
-  # without /..., go get -d will fail with "no Go files in xxx"
-  && go get -d github.com/akamai/cli-api-gateway/... \
-  && cd "${GOPATH}/src/github.com/akamai/cli-api-gateway" \
-  && dep ensure \
+  && git clone --depth=1 https://github.com/akamai/cli-api-gateway \
+  && cd cli-api-gateway \
+  && go mod init github.com/akamai/cli-api-gateway \
+  && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable 
   && go build -o /akamai-api-gateway -ldflags="-s -w" ./api-gateway \
   && go build -o /akamai-api-keys -ldflags="-s -w" ./api-keys \
@@ -41,7 +38,7 @@ RUN apk add --no-cache git upx \
   && upx -3 -o/akamai-api-keys.upx /akamai-api-keys \
   && upx -3 -o/akamai-api-security.upx /akamai-api-security \
   # we need to include the cli.json file as well
-  && cp "${GOPATH}/src/github.com/akamai/cli-api-gateway/cli.json" /cli.json
+  && cp cli.json /cli.json
 
 #####################
 # FINAL

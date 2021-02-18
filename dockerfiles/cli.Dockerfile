@@ -25,9 +25,9 @@ ARG BASE=akamai/base
 FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
-  && go get -d github.com/akamai/cli \
-  && cd $GOPATH/src/github.com/akamai/cli \
-  && go mod init \
+  && git clone --depth=1 https://github.com/akamai/cli \
+  && cd cli \
+  && go mod init github.com/akamai/cli \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable 
   && go build -o /akamai -ldflags="-s -w" \

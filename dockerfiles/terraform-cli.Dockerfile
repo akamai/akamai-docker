@@ -25,14 +25,15 @@ ARG BASE=akamai/base
 FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
-  && go get -d github.com/akamai/cli-terraform \
-  && cd "${GOPATH}/src/github.com/akamai/cli-terraform" \
+  && git clone --depth=1 https://github.com/akamai/cli-terraform \
+  && cd cli-terraform \
+  && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable 
   && go build -o /akamaiTerraform -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
   && upx -3 -o/akamaiTerraform.upx /akamaiTerraform \
   # we need to include the cli.json file as well
-  && cp "${GOPATH}/src/github.com/akamai/cli-terraform/cli.json" /cli.json \
+  && cp cli.json /cli.json \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
   && rm -rf /cli/.akamai-cli/src/cli-akamaiTerraform/.git
 
