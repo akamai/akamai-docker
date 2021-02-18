@@ -180,6 +180,28 @@ docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro \
     terraform apply /tf
 ```
 
+#### Terraform >=0.13.0
+
+Since 0.13, Terraform requires [providers to be declared](https://www.terraform.io/upgrade-guides/0-13.html#explicit-provider-source-locations)
+and pinned to a specific version. The Akamai docker image bakes in a few commonly-used provider plugins, in addition to the Akamai provider.
+
+You can use the [terraform.tf](files/terraform.tf) file we use as reference if you wish to include these pre-baked plugins in your project.
+
+If those providers are enough for your requirement, then you're all set. If you need more providers, be advised that `terraform init` will by
+default install the providers in a folder within the container, which you will lose along with the container.
+
+In that case, you may wish to install them yourself in a location of your choosing. To do this, simply set the `TF_PLUGIN_CACHE_DIR` environment
+variable to the appropriate location. For example:
+
+```bash
+docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro \
+  -v $HOME/terraform-config:/tf:ro \
+  -v $HOME/terraform-plugin-cache:/tf-plugins:rw \
+  -e TF_PLUGIN_CACHE_DIR=/tf-plugins \
+  akamai/terraform \
+    terraform init /tf
+```
+
 ### HTTPIE
 
 When using HTTPIE non-interactively in docker (without `-it`), you may wish to read the [Scripting Best Practices](https://httpie.org/docs#best-practices) section of the documentation.
