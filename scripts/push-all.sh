@@ -26,8 +26,6 @@ source ./scripts/env.sh
 
 # Required arguments
 export BUILD_NUMBER="${BUILD_NUMBER:?BUILD_NUMBER must be set}"
-export DOCKER_USERNAME="${DOCKER_USERNAME:?DOCKER_USERNAME must be set}"
-export DOCKER_PASSWORD="${DOCKER_PASSWORD:?DOCKER_PASSWORD must be set}"
 
 # Print all image:tag combinations created by the current build
 # using the build-number label, and excluding dangling images
@@ -42,10 +40,13 @@ current_build_tags() {
 
 #####################
 # LOGIN
+#
+# When called by CI, this is already done as part of the ci.sh build.
+# Logic is preserved here simply so push-all.sh can be called independently
+# if needed.
 #########
 
-echo "${DOCKER_PASSWORD}" |
-  docker login -u "${DOCKER_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+./scripts/docker-login.sh
 
 #####################
 # PUSH
