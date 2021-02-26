@@ -1,10 +1,17 @@
 # CHANGELOG
 
 
+## v2.0.0 (2021-02-26)
+
+* break: upgrade to terraform 0.13.6 (#29) - Anthony Hogg (69032af)
+* fix: docker login before build - Anthony Hogg (6aa2dc3)
+* fix: update go package builds to satisfy golang 1.16 - Anthony Hogg (5cfa812)
+
 ## v1.0.2 (2021-02-09)
 
 * update alpine to 3.12
 * fix: temporary fix for cryptography package - Lukasz Czerpak (9b7f6cd)
+
 
 ## v1.0.1 (2021-01-07)
 
