@@ -55,7 +55,7 @@ current_build_tags() {
 # HACK : unconditionally push to latest
 #DOCKER_TAG="${DOCKER_TAG} latest"
 
-current_build_tags | grep -Ev 'akamai/(base|cli|.*-chain)' |
+current_build_tags | grep -Ev 'akamai/(base|.*-chain)' |
   while read image;
   do
     for tag in ${DOCKER_TAG};
