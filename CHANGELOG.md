@@ -1,11 +1,17 @@
 # CHANGELOG
 
 
-## v2.0.0 (2021-02-26)
+## v2.0.1 (2021-03-16)
+
+* Fix test.bats akamai executable test - Piotrowski, Piotr (0a72792)
+* Align cli.Dockerfile with akamai/cli release v1.2.0 - Piotrowski, Piotr (5e2a971)
+
+## v2.0.0 (2021-02-27)
 
 * break: upgrade to terraform 0.13.6 (#29) - Anthony Hogg (69032af)
 * fix: docker login before build - Anthony Hogg (6aa2dc3)
 * fix: update go package builds to satisfy golang 1.16 - Anthony Hogg (5cfa812)
+
 
 ## v1.0.2 (2021-02-09)
 
