@@ -30,7 +30,7 @@
 }
 
 @test "cli: akamai is executable" {
-  run akamai --help
+  run akamai help
   [ "$status" -eq 0 ]
 }
 
