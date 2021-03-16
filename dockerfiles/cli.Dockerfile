@@ -27,10 +27,9 @@ FROM golang:alpine3.12 as builder
 RUN apk add --no-cache git upx \
   && git clone --depth=1 https://github.com/akamai/cli \
   && cd cli \
-  && go mod init github.com/akamai/cli \
   && go mod tidy \
-  # -ldflags="-s -w" strips debug information from the executable 
-  && go build -o /akamai -ldflags="-s -w" \
+  # -ldflags="-s -w" strips debug information from the executable
+  && go build -o /akamai -ldflags="-s -w" cli/main.go \
   # upx creates a self-extracting compressed executable
   && upx -3 -o/akamai.upx /akamai
 
