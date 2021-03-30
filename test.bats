@@ -77,6 +77,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: etp is executable" {
+  run akamai etp --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: edgeworkers is executable" {
   run akamai edgeworkers --help
   [ "$status" -eq 0 ]
