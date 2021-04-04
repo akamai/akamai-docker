@@ -25,17 +25,16 @@ ARG BASE=akamai/base
 FROM golang:alpine3.12 as builder
 
 RUN apk add --no-cache git upx \
-  # building requires Dep package manager
-  && wget -O - https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
-  && go get -d github.com/akamai/cli-purge \
-  && cd "${GOPATH}/src/github.com/akamai/cli-purge" \
-  && dep ensure \
+  && git clone --depth=1 https://github.com/akamai/cli-purge \
+  && cd cli-purge \
+  && go mod init github.com/akamai/cli-purge \
+  && go mod vendor \
   # -ldflags="-s -w" strips debug information from the executable 
   && go build -o /akamai-purge -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
   && upx -3 -o/akamai-purge.upx /akamai-purge \
   # we need to include the cli.json file as well
-  && cp "${GOPATH}/src/github.com/akamai/cli-purge/cli.json" /cli.json
+  && cp cli.json /cli.json
 
 #####################
 # FINAL
