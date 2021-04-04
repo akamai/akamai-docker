@@ -24,14 +24,24 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
-RUN apk add --no-cache git upx \
+RUN if [ $(uname -m) == 'aarch64' ]; \
+  then \
+    apk add --no-cache git ;\
+  else \
+    apk add --no-cache git upx ;\
+  fi \
   && git clone --depth=1 https://github.com/akamai/cli-dns \
   && cd cli-dns \
   && go mod vendor \
-  # -ldflags="-s -w" strips debug information from the executable 
+  # -ldflags="-s -w" strips debug information from the executable
   && go build -mod vendor -o /akamaiDns -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
-  && upx -3 -o/akamaiDns.upx /akamaiDns \
+  && if [ $(uname -m) != 'aarch64' ]; \
+  then \
+     upx -3 -o/akamaiDns.upx /akamaiDns; \
+  else \
+     cp /akamaiDns /akamaiDns.upx; \
+  fi \
   # we need to include the cli.json file as well
   && cp cli.json /cli.json \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)

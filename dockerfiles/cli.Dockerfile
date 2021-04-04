@@ -24,14 +24,24 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
-RUN apk add --no-cache git upx \
+RUN if [ $(uname -m) == 'aarch64' ]; \
+  then \
+    apk add --no-cache git ;\
+  else \
+    apk add --no-cache git upx ;\
+  fi \
   && git clone --depth=1 https://github.com/akamai/cli \
   && cd cli \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable
   && go build -o /akamai -ldflags="-s -w" cli/main.go \
   # upx creates a self-extracting compressed executable
-  && upx -3 -o/akamai.upx /akamai
+  && if [ $(uname -m) != 'aarch64' ]; \
+  then \
+    upx -3 -o/akamai.upx /akamai ;\
+  else \
+     cp /akamai /akamai.upx ;\
+  fi
 
 #####################
 # FINAL

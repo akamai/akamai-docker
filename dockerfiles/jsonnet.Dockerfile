@@ -30,13 +30,24 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as jsonnet
 
-RUN apk add --no-cache git upx \
+RUN if [ $(uname -m) == 'aarch64' ]; \
+  then \
+    apk add --no-cache git ;\
+  else \
+    apk add --no-cache git upx ;\
+  fi \
   && git clone https://github.com/google/go-jsonnet.git \
   && cd go-jsonnet \
   && go build -o /jsonnet -ldflags="-s -w" ./cmd/jsonnet \
-  && upx -3 -o/jsonnet.upx /jsonnet \
   && go build -o /jsonnetfmt -ldflags="-s -w" ./cmd/jsonnetfmt \
-  && upx -3 -o/jsonnetfmt.upx /jsonnetfmt \
+  && if [ $(uname -m) != 'aarch64' ]; \
+  then \
+     upx -3 -o/jsonnet.upx /jsonnet \
+    && upx -3 -o/jsonnetfmt.upx /jsonnetfmt; \
+  else \
+    cp /jsonnetfmt /jsonnet.upx \
+    && cp /jsonnetfmt /jsonnetfmt.upx; \
+  fi \
   && chmod +x /jsonnet*
 
 #####################
