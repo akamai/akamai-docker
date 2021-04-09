@@ -24,8 +24,10 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
+ARG CLI_REPOSITORY_URL=https://github.com/akamai/cli
+
 RUN apk add --no-cache git upx \
-  && git clone --depth=1 https://github.com/akamai/cli \
+  && git clone --depth=1 $CLI_REPOSITORY_URL \
   && cd cli \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable
