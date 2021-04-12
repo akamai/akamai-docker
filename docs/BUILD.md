@@ -88,16 +88,15 @@ Note that one cannot invoke `build-chain.sh base cli` without first invoking `bu
 > ```
 > TRAVIS_BUILD_NUMBER=local
 > ```
+It is possible to pass additional arguments for `docker build` command by setting `DOCKER_BUILD_EXTRA_ARGS` env variable. That can be used to set e.g. additional --build-args utilized in variant's Dockerfile.
 
-It is possible to customize git repository for a specific variant, provided that the specific variant's Dockerfile contains `<VARIANT_NAME>_REPOSITORY_URL` build argument defined. 
-
-These can be passed to `build-chain.sh` by setting an environment variable with the same name as the build argument when executing the script. For example:
+For example, you can customize git repository for a specific variant (provided that the specific variant supports setting repository URL from --build-arg. 
 ```
-CLI_REPOSITORY_URL="git://host.docker.internal/cli" ./scripts/build-chain.sh base cli
+DOCKER_BUILD_EXTRA_ARGS="--build-arg CLI_REPOSITORY_URL=git://host.docker.internal/cli" ./scripts/build-chain.sh base cli
 ```
-will use `git://host.docker.internal/cli` repository instead of default `https://github.com/akamai/cli` for building CLI binary.
+Setting `CLI_REPOSITORY_URL` will cause cli.Dockerfile to use `git://host.docker.internal/cli` repository instead of default `https://github.com/akamai/cli` for building CLI binary.
 
-> If you wish for a specific variant's Dockerfile to support this feature, please update the Dockerfile by adding `ARG` directive with 
+> If you wish for a specific variant's Dockerfile to support this feature, please update the Dockerfile by adding `ARG` directive with descriptive name, e.g.
 > `<VARIANT_NAME>_REPOSITORY_URL` (the default value should point to the existing github repository). You will also have to substitute the argument in `RUN` directive with the new build argument. 
 > Please look at `cli.Dockerfile` to find an example of how this can be implemented.
 

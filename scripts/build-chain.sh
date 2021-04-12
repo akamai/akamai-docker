@@ -53,22 +53,12 @@ build_img() {
     labels+=("--label=org.label-schema.vcs-ref=$(git rev-parse --short HEAD)}")
   fi
 
-  local buildArgs=()
-  if [ "$#" == 3 ];
+  if [ "$#" == 2 ]; # $1=image, $2=Dockerfile
   then
-    buildArgs+=("--build-arg BASE=$3")
-  fi
-
-  # Retrieve variant name from image name and convert to uppercase (e.g. CLI from akamai/cli)
-  imgName=$(cut -d "/" -f2- <<< "$1" | tr "[:lower:]" "[:upper:]" )
-  repositoryURLEnv=${imgName}_REPOSITORY_URL
-  if [ -n  "${!repositoryURLEnv}" ];
+    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
+  elif [ "$#" == 3 ]; # ..., $3=Base image
   then
-    buildArgs+=("--build-arg $repositoryURLEnv=${!repositoryURLEnv}")
-  fi
-  if [ "$#" == 2 ] || [ "$#" == 3 ]; # $1=image, $2=Dockerfile, $3=Base image
-  then
-    docker build --force-rm -t $1 -f $2 "${labels[@]}" ${buildArgs[@]} .
+    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3 .
   fi
 }
 
