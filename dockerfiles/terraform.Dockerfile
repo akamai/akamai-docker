@@ -46,7 +46,7 @@ RUN apk add --no-cache upx ; apk add --no-cache ca-certificates curl \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
     && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \
-    && upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform \
+    && upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform
 
 # initialize latest akamai provider;
 # upx (just above) takes very long to run, it's worth creating
@@ -60,7 +60,7 @@ RUN mkdir -p ${TF_PLUGIN_CACHE_DIR} \
     # for some reason, using mv at this step fails (the operation works, but file not found raised)
     && find ${TF_PLUGIN_CACHE_DIR} -type f -perm +0111 -not -name '*.upx' -exec cp -v {}.upx {} \; \
     # ... so we do it in two steps
-    && find ${TF_PLUGIN_CACHE_DIR} -type f -name '*.upx' -exec rm {} \;; \
+    && find ${TF_PLUGIN_CACHE_DIR} -type f -name '*.upx' -exec rm {} \;
 
 #####################
 # FINAL
