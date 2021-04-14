@@ -1,10 +1,16 @@
 # CHANGELOG
 
 
+## v2.1.0 (2021-04-14)
+
+* Allow passing custom repository to cli.Dockerfile through build-chain.sh (#56) - Piotr Piotrowski (2bc5ea5)
+* Add ETP feature (#53) - John Payne (d1fb1d2)
+
 ## v2.0.1 (2021-03-16)
 
 * Fix test.bats akamai executable test - Piotrowski, Piotr (0a72792)
 * Align cli.Dockerfile with akamai/cli release v1.2.0 - Piotrowski, Piotr (5e2a971)
+
 
 ## v2.0.0 (2021-02-27)
 
