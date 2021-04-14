@@ -24,12 +24,11 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
-RUN if [ $(uname -m) == 'aarch64' ]; \
-  then \
-    apk add --no-cache git ;\
-  else \
-    apk add --no-cache git upx ;\
-  fi \
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache upx ; apk add --no-cache git \
   && git clone --depth=1 https://github.com/akamai/cli-purge \
   && cd cli-purge \
   && go mod init github.com/akamai/cli-purge \
@@ -37,12 +36,7 @@ RUN if [ $(uname -m) == 'aarch64' ]; \
   # -ldflags="-s -w" strips debug information from the executable
   && go build -o /akamai-purge -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
-  && if [ $(uname -m) != 'aarch64' ]; \
-  then \
-    upx -3 -o/akamai-purge.upx /akamai-purge ;\
-  else \
-     cp /akamai-purge /akamai-purge.upx ;\
-  fi \
+  && upx -3 -o/akamai-purge.upx /akamai-purge \
   # we need to include the cli.json file as well
   && cp cli.json /cli.json
 

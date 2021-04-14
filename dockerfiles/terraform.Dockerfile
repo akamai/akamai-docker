@@ -35,23 +35,18 @@ ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
 # ca-certificates: Required by `terraform init` when downloading provider plugins.
 # curl: depends on ca-certificates, but specifying ca-certificates explicitly
 # upx: compress executables
-RUN if [ $(uname -m) == 'aarch64' ]; \
-    then \
-      apk add --no-cache ca-certificates curl; \
-    else \
-      apk add --no-cache ca-certificates curl upx; \
-    fi \
+
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache upx ; apk add --no-cache ca-certificates curl \
     && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
     && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \
-    && if [ $(uname -m) != 'aarch64' ]; \
-    then \
-       upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform; \
-    else \
-       cp  /usr/local/bin/terraform /usr/local/bin/terraform.upx; \
-    fi
+    && upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform \
 
 # initialize latest akamai provider;
 # upx (just above) takes very long to run, it's worth creating
@@ -61,14 +56,11 @@ ADD files/terraform.tf /terraform.tf
 RUN mkdir -p ${TF_PLUGIN_CACHE_DIR} \
     && terraform init -input=false -backend=false -get-plugins=true -verify-plugins=true \
     # find all executable files in the plugins and upx them
-    && if [ $(uname -m) != 'aarch64' ]; \
-  then \
-    find ${TF_PLUGIN_CACHE_DIR} -type f -perm +0111 -exec upx -3 -o{}.upx {} \; \
+    && find ${TF_PLUGIN_CACHE_DIR} -type f -perm +0111 -exec upx -3 -o{}.upx {} \; \
     # for some reason, using mv at this step fails (the operation works, but file not found raised)
     && find ${TF_PLUGIN_CACHE_DIR} -type f -perm +0111 -not -name '*.upx' -exec cp -v {}.upx {} \; \
     # ... so we do it in two steps
     && find ${TF_PLUGIN_CACHE_DIR} -type f -name '*.upx' -exec rm {} \;; \
-    fi
 
 #####################
 # FINAL

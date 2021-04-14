@@ -1,0 +1,17 @@
+#!/bin/ash
+
+while getopts ":o:" a; do
+    case "${a}" in
+        o)
+            out=${OPTARG}
+            ;;
+        *)
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+echo "pretending to compress $1 into ${out}"
+
+/bin/cp $1 ${out}
+
