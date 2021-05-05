@@ -34,7 +34,7 @@ FROM golang:alpine3.12 as jsonnet
 COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
-RUN apk search --no-cache | grep -q ^upx && apk add --no-cache upx ; apk add --no-cache git \
+RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
   && git clone https://github.com/google/go-jsonnet.git \
   && cd go-jsonnet \
   && go build -o /jsonnet -ldflags="-s -w" ./cmd/jsonnet \
