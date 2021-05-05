@@ -40,7 +40,7 @@ ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
 COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
-RUN apk add --no-cache upx ; apk add --no-cache ca-certificates curl \
+RUN apk search --no-cache | grep -q ^upx && apk add --no-cache upx || apk add --no-cache ca-certificates curl \
     && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
