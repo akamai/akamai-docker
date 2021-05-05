@@ -55,10 +55,10 @@ build_img() {
 
   if [ "$#" == 2 ]; # $1=image, $2=Dockerfile
   then
-    docker build --force-rm -t $1 -f $2 "${labels[@]}" .
+    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
   elif [ "$#" == 3 ]; # ..., $3=Base image
   then
-    docker build --force-rm -t $1 -f $2 "${labels[@]}" --build-arg BASE=$3 .
+    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3 .
   fi
 }
 

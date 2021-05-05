@@ -24,12 +24,14 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
+ARG CLI_REPOSITORY_URL=https://github.com/akamai/cli
+
 # this will only be used on architectures that upx doesn't use
 COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
 RUN apk add --no-cache upx ; apk add --no-cache git \
-  && git clone --depth=1 https://github.com/akamai/cli \
+  && git clone --depth=1 $CLI_REPOSITORY_URL \
   && cd cli \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable

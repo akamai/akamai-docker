@@ -42,6 +42,11 @@ export DOCKER_BUILDKIT=0
 # Get currently built branch from travis env, or git if building locally
 export BRANCH=${TRAVIS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
 
+# Extra arguments to pass to docker build, e.g. --build-args
+# Supported build args include:
+# - CLI_REPOSITORY_URL: to override where we clone CLI code from
+export DOCKER_BUILD_EXTRA_ARGS=${DOCKER_BUILD_EXTRA_ARGS:-}
+
 # Guess which tags need to be built, based on the environment
 guess_tag() {
   # Master branch gets tagged as latest, others as branch-name.
