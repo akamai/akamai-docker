@@ -30,12 +30,16 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as jsonnet
 
-RUN apk add --no-cache git upx \
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
   && git clone https://github.com/google/go-jsonnet.git \
   && cd go-jsonnet \
   && go build -o /jsonnet -ldflags="-s -w" ./cmd/jsonnet \
-  && upx -3 -o/jsonnet.upx /jsonnet \
   && go build -o /jsonnetfmt -ldflags="-s -w" ./cmd/jsonnetfmt \
+  && upx -3 -o/jsonnet.upx /jsonnet \
   && upx -3 -o/jsonnetfmt.upx /jsonnetfmt \
   && chmod +x /jsonnet*
 

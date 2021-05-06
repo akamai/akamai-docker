@@ -26,14 +26,18 @@ FROM golang:alpine3.12 as builder
 
 ARG CLI_REPOSITORY_URL=https://github.com/akamai/cli
 
-RUN apk add --no-cache git upx \
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
   && git clone --depth=1 $CLI_REPOSITORY_URL \
   && cd cli \
   && go mod tidy \
   # -ldflags="-s -w" strips debug information from the executable
   && go build -o /akamai -ldflags="-s -w" cli/main.go \
   # upx creates a self-extracting compressed executable
-  && upx -3 -o/akamai.upx /akamai
+  && upx -3 -o/akamai.upx /akamai 
 
 #####################
 # FINAL

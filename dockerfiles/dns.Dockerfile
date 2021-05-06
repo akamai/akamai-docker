@@ -24,11 +24,15 @@ ARG BASE=akamai/base
 
 FROM golang:alpine3.12 as builder
 
-RUN apk add --no-cache git upx \
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
   && git clone --depth=1 https://github.com/akamai/cli-dns \
   && cd cli-dns \
   && go mod vendor \
-  # -ldflags="-s -w" strips debug information from the executable 
+  # -ldflags="-s -w" strips debug information from the executable
   && go build -mod vendor -o /akamaiDns -ldflags="-s -w" \
   # upx creates a self-extracting compressed executable
   && upx -3 -o/akamaiDns.upx /akamaiDns \

@@ -35,7 +35,12 @@ ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
 # ca-certificates: Required by `terraform init` when downloading provider plugins.
 # curl: depends on ca-certificates, but specifying ca-certificates explicitly
 # upx: compress executables
-RUN apk add --no-cache ca-certificates curl upx \
+
+# this will only be used on architectures that upx doesn't use
+COPY files/upx-noop /usr/bin/upx
+RUN chmod +x /usr/bin/upx
+
+RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) ca-certificates curl \
     && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
