@@ -1,10 +1,15 @@
 # CHANGELOG
 
 
+## v2.2.0 (2021-05-06)
+
+* Initial build for aarch64 (raspberry pi and Apple Silicon) (#55) - John Payne (7432fd0)
+
 ## v2.1.0 (2021-04-14)
 
 * Allow passing custom repository to cli.Dockerfile through build-chain.sh (#56) - Piotr Piotrowski (2bc5ea5)
 * Add ETP feature (#53) - John Payne (d1fb1d2)
+
 
 ## v2.0.1 (2021-03-16)
 
