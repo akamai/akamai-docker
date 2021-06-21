@@ -32,8 +32,8 @@ RUN apk add --no-cache python3 py3-pip py3-setuptools \
   # Drop dev dependencies
   && apk del dev \
   # Drop created wheels
-  && rm -rf /root/.cache \
+  && rm -rf /workdir/.cache \
   # Drop ~20MB by removing bytecode cache created by pip
   && find / -name __pycache__ | xargs rm -rf
 
-ADD files/httpie-config.json /root/.httpie/config.json
+ADD files/httpie-config.json /workdir/.httpie/config.json

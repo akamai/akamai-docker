@@ -36,7 +36,7 @@ RUN mkdir -p /cli/.akamai-cli/src \
   # Drop dev dependencies
   && apk del dev \
   # Drop created wheels
-  && rm -rf /root/.cache \
+  && rm -rf /workdir/.cache \
   # Drop ~20MB by removing bytecode cache created by pip
   && find / -name __pycache__ | xargs rm -rf \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
