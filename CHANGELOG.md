@@ -1,9 +1,14 @@
 # CHANGELOG
 
 
+## v2.3.0 (2021-08-30)
+
+* all-access /cli and /workdir to avoid jenkins perm issues (refs #38) - Anthony Hogg (5c69e01)
+
 ## v2.2.1 (2021-08-30)
 
 * fixed 404 for akamai/terraform-cli href (#59) - Walter Lee (57d3888)
+
 
 ## v2.2.0 (2021-05-06)
 
