@@ -1,9 +1,14 @@
 # CHANGELOG
 
 
+## v2.2.1 (2021-08-30)
+
+* fixed 404 for akamai/terraform-cli href (#59) - Walter Lee (57d3888)
+
 ## v2.2.0 (2021-05-06)
 
 * Initial build for aarch64 (raspberry pi and Apple Silicon) (#55) - John Payne (7432fd0)
+
 
 ## v2.1.0 (2021-04-14)
 
