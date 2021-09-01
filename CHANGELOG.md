@@ -1,9 +1,14 @@
 # CHANGELOG
 
 
+## v2.3.2 (2021-09-01)
+
+* fix: tag the current commit, not the changelog commit - Anthony Hogg (3992eb3)
+
 ## v2.3.1 (2021-09-01)
 
 * chore: upgrade to alpine 3.13 (#48) - Anthony Hogg (1614368)
+
 
 ## v2.3.0 (2021-08-30)
 
