@@ -1,9 +1,14 @@
 # CHANGELOG
 
 
+## v2.3.1 (2021-09-01)
+
+* chore: upgrade to alpine 3.13 (#48) - Anthony Hogg (1614368)
+
 ## v2.3.0 (2021-08-30)
 
 * all-access /cli and /workdir to avoid jenkins perm issues (refs #38) - Anthony Hogg (5c69e01)
+
 
 ## v2.2.1 (2021-08-30)
 
