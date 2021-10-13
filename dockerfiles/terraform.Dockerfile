@@ -23,8 +23,8 @@ ARG BASE=akamai/base
 #########
 
 FROM alpine:3.13 as builder
-ARG TERRAFORM_VERSION=0.13.6
-ARG TERRAFORM_SHA256SUM=55f2db00b05675026be9c898bdd3e8230ff0c5c78dd12d743ca38032092abfc9
+ARG TERRAFORM_VERSION=1.0.4
+ARG TERRAFORM_SHA256SUM=5c0be4d52de72143e2cd78e417ee2dd582ce229d73784fd19444445fa6e1335e
 
 # Because the builder downloads the latest akamai provider,
 # subsequent terraform init calls will download to this directory
