@@ -70,8 +70,8 @@ This project provides images in two flavors:
 | akamai/appsec                 | 56.6MB | [GitHub](https://github.com/akamai/cli-appsec)                             |
 | akamai/api-gateway            | 21.1MB | [GitHub](https://github.com/akamai/cli-api-gateway)                        |
 | akamai/adaptive-acceleration  | 45.2MB | [GitHub](https://github.com/akamai/cli-adaptive-acceleration)              |
-| akamai/etp                    | 49.1MB | [GitHub](https://github.com/akamai/cli-etp)
-| akamai/gtm                    | 14.2MB | [GitHub](https://github.com/akamai/cli-gtm)                              |
+| akamai/etp                    | 49.1MB | [GitHub](https://github.com/akamai/cli-etp)                                | 
+| akamai/gtm                    | 14.2MB | [GitHub](https://github.com/akamai/cli-gtm)
 
 All variants use an Alpine Linux base.
 
