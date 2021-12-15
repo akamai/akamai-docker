@@ -50,7 +50,3 @@ FROM $BASE
 RUN mkdir -p /cli/.akamai-cli/src/cli-gtm/bin
 COPY --from=builder /akamaiGtm.upx /cli/.akamai-cli/src/cli-gtm/bin/akamaiGtm
 COPY --from=builder /cli.json /cli/.akamai-cli/src/cli-gtm/cli.json
-
-#ENTRYPOINT ["/cli/.akamai-cli/src/cli-gtm/bin/akamaiGtm"]
-
-
