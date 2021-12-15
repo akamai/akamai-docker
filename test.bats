@@ -148,3 +148,7 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: gtm is executable" {
+  run akamai gtm --help
+  [ "$status" -eq 0 ]
+}
