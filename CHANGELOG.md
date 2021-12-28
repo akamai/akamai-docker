@@ -1,9 +1,16 @@
 # CHANGELOG
 
 
+## v2.4.0 (2021-12-28)
+
+* feat: akamai gtm cli docker files (#66) - baskaran (e1737b6)
+* fix: update comments to match build logic - Anthony Hogg (480629f)
+* fix: do not tag cron builds - Anthony Hogg (d105bcd)
+
 ## v2.3.2 (2021-09-01)
 
 * fix: tag the current commit, not the changelog commit - Anthony Hogg (3992eb3)
+
 
 ## v2.3.1 (2021-09-01)
 
