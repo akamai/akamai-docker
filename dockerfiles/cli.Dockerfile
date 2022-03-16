@@ -50,7 +50,11 @@ ENV AKAMAI_CLI_HOME=${AKAMAI_CLI_HOME}
 # don't forget to update files/akamai-cli-config if you make any changes here
 ENV AKAMAI_CLI_CACHE_PATH=${AKAMAI_CLI_HOME}/.akamai-cli/cache
 
-RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli ${AKAMAI_CLI_CACHE_PATH}
+ENV AKAMAI_LOG=info
+ENV AKAMAI_CLI_LOG_PATH="/cli/.akamai-cli/logs/cli.log"
+
+RUN mkdir -p $AKAMAI_CLI_HOME/.akamai-cli $AKAMAI_CLI_HOME/.akamai-cli/logs ${AKAMAI_CLI_CACHE_PATH} \
+    && touch $AKAMAI_CLI_LOG_PATH
 
 COPY --from=builder /akamai.upx /bin/akamai
 

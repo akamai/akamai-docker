@@ -53,10 +53,8 @@ This project provides images in two flavors:
 | akamai/terraform              | 48.4MB | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
 | akamai/terraform-cli          | 14.7MB | [GitHub](https://github.com/akamai/cli-terraform)             |
 | akamai/httpie                 | 45.2MB | [GitHub](https://github.com/akamai/httpie-edgegrid)                        |
-| akamai/visitor-prioritization | 45.1MB | [GitHub](https://github.com/akamai/cli-visitor-prioritization)             |
 | akamai/sandbox                | 158MB  | [GitHub](https://github.com/akamai/cli-sandbox)                            |
 | akamai/purge                  | 14.1MB | [GitHub](https://github.com/akamai/cli-purge)                              |
-| akamai/property               | 71.5MB | [GitHub](https://github.com/akamai/cli-property)                           |
 | akamai/property-manager       | 64.3MB | [GitHub](https://github.com/akamai/cli-property-manager)                   |
 | akamai/onboard                | 99.7MB | [GitHub](https://github.com/akamai/cli-onboard)                            |
 | akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
