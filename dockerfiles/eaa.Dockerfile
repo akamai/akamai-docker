@@ -28,8 +28,11 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && apk add --no-cache python3 py3-pip \
   && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
   && git clone --depth 1 https://github.com/akamai/cli-eaa.git /cli/.akamai-cli/src/cli-eaa \
-  && pip3 install --upgrade pip setuptools \
-  && pip3 install -r /cli/.akamai-cli/src/cli-eaa/requirements.txt \
+  && python3 -m venv /cli/.akamai-cli/venv/cli-eaa \
+  && source /cli/.akamai-cli/venv/cli-eaa/bin/activate \
+  && python -m pip install --upgrade pip \
+  && python -m pip install -r /cli/.akamai-cli/src/cli-eaa/requirements.txt \
+  && deactivate \
   # Drop dev dependencies
   && apk del dev \
   # Drop created wheels
