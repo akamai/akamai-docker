@@ -25,7 +25,7 @@ ARG BASE=akamai/base
 FROM node:12-alpine3.13 as builder
 
 RUN apk add --no-cache git npm \
-  # install cli-property from git
+  # install cli-appsec from git
   # (akamai install does not add the --production flag, which increases
   # the footprint of the package since devDependencies are installed)
   && git clone --depth 1 https://github.com/akamai/cli-appsec.git \

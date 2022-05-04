@@ -39,10 +39,8 @@ cli image-manager
 cli jsonnet
 cli property-manager
 property-manager onboard
-cli property
 cli purge
 cli sandbox
-cli visitor-prioritization
 cli terraform-cli
 cli etp
 cli gtm
@@ -54,4 +52,4 @@ base httpie
 base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property property-manager onboard purge sandbox terraform terraform-cli visitor-prioritization etp gtm shell
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox terraform terraform-cli etp gtm shell

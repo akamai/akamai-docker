@@ -122,11 +122,6 @@
   [ "$status" -eq 0 ]
 }
 
-@test "cli: property is executable" {
-  run akamai property --help
-  [ "$status" -eq 0 ]
-}
-
 @test "cli: purge is executable" {
   run akamai purge --help
   [ "$status" -eq 0 ]
@@ -137,14 +132,8 @@
   [ "$status" -eq 0 ]
 }
 
-@test "cli: visitor-prioritization is executable" {
-  # does not use --help, but help subcommand
-  run akamai visitor-prioritization help
-  [ "$status" -eq 0 ]
-}
-
 @test "cli: terraform is executable" {
-  run akamai terraform --help
+  run akamai terraform help
   [ "$status" -eq 0 ]
 }
 
