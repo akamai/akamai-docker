@@ -55,14 +55,6 @@ current_build_tags() {
 # HACK : unconditionally push to latest
 #DOCKER_TAG="${DOCKER_TAG} latest"
 
-current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
-  while read image;
-  do
-    echo "$image"
-    docker push "$image:arm64"
-    docker push "$image:amd64"
-  done
-
 source ./scripts/remove-tag.sh
 
 current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
@@ -71,9 +63,19 @@ current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
     echo "$image"
     for tag in ${DOCKER_TAG};
     do
-      docker manifest create "$image:$tag" --amend "$image:arm64" --amend "$image:amd64"
+      # retag images; adds build number to avoid race condition between builds
+      ARMTAG="$BUILD_NUMBER-arm64"
+      AMDTAG="$BUILD_NUMBER-amd64"
+      docker tag "$image:arm64" "$image:$ARMTAG"
+      docker tag "$image:amd64" "$image:$AMDTAG"
+      # push temporary image tags
+      docker push "$image:$ARMTAG"
+      docker push "$image:$AMDTAG"
+      # couple the temporary tags into one manifest
+      docker manifest create "$image:$tag" --amend "$image:$ARMTAG" --amend "$image:$AMDTAG"
       docker manifest push "$image:$tag"
-      remove_tag "$image" arm64
-      remove_tag "$image" amd64
+      # remove temporary tags
+      remove_tag "$image" $ARMTAG
+      remove_tag "$image" $AMDTAG
     done
   done

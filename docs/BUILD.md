@@ -56,8 +56,8 @@ CI is triggered, with the expectation that the following environment variables a
 
 ```
 CI=true
-TRAVIS_BUILD_NUMBER=N
-TRAVIS_EVENT_TYPE=push
+GITHUB_RUN_NUMBER=N
+GITHUB_REF_NAME=branch/tag
 ```
 
 The variants are all built, tagged as `latest` and pushed.
@@ -68,8 +68,8 @@ CI is triggered, with the expectation that the following environment variables a
 
 ```
 CI=true
-TRAVIS_BUILD_NUMBER=N
-TRAVIS_EVENT_TYPE=cron
+GITHUB_RUN_NUMBER=N
+GITHUB_REF_NAME=branch/tag
 ```
 
 The variants are all built. In addition to `latest`, a timestamp tag is also created. Both `latest` and the timestamp tag are pushed.
@@ -86,7 +86,7 @@ Note that one cannot invoke `build-chain.sh base cli` without first invoking `bu
 > Because a local build does not provide a build number, the following value is suggested:
 >
 > ```
-> TRAVIS_BUILD_NUMBER=local
+> GITHUB_RUN_NUMBER=local
 > ```
 It is possible to pass additional arguments for `docker build` command by setting `DOCKER_BUILD_EXTRA_ARGS` env variable. That can be used to set e.g. additional --build-args utilized in variant's Dockerfile.
 

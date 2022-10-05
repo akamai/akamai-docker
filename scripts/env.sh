@@ -32,7 +32,7 @@ export BUILD_TIME_TAG=${BUILD_TIME_TAG:-$(date -u +"%Y%m%d")}
 # docker images --filter org.label-schema.build-number=local
 #
 # Also see the `current_build_tags()` function below.
-export BUILD_NUMBER=${BUILD_NUMBER:-${TRAVIS_BUILD_NUMBER:-local}}
+export BUILD_NUMBER=${BUILD_NUMBER:-${GITHUB_RUN_NUMBER:-local}}
 
 # Enable docker buildkit; optimizes build speed and output (set to 1)
 export DOCKER_BUILDKIT=1
@@ -40,8 +40,8 @@ export DOCKER_BUILDKIT=1
 # Set target repository, defaults to akamai. Useful during local testing
 export DOCKER_REPOSITORY=${DOCKER_REPOSITORY:-akamai}
 
-# Get currently built branch from travis env, or git if building locally
-export BRANCH=${TRAVIS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
+# Get currently built branch from gh action env, or git if building locally
+export BRANCH=${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}
 
 # Extra arguments to pass to docker build, e.g. --build-args
 # Supported build args include:
@@ -53,7 +53,7 @@ guess_tag() {
   # Master branch gets tagged as latest, others as branch-name.
   # Docker tags cannot have "/" so we normalize as "-".
   # Ultimately, it is up to CI to decide which branches to build,
-  # see travis config and .travis.yml
+  # see workflow config
   local branchName=$(echo "$BRANCH" | tr '/' '-')
   local latest=latest
   if [ "${branchName}" != "master" ]
@@ -62,15 +62,7 @@ guess_tag() {
   fi
 
   # Final list of tags depends on the context:
-  # - local build : will default to a value depending on the current branch, see above
-  # - travis push, api, pull requestion : same as local build
-  # - travis cron : same as local build, with an extra timestamp tag (formerly)
-  case "$TRAVIS_EVENT_TYPE" in
-    cron) echo ${latest};;
-    push) echo ${latest};;
-    api) echo ${latest};;
-    *) echo ${latest};;
-  esac
+  echo ${latest}
 }
 export DOCKER_TAG="${DOCKER_TAG:-$(guess_tag)}"
 

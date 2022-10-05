@@ -1,6 +1,9 @@
 # CHANGELOG
 
 
+## v2.5.0 (2022-xx-xx)
+* feature: move travis-ci to github actions
+
 ## v2.4.0 (2021-12-28)
 
 * feat: akamai gtm cli docker files (#66) - baskaran (e1737b6)
