@@ -35,7 +35,7 @@ current_build_tags() {
     --filter label=org.label-schema.build-number="${BUILD_NUMBER:-local}" \
     --filter dangling=false \
     --format "{{.Repository}}" |
-      uniq
+      sort -u
 }
 
 #####################
@@ -55,11 +55,25 @@ current_build_tags() {
 # HACK : unconditionally push to latest
 #DOCKER_TAG="${DOCKER_TAG} latest"
 
-current_build_tags | grep -Ev 'akamai/(base|.*-chain)' |
+current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
   while read image;
   do
+    echo "$image"
+    docker push "$image:arm64"
+    docker push "$image:amd64"
+  done
+
+source ./scripts/remove-tag.sh
+
+current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
+  while read image;
+  do
+    echo "$image"
     for tag in ${DOCKER_TAG};
     do
-      docker push "$image:$tag"
+      docker manifest create "$image:$tag" --amend "$image:arm64" --amend "$image:amd64"
+      docker manifest push "$image:$tag"
+      remove_tag "$image" arm64
+      remove_tag "$image" amd64
     done
   done

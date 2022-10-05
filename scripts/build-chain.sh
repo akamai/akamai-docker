@@ -55,10 +55,15 @@ build_img() {
 
   if [ "$#" == 2 ]; # $1=image, $2=Dockerfile
   then
-    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
+    docker build --platform linux/arm64 --force-rm -t $1:arm64 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
+    docker build --platform linux/amd64 --force-rm -t $1:amd64 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
   elif [ "$#" == 3 ]; # ..., $3=Base image
   then
-    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3 .
+    docker build --platform linux/arm64 --force-rm -t $1:arm64 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3:arm64 .
+    docker build --platform linux/amd64 --force-rm -t $1:amd64 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3:amd64 .
+  else
+    echo "Unexpected number of arguments to build_img function: $#, failing"
+    exit 1
   fi
 }
 
@@ -66,23 +71,17 @@ build_chain() {
   info $(chalk 1\;93m "build_chain: $@")
   if [ "$#" == 1 ];
   then
-    build_img akamai/$1 dockerfiles/$1.Dockerfile
+    build_img $DOCKER_REPOSITORY/$1 dockerfiles/$1.Dockerfile
   else
     local base=$1; shift
     while [ "$#" -gt 1 ];
     do
       local tag=$1; shift
-      build_img akamai/$tag-chain dockerfiles/$tag.Dockerfile akamai/$base
+      build_img $DOCKER_REPOSITORY/$tag-chain dockerfiles/$tag.Dockerfile $DOCKER_REPOSITORY/$base
       base=$tag-chain
     done
-    build_img akamai/$1 dockerfiles/$1.Dockerfile akamai/$base
+    build_img $DOCKER_REPOSITORY/$1 dockerfiles/$1.Dockerfile $DOCKER_REPOSITORY/$base
   fi
-
-  # Tag image
-  for tag in ${DOCKER_TAG};
-  do
-    docker tag "akamai/$1" "akamai/$1:$tag"
-  done
 }
 
 build_chain $@
