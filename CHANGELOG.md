@@ -1,14 +1,25 @@
 # CHANGELOG
 
 
-## v2.5.0 (2022-xx-xx)
-* feature: move travis-ci to github actions
+## v2.5.0 (2022-10-20)
+
+* DXE-1338 Upgrade akamai terraform provider to v2.4.2 - Darek Stopka (0a15b65)
+* DXE-1504 move from travis-ci to github actions - Mateusz Jakubiec (31f06b8)
+* DXE-1339 Support Mac M1 in docker - Dawid Dzhafarov (667907c)
+* DXE-1260 upgrade terraform - López López, Roberto (428c691)
+* DXE-1260 upgrade terraform - López López, Roberto (57321a0)
+* DXE-727 update dockerfiles for CLI 1.4.0 - López López, Roberto (ca83063)
+* DXE-727 update dockerfiles for CLI 1.4.0 - López López, Roberto (b18e7f9)
+* updated Readme doc - baskaran (83b065c)
+* updated Readme and cli sanity test - baskaran (d1a4988)
+* Akamai gtm cli docker files - baskaran (9e59ec2)
 
 ## v2.4.0 (2021-12-28)
 
 * feat: akamai gtm cli docker files (#66) - baskaran (e1737b6)
 * fix: update comments to match build logic - Anthony Hogg (480629f)
 * fix: do not tag cron builds - Anthony Hogg (d105bcd)
+
 
 ## v2.3.2 (2021-09-01)
 
@@ -23,11 +34,6 @@
 ## v2.3.0 (2021-08-30)
 
 * all-access /cli and /workdir to avoid jenkins perm issues (refs #38) - Anthony Hogg (5c69e01)
-
-
-## v2.2.1 (2021-08-30)
-
-* fixed 404 for akamai/terraform-cli href (#59) - Walter Lee (57d3888)
 
 
 ## v2.2.0 (2021-05-06)
@@ -113,5 +119,10 @@ This is the first official release, marking the beginning of semver for this rep
 * initial version - Lukasz Czerpak (007bf98)
 * renamed repo name - Javier Garza (9da3cff)
 * Initial commit - Javier Garza (2c54e38)
+
+
+## v2.2.1 ()
+
+chore: update changelog (nochangelog) [ci skip]
 
 
