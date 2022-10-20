@@ -24,13 +24,16 @@ ARG BASE=akamai/base
 
 FROM alpine:3.13 as builder
 ARG TERRAFORM_VERSION=1.2.5
-ARG TERRAFORM_SHA256SUM=281344ed7e2b49b3d6af300b1fe310beed8778c56f3563c4d60e5541c0978f1b
+ARG TERRAFORM_SHA256SUM_amd64=281344ed7e2b49b3d6af300b1fe310beed8778c56f3563c4d60e5541c0978f1b
+ARG TERRAFORM_SHA256SUM_arm64=0544420eb29b792444014988018ae77a7c8df6b23d84983728695ba73e38f54a
 
 # Because the builder downloads the latest akamai provider,
 # subsequent terraform init calls will download to this directory
 # if required, and create a hard link otherwise.
 ARG TF_PLUGIN_CACHE_DIR="/var/terraform/plugins"
 ENV TF_PLUGIN_CACHE_DIR="${TF_PLUGIN_CACHE_DIR}"
+
+ARG TARGETARCH
 
 # ca-certificates: Required by `terraform init` when downloading provider plugins.
 # curl: depends on ca-certificates, but specifying ca-certificates explicitly
@@ -41,11 +44,12 @@ COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
 RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) ca-certificates curl \
-    && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
-    && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
+    && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip > terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip \
+    && eval "TERRAFORM_SHA256SUM=\$TERRAFORM_SHA256SUM_$TARGETARCH" \
+    && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
-    && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
-    && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \
+    && unzip terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip -d /usr/local/bin \
+    && rm -f terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && upx -o/usr/local/bin/terraform.upx /usr/local/bin/terraform
 
 # initialize latest akamai provider;

@@ -1,6 +1,6 @@
 # Akamai Docker Development Environment
 
-[![master build](https://travis-ci.com/akamai/akamai-docker.svg?branch=master)](https://travis-ci.com/akamai/akamai-docker)
+[![master build](https://github.com/akamai/akamai-docker/actions/workflows/docker-image.yml/badge.svg?branch=master)](https://github.com/akamai/akamai-docker/actions)
 
 > Run Akamai command line tools in docker. See the [tutorial](docs/TUTORIAL.md) for more usage examples.
 
