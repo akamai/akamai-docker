@@ -1,4 +1,7 @@
 # CHANGELOG
+## v2.8.0 (2022-12-15)
+
+* DXE-1836 Upgrade akamai terraform provider to v3.2.0 - Mateusz Jakubiec (b87cc470) 
 
 ## v2.7.0 (2022-12-05)
 
