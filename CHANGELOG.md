@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v2.10.0 (2023-03-03)
+## v2.10.0 (2023-03-06)
 
 * DXE-2341 Upgrade akamai terraform provider to v3.4.0 - Wojciech Zagrajczuk (7ed8f82)
 
