@@ -84,11 +84,10 @@ The `akamai/shell` image replaces the previous `akamai/akamai-docker` image, and
 
 ## Tags
 
-We publish three tags for each image:
+We publish two tags for each image:
 
-* `YYYYMMDD`: monthly builds on `master`
 * `latest`: built when a commit is pushed to `master`
-* `dev`: built when a commit is pushed to `dev`
+* `vX.X.X`: built when new version is released
 
 ## General Usage
 
