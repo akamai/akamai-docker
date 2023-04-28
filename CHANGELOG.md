@@ -2,7 +2,7 @@
 
 ## v2.12.1 (2023-04-28)
 
-* DXE-2519 Fix for building "purge" image - Michal Wojcik
+* DXE-2519 Fix for building "purge" and "sandbox" images - Michal Wojcik
 
 ## v2.12.0 (2023-04-27)
 
