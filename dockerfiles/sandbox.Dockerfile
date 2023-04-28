@@ -16,13 +16,13 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/base
+ARG BASE=akamai/cli
 
 #####################
 # BUILDER
 #########
 
-FROM node:12-alpine3.13 as builder
+FROM node:18-alpine3.17 as builder
 
 # sandbox originally binds to 127.0.0.1 which doesn't work with Docker's port mapping
 # the patch changes the ip to 0.0.0.0
