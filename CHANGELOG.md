@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.12.1 (2023-04-28)
+
+* DXE-2519 Fix for building "purge" image - Michal Wojcik
+
 ## v2.12.0 (2023-04-27)
 
 * DXE-2519 Upgrade akamai terraform provider to v3.6.0 - Michal Wojcik (d6b8744e)
