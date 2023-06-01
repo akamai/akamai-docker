@@ -23,9 +23,10 @@ ARG BASE=akamai/base
 #########
 
 FROM alpine:3.13 as builder
-ARG TERRAFORM_VERSION=1.3.7
-ARG TERRAFORM_SHA256SUM_amd64=b8cf184dee15dfa89713fe56085313ab23db22e17284a9a27c0999c67ce3021e
-ARG TERRAFORM_SHA256SUM_arm64=5b491c555ea8a62dda551675fd9f27d369f5cdbe87608d2a7367d3da2d38ea38
+ARG TERRAFORM_VERSION=1.4.6
+ARG TERRAFORM_SHA256SUM_amd64=e079db1a8945e39b1f8ba4e513946b3ab9f32bd5a2bdf19b9b186d22c5a3d53b
+ARG TERRAFORM_SHA256SUM_arm64=b38f5db944ac4942f11ceea465a91e365b0636febd9998c110fbbe95d61c3b26
+# TERRAFORM_SHA256SUM_${TARGETARCH} values can be found in https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
 
 # Because the builder downloads the latest akamai provider,
 # subsequent terraform init calls will download to this directory
