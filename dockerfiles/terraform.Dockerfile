@@ -23,9 +23,9 @@ ARG BASE=akamai/base
 #########
 
 FROM alpine:3.13 as builder
-ARG TERRAFORM_VERSION=1.2.5
-ARG TERRAFORM_SHA256SUM_amd64=281344ed7e2b49b3d6af300b1fe310beed8778c56f3563c4d60e5541c0978f1b
-ARG TERRAFORM_SHA256SUM_arm64=0544420eb29b792444014988018ae77a7c8df6b23d84983728695ba73e38f54a
+ARG TERRAFORM_VERSION=1.3.7
+ARG TERRAFORM_SHA256SUM_amd64=b8cf184dee15dfa89713fe56085313ab23db22e17284a9a27c0999c67ce3021e
+ARG TERRAFORM_SHA256SUM_arm64=5b491c555ea8a62dda551675fd9f27d369f5cdbe87608d2a7367d3da2d38ea38
 
 # Because the builder downloads the latest akamai provider,
 # subsequent terraform init calls will download to this directory
@@ -47,6 +47,7 @@ RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) ca
     && curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip > terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip \
     && eval "TERRAFORM_SHA256SUM=\$TERRAFORM_SHA256SUM_$TARGETARCH" \
     && echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS \
+    && sha256sum terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip \
     && sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS \
     && unzip terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip -d /usr/local/bin \
     && rm -f terraform_${TERRAFORM_VERSION}_linux_$TARGETARCH.zip terraform_${TERRAFORM_VERSION}_SHA256SUMS \

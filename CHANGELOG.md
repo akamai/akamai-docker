@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.13.0 (2023-06-02)
+
+* DXE-1338 Upgrade akamai terraform provider to v4.1.0 - Darek Stopka (82e3518)
+* DXE-2093 Update terraform version - Mateusz Jakubiec (9445045)
+
 ## v2.12.1 (2023-04-28)
 
 * DXE-2519 Fix for building "purge" and "sandbox" images - Michal Wojcik
