@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.14.0 (2023-07-06)
+
+* DXE-2670 Rise Terraform version to 1.4.6 - Wojciech Zagrajczuk (daac16b)
+* DXE-2746 Update terraform version - Wojciech Zagrajczuk (366e2fe)
+
 ## v2.13.0 (2023-06-02)
 
 * DXE-1338 Upgrade akamai terraform provider to v4.1.0 - Darek Stopka (82e3518)
