@@ -1,9 +1,8 @@
 # CHANGELOG
 
-## v2.14.0 (2023-07-06)
+## v2.14.0 (in progress)
 
 * DXE-2670 Rise Terraform version to 1.4.6 - Wojciech Zagrajczuk (daac16b)
-* DXE-2746 Update terraform version - Wojciech Zagrajczuk (366e2fe)
 
 ## v2.13.0 (2023-06-02)
 
