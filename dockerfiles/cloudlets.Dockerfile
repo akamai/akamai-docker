@@ -27,7 +27,9 @@ FROM ${BASE}
 RUN mkdir -p /cli/.akamai-cli/src \
   && apk add --no-cache python3 py3-pip \
   && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
-  && git clone --depth 1 https://github.com/akamai/cli-cloudlets.git /cli/.akamai-cli/src/cli-cloudlets \
+  && git clone https://github.com/akamai/cli-cloudlets.git /cli/.akamai-cli/src/cli-cloudlets \
+  # Currently Akamai Docker cannot be build using the latest changes in cli-cloudlets that require Pandas library
+  && git -C /cli/.akamai-cli/src/cli-cloudlets checkout 98d949d7c81a1b25bf1555bf2c3e59f6504efb54 \
   && python3 -m venv /cli/.akamai-cli/venv/cli-cloudlets \
   && source /cli/.akamai-cli/venv/cli-cloudlets/bin/activate \
   && python -m pip install --upgrade pip \
