@@ -1,9 +1,9 @@
 # CHANGELOG
 
-## v2.14.0 (2023-07-13)
+## v2.14.0 (2023-07-14)
 
 * DXE-2670 Rise Terraform version to 1.4.6 - Wojciech Zagrajczuk (daac16b)
-* DXE-2847 Freeze cli-cloudlets version until further notice - Wojciech Zagrajczuk (8592a29)
+* DXE-2847 Freeze cli-cloudlets and cli-onboard version until further notice - Wojciech Zagrajczuk
 * DXE-2847 Upgrade akamai terraform provider to v5.0.1 - Wojciech Zagrajczuk (1108315)
 
 ## v2.13.0 (2023-06-02)
