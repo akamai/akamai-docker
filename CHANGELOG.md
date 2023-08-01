@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.15.0 (2023-08-08)
+
+* DXE-2871 Upgrade akamai terraform provider to v5.1.0 - Dawid Dzhafarov (88800bf)
+
 ## v2.14.0 (2023-07-14)
 
 * DXE-2670 Rise Terraform version to 1.4.6 - Wojciech Zagrajczuk (daac16b)
