@@ -44,6 +44,7 @@ cli sandbox
 cli terraform-cli
 cli etp
 cli gtm
+cli test-center
 
 # Non-Akamai CLI utilities
 # httpie + edgegrid
@@ -52,4 +53,4 @@ base httpie
 base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox terraform terraform-cli etp gtm shell
+cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox terraform terraform-cli etp gtm test-center shell
