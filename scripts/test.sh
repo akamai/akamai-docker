@@ -46,7 +46,7 @@ set -e
 apk add --no-cache git bash
 git clone https://github.com/bats-core/bats-core.git
 cd bats-core
-./install.sh /
+./install.sh /usr/local
 cd /
 bats /test.bats
 EOF
