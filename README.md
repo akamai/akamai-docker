@@ -47,29 +47,32 @@ This project provides images in two flavors:
 
 ## Variants
 
-| REPOSITORY                    | SIZE   | DOCS                                                                       |
-|-------------------------------|--------|----------------------------------------------------------------------------|
-| akamai/shell                  | 403MB  | [GitHub](https://github.com/akamai/akamai-docker)                          |
-| akamai/terraform              | 48.4MB | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
-| akamai/terraform-cli          | 14.7MB | [GitHub](https://github.com/akamai/cli-terraform)             |
-| akamai/httpie                 | 45.2MB | [GitHub](https://github.com/akamai/httpie-edgegrid)                        |
-| akamai/sandbox                | 158MB  | [GitHub](https://github.com/akamai/cli-sandbox)                            |
-| akamai/purge                  | 14.1MB | [GitHub](https://github.com/akamai/cli-purge)                              |
-| akamai/property-manager       | 64.3MB | [GitHub](https://github.com/akamai/cli-property-manager)                   |
-| akamai/onboard                | 99.7MB | [GitHub](https://github.com/akamai/cli-onboard)                            |
-| akamai/image-manager          | 46.7MB | [GitHub](https://github.com/akamai/cli-image-manager)                      |
-| akamai/jsonnet                | 48.5MB | [GitHub](https://github.com/akamai-contrib/cli-jsonnet)                    |
-| akamai/firewall               | 45.5MB | [GitHub](https://github.com/akamai/cli-firewall)                           |
-| akamai/eaa                    | 45.3MB | [GitHub](https://github.com/akamai/cli-eaa)                                |
-| akamai/edgeworkers            | 58.2MB | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
-| akamai/dns                    | 14.2MB | [GitHub](https://github.com/akamai/cli-dns)                                |
-| akamai/cps                    | 46.2MB | [GitHub](https://github.com/akamai/cli-cps)                                |
-| akamai/cloudlets              | 45.5MB | [GitHub](https://github.com/akamai/cli-cloudlets)                          |
-| akamai/appsec                 | 56.6MB | [GitHub](https://github.com/akamai/cli-appsec)                             |
-| akamai/api-gateway            | 21.1MB | [GitHub](https://github.com/akamai/cli-api-gateway)                        |
-| akamai/adaptive-acceleration  | 45.2MB | [GitHub](https://github.com/akamai/cli-adaptive-acceleration)              |
-| akamai/etp                    | 49.1MB | [GitHub](https://github.com/akamai/cli-etp)                                | 
-| akamai/gtm                    | 14.2MB | [GitHub](https://github.com/akamai/cli-gtm)
+| REPOSITORY                   | DOCS                                                                       |
+|------------------------------|----------------------------------------------------------------------------|
+| akamai/shell                 | [GitHub](https://github.com/akamai/akamai-docker)                          |
+| akamai/terraform             | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
+| akamai/terraform-cli         | [GitHub](https://github.com/akamai/cli-terraform)                          |
+| akamai/httpie                | [GitHub](https://github.com/akamai/httpie-edgegrid)                        |
+| akamai/test-center           | [GitHub](https://github.com/akamai/cli-test-center)                        |
+| akamai/sandbox               | [GitHub](https://github.com/akamai/cli-sandbox)                            |
+| akamai/purge                 | [GitHub](https://github.com/akamai/cli-purge)                              |
+| akamai/property-manager      | [GitHub](https://github.com/akamai/cli-property-manager)                   |
+| akamai/onboard               | [GitHub](https://github.com/akamai/cli-onboard)                            |
+| akamai/image-manager         | [GitHub](https://github.com/akamai/cli-image-manager)                      |
+| akamai/jsonnet               | [GitHub](https://github.com/akamai-contrib/cli-jsonnet)                    |
+| akamai/firewall              | [GitHub](https://github.com/akamai/cli-firewall)                           |
+| akamai/eaa                   | [GitHub](https://github.com/akamai/cli-eaa)                                |
+| akamai/edgeworkers           | [GitHub](https://github.com/akamai/cli-edgeworkers)                        |
+| akamai/dns                   | [GitHub](https://github.com/akamai/cli-dns)                                |
+| akamai/cps                   | [GitHub](https://github.com/akamai/cli-cps)                                |
+| akamai/cloudlets             | [GitHub](https://github.com/akamai/cli-cloudlets)                          |
+| akamai/appsec                | [GitHub](https://github.com/akamai/cli-appsec)                             |
+| akamai/api-gateway           | [GitHub](https://github.com/akamai/cli-api-gateway)                        |
+| akamai/adaptive-acceleration | [GitHub](https://github.com/akamai/cli-adaptive-acceleration)              |
+| akamai/etp                   | [GitHub](https://github.com/akamai/cli-etp)                                | 
+| akamai/gtm                   | [GitHub](https://github.com/akamai/cli-gtm)                                |
+
+List of current docker images with their current sizes, can be funder in Dockerhub (https://hub.docker.com/u/akamai).
 
 All variants use an Alpine Linux base.
 
