@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.17.0 (2023-09-27)
+
+* DXE-3059 Upgrade akamai terraform provider to v5.3.0 - Dawid Dzhafarov
+
 ## v2.16.0 (2023-09-01)
 
 * DXE-2918 Add image akamai/test-center and include test-center cli in akamai/shell - Michal Wojcik
