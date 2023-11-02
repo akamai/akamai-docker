@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.18.0 (2023-11-02)
+
+* DXE-3185 Upgrade akamai terraform provider to v5.4.0 - Wojciech Zagrajczuk
+
 ## v2.17.0 (2023-09-27)
 
 * DXE-3059 Upgrade akamai terraform provider to v5.3.0 - Dawid Dzhafarov
