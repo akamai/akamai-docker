@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.20.0 (2024-02-20)
+
+* DXE-3422 Upgrade akamai terraform provider to v5.6.0
+
 ## v2.19.0 (2023-12-08)
 
 * DXE-3199 Upgrade akamai terraform provider to v5.5.0
