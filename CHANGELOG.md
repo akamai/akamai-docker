@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## X.X.X (X-X-X)
+
+* DXE-3346 Upgrade alpine to 3.20 - Rahul Bhatvedekar
+
 ## v2.23.0 (2024-05-29)
 
 * DXE-3855 Upgrade akamai terraform provider to v6.2.0
