@@ -2,7 +2,7 @@
 
 ## X.X.X (X-X-X)
 
-* DXE-3346 Upgrade alpine to 3.20 - Rahul Bhatvedekar
+* DXE-3346 Upgrade alpine to 3.20
 
 ## v2.23.0 (2024-05-29)
 
