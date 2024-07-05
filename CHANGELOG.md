@@ -2,7 +2,14 @@
 
 ## X.X.X (X-X-X)
 
-* DXE-3346 Upgrade alpine to 3.20
+* DXE-3346 Upgrade alpine to 3.20 for `base`.
+  * Upgraded node version to node:18-alpine3.20 for `appsec`, `sandbox`.
+  * Upgraded node version to node:12-alpine3.20 for `property-manager`.
+  * Upgraded node version to node:14-alpine3.17 for `edgeworkers`.
+  * Upgraded go version to golang:alpine3.20 for `dns`,`cli`,`gtm`,`jsonnet`,`purge`,`terraform-cli`,`test-center`.
+  * Added python virtual environment in `httpie` to support alpine3.20.
+  * Upgraded go version to golang:1.21-alpine3.20 for `api-gateway`.
+  * Upgraded alpine version to alpine:3.20 for `terraform`.
 
 ## v2.23.0 (2024-05-29)
 
