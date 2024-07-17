@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM node:14-alpine3.17 as builder
+FROM node:12-alpine3.13 as builder
 
 RUN apk add --no-cache git npm \
   # install cli-edgeworkers from git
