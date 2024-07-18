@@ -34,12 +34,12 @@
   [ "$status" -eq 0 ]
 }
 
-# @test "cli: adaptive-acceleration is executable" {
-#  # A2 does not have a --help
-#  run akamai adaptive-acceleration
-#  [ "$status" -eq 1 ]
-#  [[ "$output" =~ "ERROR: missing adaptive-acceleration command." ]]
-# }
+@test "cli: adaptive-acceleration is executable" {
+  # A2 does not have a --help
+  run akamai adaptive-acceleration
+  [ "$status" -eq 1 ]
+  [[ "$output" =~ "ERROR: missing adaptive-acceleration command." ]]
+}
 
 @test "cli: api-gateway: api-gateway is executable" {
   run akamai api-gateway --help
@@ -97,10 +97,10 @@
   [ "$status" -eq 0 ]
 }
 
-# @test "cli: image-manager is executable" {
-#  run akamai image-manager --help
-#  [ "$status" -eq 0 ]
-# }
+@test "cli: image-manager is executable" {
+  run akamai image-manager --help
+  [ "$status" -eq 0 ]
+}
 
 @test "cli: jsonnet is executable" {
   run akamai jsonnet --help
