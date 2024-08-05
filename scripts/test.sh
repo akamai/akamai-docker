@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2020 Akamai Technologies
+# Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,21 +26,37 @@ source ./scripts/env.sh
 
 # Make sure the test container is removed
 # when the shell exits, in error or not
-atexit() {
+atExit() {
   info removing test container
-  docker rm -f ${containerId}
+  docker rm -f "${containerId}"
 }
-trap atexit EXIT
+trap atExit EXIT
 
 #####################
 # MAIN
 #########
 
-info starting test container
-containerId=$(docker run -d --name test akamai/shell sleep 3600)
+# Get the platform on which the container will be run
+architecture=$(uname -m)
 
-docker cp ./test.bats ${containerId}:/test.bats
-docker exec -i ${containerId} bash <<EOF
+if [ "$architecture" = "x86_64" ] || [ "$architecture" = "amd64" ]; then
+    platform=amd64
+elif [ "$architecture" = "aarch64" ] || [ "$architecture" = "arm64" ] ; then
+    platform=arm64
+else
+    echo "Unsupported platform: $platform"
+    exit 1
+fi
+
+# Based on the platform, choose the correct local image and get the container id
+image=akamai/shell:local-"${platform}"
+info starting test container with tag "${image}"
+# In case the image is not found, fail rather than pull remote image
+containerId=$(docker run -d --name test --pull=never "${image}" sleep 3600)
+
+# Run the tests
+docker cp ./test.bats "${containerId}":/test.bats
+docker exec -i "${containerId}" bash <<EOF
 set -e
 
 apk add --no-cache git bash

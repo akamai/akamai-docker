@@ -76,7 +76,8 @@ The variants are all built. In addition to `latest`, a timestamp tag is also cre
 
 ### Local builds
 
-Useful for local development, `build-all.sh` or `build-chain.sh` can be invoked directly.
+Useful for local development, `build-all.sh` or `build-chain.sh` can be invoked directly. Depending on the platform, the images
+are assigned `local-arm64` or `local-amd64` tags.
 
 Note that one cannot invoke `build-chain.sh base cli` without first invoking `build-chain.sh base`, because the first image in a chain is not implicitly built.
 
@@ -118,7 +119,7 @@ Setting `CLI_REPOSITORY_URL` will cause cli.Dockerfile to use `git://host.docker
 
 ## License
 
-Copyright 2020 Akamai Technologies, Inc.
+Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
 
 See [Apache License 2.0](../LICENSE)
 

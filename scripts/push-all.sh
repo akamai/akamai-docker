@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2020 Akamai Technologies
+# Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,11 +63,11 @@ current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
     echo "$image"
     for tag in ${DOCKER_TAG};
     do
-      # retag images; adds build number to avoid race condition between builds
+      # re-tag images; adds build number to avoid race condition between builds
       ARMTAG="$BUILD_NUMBER-arm64"
       AMDTAG="$BUILD_NUMBER-amd64"
-      docker tag "$image:arm64" "$image:$ARMTAG"
-      docker tag "$image:amd64" "$image:$AMDTAG"
+      docker tag "$image:local-arm64" "$image:$ARMTAG"
+      docker tag "$image:local-amd64" "$image:$AMDTAG"
       # push temporary image tags
       docker push "$image:$ARMTAG"
       docker push "$image:$AMDTAG"
@@ -75,7 +75,7 @@ current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
       docker manifest create "$image:$tag" --amend "$image:$ARMTAG" --amend "$image:$AMDTAG"
       docker manifest push "$image:$tag"
       # remove temporary tags
-      remove_tag "$image" $ARMTAG
-      remove_tag "$image" $AMDTAG
+      remove_tag "$image" "$ARMTAG"
+      remove_tag "$image" "$AMDTAG"
     done
   done
