@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## vx.x.x (x-x-x)
+## v2.25.0 (2024-09-05)
 
 * DXE-4064 Change locally built images tags to `local-amd64` or `local-arm64`
+* DXE-3947 Upgrade akamai terraform provider to v6.4.0
 
 ## v2.24.0 (2024-07-17)
 
