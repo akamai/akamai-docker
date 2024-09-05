@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2020 Akamai Technologies
+# Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,4 +34,4 @@ source ./scripts/env.sh
 export DOCKER_USERNAME="${DOCKER_USERNAME:?DOCKER_USERNAME must be set}"
 export DOCKER_PASSWORD="${DOCKER_PASSWORD:?DOCKER_PASSWORD must be set}"
 echo "${DOCKER_PASSWORD}" |
-  docker login -u "${DOCKER_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+  docker login -u "${DOCKER_USERNAME}" --password-stdin "${DOCKER_REGISTRY}"

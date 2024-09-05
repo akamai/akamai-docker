@@ -270,7 +270,7 @@ You can find further usage examples on [docs/TUTORIAL.md](docs/TUTORIAL.md).
 
 ## License
 
-Copyright 2020 Akamai Technologies, Inc.
+Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
 
 See [Apache License 2.0](LICENSE)
 
