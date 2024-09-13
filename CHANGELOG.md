@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## vX.XX.X (XXXX-XX-XX)
+
+* Upgraded node version to `node:18-alpine3.19` for `edgeworkers`.
+
 ## v2.25.0 (2024-09-05)
 
 * DXE-4064 Change locally built images tags to `local-amd64` or `local-arm64`
