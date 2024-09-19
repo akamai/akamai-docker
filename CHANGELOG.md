@@ -2,7 +2,12 @@
 
 ## vX.XX.X (XXXX-XX-XX)
 
-* Upgraded node version to `node:18-alpine3.19` for `edgeworkers`.
+* DXE-3346 Upgrade alpine to 3.19 for `base`.
+  * Upgraded node version to `node:18-alpine3.19` for `appsec`, `edgeworkers`, `sandbox`, `property-manager`.
+  * Upgraded go version to `1.21` for `dns`,`cli`,`gtm`,`jsonnet`,`purge`,`terraform-cli`,`test-center`,`api-gateway`.
+  * Added python virtual environment in `httpie` to support alpine3.19.
+  * Upgraded alpine version to `alpine:3.19` for `terraform`.
+  * Restored using the latest versions of the `onboard` and `cloudlets` packages.
 
 ## v2.25.0 (2024-09-05)
 
