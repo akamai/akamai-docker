@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## vX.XX.X (XXXX-XX-XX)
+## v2.26.0 (2024-10-14)
 
 * DXE-3346 Upgrade alpine to 3.19 for `base`.
   * Upgraded node version to `node:18-alpine3.19` for `appsec`, `edgeworkers`, `sandbox`, `property-manager`.
@@ -8,6 +8,7 @@
   * Added python virtual environment in `httpie` to support alpine3.19.
   * Upgraded alpine version to `alpine:3.19` for `terraform`.
   * Restored using the latest versions of the `onboard` and `cloudlets` packages.
+* DXE-4218 Upgrade akamai terraform provider to v6.5.0
 
 ## v2.25.0 (2024-09-05)
 
