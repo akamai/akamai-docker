@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.27.0 (2024-xx-xx)
+
+* Resolved problem with EdgeWorkers CLI hitting cert issues in akamai/shell Docker image
+
 ## v2.26.0 (2024-10-14)
 
 * DXE-3346 Upgrade alpine to 3.19 for `base`.
