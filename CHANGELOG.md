@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## v2.27.0 (2024-xx-xx)
+## v2.27.0 (2024-11-22)
 
 * Resolved problem with EdgeWorkers CLI hitting cert issues in akamai/shell Docker image
+* Upgraded akamai terraform provider to v6.6.0
 
 ## v2.26.0 (2024-10-14)
 
