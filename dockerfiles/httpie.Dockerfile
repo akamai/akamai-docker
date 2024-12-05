@@ -32,7 +32,7 @@ RUN apk add --no-cache python3 py3-pip py3-setuptools \
   # Activate the virtual environment
   && . /venv/bin/activate \
   && pip install --upgrade pip setuptools \
-  && pip install  pip-system-certs httpie httpie-edgegrid \
+  && pip install httpie httpie-edgegrid \
   # Drop dev dependencies
   && apk del dev \
   # Drop created wheels
