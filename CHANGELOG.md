@@ -1,8 +1,12 @@
 # CHANGELOG
 
-## v2.28.0 (2025-x-x)
+## v2.29.0 (2025-x-x)
 
 * DXE-4198 Upgrade go version to `1.22.9` for `dns`,`cli`,`gtm`,`jsonnet`,`purge`,`terraform-cli`,`test-center`,`api-gateway`.
+
+## v2.28.0 (2024-12-20)
+
+* Upgraded akamai terraform provider to v6.6.1
 
 ## v2.27.0 (2024-11-22)
 
