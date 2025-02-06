@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.29.0 (2025-02-07)
+
+* Upgraded akamai terraform provider to v7.0.0.
+* Upgraded Go version to `1.22.9` for `dns`,`cli`,`gtm`,`jsonnet`,`purge`,`terraform-cli`,`test-center` images.
+
 ## v2.28.0 (2024-12-20)
 
 * Upgraded akamai terraform provider to v6.6.1
