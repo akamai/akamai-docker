@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.X.X (X-X-X)
+
+* Upgraded Go version to `1.23.6` and alpine to `3.21` for `api-gateway`,dns`,`cli`,`gtm`,`jsonnet`,`purge`,`terraform-cli`,`test-center` images.
+
 ## v2.29.0 (2025-02-07)
 
 * Upgraded akamai terraform provider to v7.0.0.
