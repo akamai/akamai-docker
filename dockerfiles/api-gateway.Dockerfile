@@ -22,6 +22,9 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
+# Do not upgrade Go version beyond 1.21 for api-gateway
+# as the project structure is outdated and may not be compatible.
+
 FROM golang:1.21.12-alpine3.19 as builder
 
 # this will only be used on architectures that upx doesn't use
