@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM golang:1.23.6-alpine3.21 as builder
+FROM golang:1.23.8-alpine3.21 as builder
 
 # this will only be used on architectures that upx doesn't use
 COPY files/upx-noop /usr/bin/upx

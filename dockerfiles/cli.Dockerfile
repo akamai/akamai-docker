@@ -22,7 +22,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM golang:1.23.6-alpine3.21 as builder
+FROM golang:1.23.8-alpine3.21 as builder
 
 ARG CLI_REPOSITORY_URL=https://github.com/akamai/cli
 

@@ -28,7 +28,7 @@ ARG BASE=akamai/base
 # image since it is likely that the user will want to render the
 # templates, not just generate them.
 
-FROM golang:1.23.6-alpine3.21 as jsonnet
+FROM golang:1.23.8-alpine3.21 as jsonnet
 
 # this will only be used on architectures that upx doesn't use
 COPY files/upx-noop /usr/bin/upx
