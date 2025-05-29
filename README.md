@@ -2,7 +2,7 @@
 
 [![master build](https://github.com/akamai/akamai-docker/actions/workflows/docker-image.yml/badge.svg?branch=master)](https://github.com/akamai/akamai-docker/actions)
 
-> Run Akamai command line tools in docker. See the [tutorial](docs/TUTORIAL.md) for more usage examples.
+Run Akamai command line tools in Docker. See the [tutorial](docs/TUTORIAL.md) for more usage examples.
 
 ![animated image showing how to purge using the akamai docker purge package](docs/purge.gif)
 
@@ -14,40 +14,36 @@ Enter a shell with all the tools (skip to [Authentication](#Authentication) for 
 docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell
 ```
 
-Purge a CP Code:
+Purge a CP code:
 
 ```bash
 docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai purge invalidate --cpcode 123456
 ```
 
-Purge a CP Code (using the slim variant):
+Purge a CP code (using the slim variant):
 
 ```bash
 docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate --cpcode 123456
 ```
 
-Start a long-running container in the background, execute commands against:
+Start a long-running container in the background, and execute commands against:
 
 ```bash
 docker run -d --name akshell -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell sleep infinity
 docker exec -it akshell akamai purge invalidate --cpcode 123456
 ```
 
-## About The Images
+## About the images
 
 This project provides images in two flavors:
 
-* small, single tool images
+* **Small, single-tool images.** A good choice for integrating exactly what you need in automation.
 
-  *Good choices for integrating exactly what you need in automation.*
-
-* larger image combining them all (shell)
-
-  *Perfect for experimentation or automation when all-in-one is more convenient.*
+* **Larger images combining them all (shell).** Perfect for experimentation or automation when all-in-one is more convenient.
 
 ## Variants
 
-| REPOSITORY                   | DOCS                                                                       |
+| Repository                   | Documentation                                                                       |
 |------------------------------|----------------------------------------------------------------------------|
 | akamai/shell                 | [GitHub](https://github.com/akamai/akamai-docker)                          |
 | akamai/terraform             | [GitHub](https://github.com/terraform-providers/terraform-provider-akamai) |
@@ -72,69 +68,72 @@ This project provides images in two flavors:
 | akamai/etp                   | [GitHub](https://github.com/akamai/cli-etp)                                | 
 | akamai/gtm                   | [GitHub](https://github.com/akamai/cli-gtm)                                |
 
-List of current docker images with their current sizes, can be funder in Dockerhub (https://hub.docker.com/u/akamai).
+You can find the list of current Docker images with their current sizes in [DockerHub](https://hub.docker.com/u/akamai).
 
 All variants use an Alpine Linux base.
 
-The `akamai/shell` image replaces the previous `akamai/akamai-docker` image, and contains all the other variant images plus some extra utilities:
+The `akamai/shell` image replaces the previous `akamai/akamai-docker` image and contains all the other variant images and some additional utilities, including:
 
-* git
-* vim
-* tree
-* bind-tools
-* jq
-* jsonnet
+* `git`
+* `vim`
+* `tree`
+* `bind-tools`
+* `jq`
+* `jsonnet`
 
 ## Tags
 
 We publish two tags for each image:
 
-* `latest`: built when a commit is pushed to `master`
-* `vX.X.X`: built when new version is released
+* `latest`. Built when a commit is pushed to `master`.
+* `vX.X.X`. Built when a new version is released.
 
-## General Usage
+## General usage
 
-> This section describes how to operate the docker images. Please find detailed usage instructions for each tool linked in the [variants table](#Variants).
+This section describes how to operate the Docker images. See the detailed usage instructions for each tool linked in the [variants table](#variants).
 
 ### Authentication
 
-The standard authentication method for most Akamai APIs is called EdgeGrid. Creating an EdgeGrid client is covered on [developer.akamai.com](https://developer.akamai.com/api/getting-started).
+EdgeGrid is a standard authentication method for most Akamai APIs.
 
-You will typically create an `.edgerc` file in your home directory with contents similar to this:
+You can obtain the authentication credentials through an API client. Requests to the API are marked with a timestamp and a signature and are executed immediately.
 
-```ini
-[default]
-client_secret = your_client_secret
-host = your_host
-access_token = your_access_token
-client_token = your_client_token
-```
+1. [Create authentication credentials](https://techdocs.akamai.com/developer/docs/set-up-authentication-credentials).
+2. Place your credentials in an EdgeGrid file `~/.edgerc`, in the `[default]` section.
 
-The following example illustrates this by displaying the list of groups using the Akamai CLI Property Manager package ("pm" is an alias for "property-manager" and "lg" is an alias for "list-groups"):
+    ```ini
+    [default]
+    client_secret = C113nt53KR3TN6N90yVuAgICxIRwsObLi0E67/N8eRN=
+    host = akab-h05tnam3wl42son7nktnlnnx-kbob3i3v.luna.akamaiapis.net
+    access_token = akab-acc35t0k3nodujqunph3w7hzp7-gtm6ij
+    client_token = akab-c113ntt0k3n4qtari252bfxxbsl-yvsdj
+    ```
+
+The following example illustrates how to implement the EdgeGrid authentication. It displays the list of groups using the Akamai CLI Property Manager package (`pm` is an alias for `property-manager` and `lg` is an alias for `list-groups`):
 
 ```bash
 docker run -it --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell akamai pm lg
 ```
 
-Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corruption or tampering.
+Mounting the file read-only (`:ro`) is also recommended to protect your credentials from corrupting or tampering.
 
-### Short-lived Container
+### Short-lived container
 
-> Good for interactive exploration of APIs
+Good for interactive exploration of APIs.
 
 ```bash
 docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell
 ```
 
-Tip: You can store this command on a shell alias which allows to start the Akamai Development Environment with a single command like `akadev`:
+> **Note:** You can store this command on a shell alias which allows you to start the Akamai Development Environment with a single command like `akadev`:
 
 ```bash
 alias akadev='docker run --rm -it -v $HOME/.edgerc:/root/.edgerc:ro akamai/shell'
 ```
 
-### Long-Running Container
+### Long-running container
 
-> Good for interactive tools that run commands at regular intervals, like Jenkins pipelines
+Good for interactive tools that run commands at regular intervals, like Jenkins pipelines.
 
 Run the container in the background:
 
@@ -155,9 +154,9 @@ docker stop akshell
 docker start akshell
 ```
 
-### One-Shot Container
+### One-shot container
 
-> Good for occasional interactive use, like ephemeral tool automation
+Good for occasional interactive use, like ephemeral tool automation.
 
 The example below invalidates a cached image on the Akamai production network (default)
 
@@ -165,13 +164,13 @@ The example below invalidates a cached image on the Akamai production network (d
 docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro akamai/purge akamai purge invalidate http://www.example.com/logo.png
 ```
 
-## Image Specifics
+## Image specifics
 
-Some images require special handling in docker.
+Some images require special handling in Docker.
 
 ### Terraform
 
-Because the docker container will be running with `/` as the working directory, you cannot simply mount your configuration and run `terraform apply`.
+Because the Docker container will be running with `/` as the working directory, you can't just mount your configuration and run `terraform apply`.
 
 The easiest approach is to specify the mount path in the container as an argument to terraform commands:
 
@@ -184,15 +183,15 @@ docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro \
 
 #### Terraform >=0.13.0
 
-Since 0.13, Terraform requires [providers to be declared](https://www.terraform.io/upgrade-guides/0-13.html#explicit-provider-source-locations)
-and pinned to a specific version. The Akamai docker image bakes in a few commonly-used provider plugins, in addition to the Akamai provider.
+From version `0.13`, Terraform requires [providers to be declared](https://www.terraform.io/upgrade-guides/0-13.html#explicit-provider-source-locations)
+and pinned to a specific version. The Akamai Docker image bakes in a few commonly-used provider plugins, in addition to the Akamai provider.
 
-You can use the [terraform.tf](files/terraform.tf) file we use as reference if you wish to include these pre-baked plugins in your project.
+You can use the [terraform.tf](files/terraform.tf) file as a reference if you wish to include these pre-baked plugins in your project.
 
-If those providers are enough for your requirement, then you're all set. If you need more providers, be advised that `terraform init` will by
+If those providers are enough for your requirements, then you're all set. If you need more providers, be advised that `terraform init` will by
 default install the providers in a folder within the container, which you will lose along with the container.
 
-In that case, you may wish to install them yourself in a location of your choosing. To do this, simply set the `TF_PLUGIN_CACHE_DIR` environment
+In that case, you may wish to install them yourself in a location of your choosing. To do this, set the `TF_PLUGIN_CACHE_DIR` environment
 variable to the appropriate location. For example:
 
 ```bash
@@ -204,23 +203,21 @@ docker run --rm -v $HOME/.edgerc:/root/.edgerc:ro \
     terraform init /tf
 ```
 
-### HTTPIE
+### HTTPie
 
-When using HTTPIE non-interactively in docker (without `-it`), you may wish to read the [Scripting Best Practices](https://httpie.org/docs#best-practices) section of the documentation.
+When using HTTPie non-interactively in Docker (without `-it`), you may wish to read the [Scripting best practices](https://httpie.io/docs/cli/best-practices) section of the documentation.
 
 ### Sandbox
 
-> *Note: Credits go to Nick Le Mouton for his awesome blog post: <https://www.noodles.net.nz/2018/10/12/running-akamai-sandbox-in-docker-with-https/>*
+Assuming you run a webserver locally on port `5000` and the sandbox is exposed on port `9550`:
 
-Assuming you run a webserver locally on port 5000 and sandbox is exposed on port 9550:
-
-* ensure you run docker with port mapping:
+* Ensure you run docker with port mapping.
 
   ```bash
   docker run -it -p 9550:9550 --name mylab akamai/akamai-docker
   ```
 
-* set up sandbox client to listen on address `0.0.0.0`:
+* Set up the sandbox client to listen on address `0.0.0.0`.
 
   ```json
   "sandboxServerInfo": {
@@ -230,7 +227,7 @@ Assuming you run a webserver locally on port 5000 and sandbox is exposed on port
   },
   ```
 
-* setup origin mapping using a special docker hostname:
+* Set up origin mapping using a special docker hostname.
 
   ```json
   "originMappings": [
@@ -245,33 +242,42 @@ Assuming you run a webserver locally on port 5000 and sandbox is exposed on port
   ],
   ```
 
-### Non-Interactive Sandbox
+### Non-interactive sandbox
 
-The above use case assumes that user starts bash sessions and invokes commands inside of it. However, it's also possible to use this docker image to execute commands straight like on the following example:
+The above use case assumes that you start bash sessions and invoke commands inside of it. However, it's also possible to use this Docker image to execute commands straight. For example:
 
-```bash
-❯ docker run -it --rm -p 9550:9550 -v $HOME/.edgerc:/root/.edgerc -v $(pwd)/sandbox:/cli/.akamai-cli/cache/sandbox-cli akamai/akamai-docker akamai sandbox list
+```bash Command
+docker run -it --rm -p 9550:9550 -v $HOME/.edgerc:/root/.edgerc -v $(pwd)/sandbox:/cli/.akamai-cli/cache/sandbox-cli akamai/akamai-docker akamai sandbox list
+```
+
+This produces the following output:
+
+```bash Output
 Local sandboxes:
 
 current  name      sandbox_id
 -------  --------  ------------------------------------
-YES      username  11111111-222-3333-4444-555555555555
+YES      jsmith    12345678-901-2345-6789-012345678901
 ```
 
-This way, the container is immediately removed when the execution is complete. You can use path mount - like in the example above - to persist state across multiple commands invocations. The example above stores *sandbox-cli* local data in `$(pwd)/sandbox` subfolder so it's possible to operate on the same sandbox like in a single bash session.
+This way, the container is immediately removed when the execution is complete. You can use a path mount, like in the example above, to persist state across multiple command invocations. The example above stores *sandbox-cli* local data in `$(pwd)/sandbox` subfolder so it's possible to operate on the same sandbox in a single bash session.
 
 ## Build
 
-The build system is described at length in [docs/BUILD.md](docs/BUILD.md).
+The build system is described in [docs/BUILD.md](docs/BUILD.md).
 
 ## Tutorial
 
-You can find further usage examples on [docs/TUTORIAL.md](docs/TUTORIAL.md).
+You can find further usage examples in [docs/TUTORIAL.md](docs/TUTORIAL.md).
+
+## Contribution
+
+By submitting a contribution (the “Contribution”) to this project, and for good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, you (the “Assignor”) irrevocably convey, transfer, and assign the Contribution to the owner of the repository (the “Assignee”), and the Assignee hereby accepts, all of your right, title, and interest in and to the Contribution along with all associated copyrights, copyright registrations, and/or applications for registration and all issuances, extensions and renewals thereof (collectively, the “Assigned Copyrights”). You also assign all of your rights of any kind whatsoever accruing under the Assigned Copyrights provided by applicable law of any jurisdiction, by international treaties and conventions and otherwise throughout the world.
 
 ## License
 
-Copyright © 2024 Akamai Technologies, Inc. All rights reserved.
+Copyright © 2025 Akamai Technologies, Inc. All rights reserved.
 
-See [Apache License 2.0](LICENSE)
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use these files except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
-By submitting a contribution (the “Contribution”) to this project, and for good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, you (the “Assignor”) irrevocably convey, transfer, and assign the Contribution to the owner of the repository (the “Assignee”), and the Assignee hereby accepts, all of your right, title, and interest in and to the Contribution along with all associated copyrights, copyright registrations, and/or applications for registration and all issuances, extensions and renewals thereof (collectively, the “Assigned Copyrights”). You also assign all of your rights of any kind whatsoever accruing under the Assigned Copyrights provided by applicable law of any jurisdiction, by international treaties and conventions and otherwise throughout the world.
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
