@@ -9,6 +9,8 @@ on:
     # Runs "At 06:00 on Monday" (see https://crontab.guru)
     - cron: '0 6 * * 1'
 
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
