@@ -1,22 +1,22 @@
 terraform {
   required_providers {
     akamai = {
-      source = "akamai/akamai"
-      version = "8.1.0"
+      source  = "akamai/akamai"
+      version = "9.0.0"
     }
 
     null = {
-      source = "hashicorp/null"
+      source  = "hashicorp/null"
       version = "3.0.0"
     }
 
     local = {
-      source = "hashicorp/local"
+      source  = "hashicorp/local"
       version = "2.0.0"
     }
 
     jsonnet = {
-      source = "alxrem/jsonnet"
+      source  = "alxrem/jsonnet"
       version = "1.0.3"
     }
   }
