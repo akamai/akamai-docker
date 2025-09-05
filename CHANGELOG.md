@@ -1,5 +1,9 @@
 # Release notes
 
+## v2.33.0 (Sep 5, 2025)
+
+* Upgraded Akamai Terraform Provider to `v9.0.0`.
+
 ## v2.32.0 (Aug 8, 2025)
 
 * Upgraded Akamai Terraform Provider to `v8.1.0`.
