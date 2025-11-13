@@ -19,6 +19,7 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && sed -i 's/requests==2.20.0/requests==2.23.0/' /cli/.akamai-cli/src/cli-adaptive-acceleration/requirements.txt \
   && python3 -m venv /cli/.akamai-cli/venv/cli-adaptive-acceleration \
   && source /cli/.akamai-cli/venv/cli-adaptive-acceleration/bin/activate \
+  && apk add --update py3-pip \
   && python -m pip install --upgrade pip \
   && python -m pip install -r /cli/.akamai-cli/src/cli-adaptive-acceleration/requirements.txt \
   && deactivate \
