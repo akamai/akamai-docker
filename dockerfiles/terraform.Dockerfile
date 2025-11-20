@@ -8,10 +8,10 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM alpine:3.19 as builder
-ARG TERRAFORM_VERSION=1.4.6
-ARG TERRAFORM_SHA256SUM_amd64=e079db1a8945e39b1f8ba4e513946b3ab9f32bd5a2bdf19b9b186d22c5a3d53b
-ARG TERRAFORM_SHA256SUM_arm64=b38f5db944ac4942f11ceea465a91e365b0636febd9998c110fbbe95d61c3b26
+FROM alpine:3.19 AS builder
+ARG TERRAFORM_VERSION=1.13.5
+ARG TERRAFORM_SHA256SUM_amd64=0dbe3fcc268eb670801af6a6456799d1ae26e72e73797f6c6167e18aafd1fd9a
+ARG TERRAFORM_SHA256SUM_arm64=fc1ddcb403fb57e25bdbdceb1ef2b1a102650c01b4d65dd3410082d2ef8b4417
 # TERRAFORM_SHA256SUM_${TARGETARCH} values can be found in https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
 
 # Because the builder downloads the latest akamai provider,

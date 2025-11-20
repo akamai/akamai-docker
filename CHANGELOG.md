@@ -1,5 +1,9 @@
 # Release notes
 
+## vx.xx.x (X X, X)
+
+* Upgraded Terraform to version `1.13.5`.
+
 ## v2.33.3 (Nov 14, 2025)
 
 * Upgraded Akamai Terraform Provider to `v9.2.0`.
