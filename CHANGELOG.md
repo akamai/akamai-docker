@@ -3,6 +3,7 @@
 ## vx.xx.x (X X, X)
 
 * Upgraded Terraform to version `1.13.5`.
+* Upgraded Go to version `1.24.10` and Alpine to `3.22` for `cli`, `dns`, `gtm`, `jsonnet`, `purge`, `terraform-cli`, and `test-center` images.
 
 ## v2.33.3 (Nov 14, 2025)
 
