@@ -14,7 +14,7 @@ ARG BASE=akamai/base
 # image since it is likely that the user will want to render the
 # templates, not just generate them.
 
-FROM golang:1.24.10-alpine3.22 AS jsonnet
+FROM golang:1.24.11-alpine3.23 AS jsonnet
 
 # this will only be used on architectures that upx doesn't use
 COPY files/upx-noop /usr/bin/upx
@@ -54,4 +54,4 @@ RUN mkdir -p /cli/.akamai-cli/src \
   # Drop ~20MB by removing bytecode cache created by pip
   && find / -name __pycache__ | xargs rm -rf \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
-  && rm -rf /cli/.akamai-cli/src/cli-eaa/.git
+  && rm -rf /cli/.akamai-cli/src/cli-jsonnet/.git

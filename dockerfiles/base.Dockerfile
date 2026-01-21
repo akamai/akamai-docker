@@ -2,7 +2,7 @@
 # BUILD ARGS
 #########
 
-ARG BASE=alpine:3.19
+ARG BASE=alpine:3.23
 
 #####################
 # FINAL
