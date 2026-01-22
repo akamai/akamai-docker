@@ -1,5 +1,18 @@
 # Release notes
 
+## v2.33.4 (Jan 22, 2026)
+
+* Upgraded Terraform to version `1.13.5`.
+* Upgraded Go to version `1.24.11` in `dns`, `cli`, `gtm`, `jsonnet`, `purge`, `terraform-cli`, and `test-center` images.
+* Upgraded Alpine to `3.23` in all images.
+* Upgraded Node.js to version 20 in `appsec`, `edgeworkers`, `property-manager`, `sandbox` images.
+* Upgraded Java to 17 in `sandbox` image.
+* Upgraded Akamai Terraform Provider to `v9.3.0`.
+* Resolved multiple security vulnerabilities across Docker images:
+  * Updated Python dependencies to address vulnerabilities in `adaptive-acceleration`, `cloudlets`, `firewall`, `image-manager`, and `onboard` images.
+  * Upgraded Node.js dependencies to resolve vulnerabilities in `appsec`, `edgeworkers`, `property-manager`, and `sandbox` images.
+  * Removed pip from Python virtual environments in `onboard` and `cloudlets` images to reduce attack surface.
+
 ## v2.33.3 (Nov 14, 2025)
 
 * Upgraded Akamai Terraform Provider to `v9.2.0`.

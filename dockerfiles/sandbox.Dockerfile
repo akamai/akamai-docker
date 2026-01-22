@@ -8,7 +8,7 @@ ARG BASE=akamai/cli
 # BUILDER
 #########
 
-FROM node:18-alpine3.19 as builder
+FROM node:20-alpine3.23 AS builder
 
 # sandbox originally binds to 127.0.0.1 which doesn't work with Docker's port mapping
 # the patch changes the ip to 0.0.0.0
@@ -22,6 +22,7 @@ RUN apk add --no-cache git npm \
   && cd cli-sandbox \
   && git apply --ignore-whitespace /tmp/patches/*.patch  \
   && rm -rf /tmp/patches \
+  && npm pkg set overrides.execa=">=2.0.0" overrides.tar="^7.5.4" overrides.qs="^6.14.1" \
   && npm install --ignore-scripts \
   && npm run build \
   && rm -rf .git node_modules \
@@ -33,7 +34,7 @@ RUN apk add --no-cache git npm \
 
 FROM $BASE
 
-RUN apk add --no-cache nodejs openjdk8-jre-base libc6-compat gcompat nss
+RUN apk add --no-cache nodejs openjdk17-jre-headless libc6-compat gcompat nss
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
 

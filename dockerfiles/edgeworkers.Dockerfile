@@ -8,12 +8,14 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM node:18-alpine3.19 as builder
+FROM node:20-alpine3.23 AS builder
 
-RUN apk add --no-cache git npm \
+RUN apk add --no-cache git npm jq \
   # install cli-edgeworkers from git
   && git clone --depth 1 https://github.com/akamai/cli-edgeworkers.git \
   && cd cli-edgeworkers \
+  # Add npm overrides to fix vulnerabilities (excluding tar which causes TypeScript build errors)
+  && jq '.overrides["form-data"] = "^4.0.4" | .overrides["qs"] = "^6.14.1"' package.json > package.json.tmp && mv package.json.tmp package.json \
   # we need dev dependencies to transpile
   && npm install \
   # we need dev dependencies to transpile
