@@ -1,5 +1,9 @@
 # Release notes
 
+## v2.XX.X (XXX XX, 2026)
+
+* Fixed problems with `appsec` and `firewall` images.
+
 ## v2.33.4 (Jan 22, 2026)
 
 * Upgraded Terraform to version `1.13.5`.

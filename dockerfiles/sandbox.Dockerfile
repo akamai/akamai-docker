@@ -20,7 +20,7 @@ RUN apk add --no-cache git npm \
   # the footprint of the package since devDependencies are installed)
   && git clone --depth 1 https://github.com/akamai/cli-sandbox.git \
   && cd cli-sandbox \
-  && git apply --ignore-whitespace /tmp/patches/*.patch  \
+  && git apply --ignore-whitespace /tmp/patches/cli-sandbox*.patch  \
   && rm -rf /tmp/patches \
   && npm pkg set overrides.execa=">=2.0.0" overrides.tar="^7.5.4" overrides.qs="^6.14.1" \
   && npm install --ignore-scripts \

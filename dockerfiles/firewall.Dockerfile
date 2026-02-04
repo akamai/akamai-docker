@@ -10,10 +10,14 @@ ARG BASE=akamai/base
 
 FROM ${BASE}
 
+COPY patches/ /tmp/patches/
+
 RUN mkdir -p /cli/.akamai-cli/src \
   && apk add --no-cache python3 py3-pip \
   && apk add --no-cache --virtual .dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
   && git clone --depth 1 https://github.com/akamai/cli-firewall.git /cli/.akamai-cli/src/cli-firewall \
+  && git -C /cli/.akamai-cli/src/cli-firewall apply --ignore-whitespace /tmp/patches/cli-firewall.patch  \
+  && rm -rf /tmp/patches \
   && python3 -m venv /cli/.akamai-cli/venv/cli-firewall \
   && source /cli/.akamai-cli/venv/cli-firewall/bin/activate \
   && python -m pip install --no-cache-dir --upgrade pip \
