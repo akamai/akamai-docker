@@ -1,7 +1,8 @@
 # Release notes
 
-## v2.XX.X (XXX XX, 2026)
+## v2.33.5 (Feb 26, 2026)
 
+* Upgraded Akamai Terraform Provider to `v10.0.0`.
 * Fixed problems with `appsec` and `firewall` images.
 
 ## v2.33.4 (Jan 22, 2026)
