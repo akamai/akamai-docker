@@ -1,0 +1,18 @@
+Subject: [PATCH] Bump prettytable
+---
+Index: requirements.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/requirements.txt b/requirements.txt
+--- a/requirements.txt	(revision 49ec6c94bb9fccc4073fb830a219421e81aae665)
++++ b/requirements.txt	(date 1769682371731)
+@@ -1,6 +1,6 @@
+ edgegrid-python==1.1.1
+ requests>=2.32.0
+-prettytable==0.7.2
++prettytable==3.17.0
+ configparser==3.5.0
+ click==7.1.1
+ urllib3>=2.6.0

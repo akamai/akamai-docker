@@ -42,6 +42,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: appsec is executable" {
+  run akamai appsec --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: cloudlets is executable" {
   run akamai cloudlets --help
   [ "$status" -eq 0 ]
@@ -68,6 +73,11 @@
   [ "$status" -eq 0 ]
 }
 
+@test "cli: edgekv is executable" {
+  run akamai edgekv --help
+  [ "$status" -eq 0 ]
+}
+
 @test "cli: edgeworkers is executable" {
   run akamai edgeworkers --help
   [ "$status" -eq 0 ]
@@ -85,6 +95,11 @@
 
 @test "cli: image-manager is executable" {
   run akamai image-manager --help
+  [ "$status" -eq 0 ]
+}
+
+@test "cli: video-manager is executable" {
+  run akamai video-manager --help
   [ "$status" -eq 0 ]
 }
 
@@ -125,5 +140,10 @@
 
 @test "cli: gtm is executable" {
   run akamai gtm --help
+  [ "$status" -eq 0 ]
+}
+
+@test "cli: test-center is executable" {
+  run akamai test-center --help
   [ "$status" -eq 0 ]
 }

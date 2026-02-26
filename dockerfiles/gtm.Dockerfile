@@ -14,8 +14,10 @@ FROM golang:1.24.11-alpine3.23 AS builder
 COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
+ARG CLI_GTM_REF=0.5.0
+
 RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
-  && git clone --depth=1 https://github.com/akamai/cli-gtm \
+  && git clone --depth=1 --branch ${CLI_GTM_REF} https://github.com/akamai/cli-gtm \
   && cd cli-gtm \
   && go mod vendor \
   # -ldflags="-s -w" strips debug information from the executable

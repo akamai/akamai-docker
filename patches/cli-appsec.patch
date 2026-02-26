@@ -1,0 +1,30 @@
+Subject: [PATCH] Fix
+---
+Index: bin/commands/accountprotectionrulesequence.modify.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/commands/accountprotectionrulesequence.modify.js b/bin/commands/accountprotectionrulesequence.modify.js
+--- a/bin/commands/accountprotectionrulesequence.modify.js	(revision 02cc6416d6ac07dbf3a824dfffe4677b432e705a)
++++ b/bin/commands/accountprotectionrulesequence.modify.js	(date 1769606420376)
+@@ -1,4 +1,4 @@
+-let AccountProtectionRuleSequence = require('../../src/accountprotectionrulesequence')
++let AccountProtectionRuleSequence = require('../../src/accountProtectionRuleSequence')
+   .accountProtectionRuleSequence;
+ let out = require('./lib/out');
+ 
+Index: bin/commands/accountprotectionruleSequence.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/commands/accountprotectionruleSequence.js b/bin/commands/accountprotectionruleSequence.js
+--- a/bin/commands/accountprotectionruleSequence.js	(revision 02cc6416d6ac07dbf3a824dfffe4677b432e705a)
++++ b/bin/commands/accountprotectionruleSequence.js	(date 1769606008883)
+@@ -1,4 +1,4 @@
+-let AccountProtectionRuleSequence = require('../../src/accountprotectionrulesequence')
++let AccountProtectionRuleSequence = require('../../src/accountProtectionRuleSequence')
+   .accountProtectionRuleSequence;
+ let out = require('./lib/out');
+ 
