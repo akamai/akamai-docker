@@ -14,8 +14,10 @@ FROM golang:1.24.11-alpine3.23 AS builder
 COPY files/upx-noop /usr/bin/upx
 RUN chmod +x /usr/bin/upx
 
+ARG CLI_DNS_REF=0.6.0
+
 RUN apk add --no-cache $(apk search --no-cache | grep -q ^upx && echo -n upx) git \
-  && git clone --depth=1 https://github.com/akamai/cli-dns \
+  && git clone --depth=1 --branch ${CLI_DNS_REF} https://github.com/akamai/cli-dns \
   && cd cli-dns \
   && go mod vendor \
   # -ldflags="-s -w" strips debug information from the executable
