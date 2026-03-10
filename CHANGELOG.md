@@ -4,6 +4,7 @@
 
 * Upgraded Akamai Terraform Provider to `v10.0.0`.
 * Fixed problems with `appsec` and `firewall` images.
+* Upgraded Go to version `1.25.7` and Alpine to `3.23` for `cli`, `dns`, `gtm`, `jsonnet`, `purge`, `terraform-cli`, and `test-center` images.
 
 ## v2.33.4 (Jan 22, 2026)
 
