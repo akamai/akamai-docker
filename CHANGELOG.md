@@ -2,6 +2,7 @@
 
 ## v2.33.6 (Apr 2, 2026)
 
+* Upgraded Akamai Terraform Provider to `v10.1.0`.
 * Upgraded Go to version `1.25.7` and Alpine to `3.23` for `cli`, `dns`, `gtm`, `jsonnet`, `purge`, `terraform-cli`, and `test-center` images.
 
 ## v2.33.5 (Feb 26, 2026)
