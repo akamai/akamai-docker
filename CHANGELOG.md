@@ -1,5 +1,10 @@
 # Release notes
 
+## v2.34.0 (May 14, 2026)
+
+* Upgraded Akamai Terraform Provider to `v10.2.0`.
+* Updated various dependencies to fix security vulnerabilities in `adaptive-acceleration`, `appsec`, `cps`, `eaa`, `edgeworkers`, `etp`, `httpie`, `image-manager`, `jsonnet`, `onboard`, `sandbox` images.
+
 ## v2.33.6 (Apr 2, 2026)
 
 * Upgraded Akamai Terraform Provider to `v10.1.0`.

@@ -25,11 +25,17 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && sed -i 's/#!\ \/usr\/bin\/env\ python//g' /cli/.akamai-cli/src/cli-image-manager/bin/* \
   && python3 -m venv /cli/.akamai-cli/venv/cli-image-manager \
   && source /cli/.akamai-cli/venv/cli-image-manager/bin/activate \
-  && python -m pip install --upgrade pip \
-  && python -m pip install -r /cli/.akamai-cli/src/cli-image-manager/requirements.txt \
+  && python -m pip install --no-cache-dir --upgrade pip \
+  && python -m pip install --no-cache-dir -r /cli/.akamai-cli/src/cli-image-manager/requirements.txt \
   && deactivate \
+  && rm -rf /cli/.akamai-cli/venv/cli-image-manager/bin/pip* \
+  && rm -rf /cli/.akamai-cli/venv/cli-image-manager/lib/python*/site-packages/pip \
+  && rm -rf /cli/.akamai-cli/venv/cli-image-manager/lib/python*/site-packages/pip-* \
+  && rm -rf /cli/.akamai-cli/venv/cli-image-manager/lib/python*/site-packages/_distutils_hack \
+  && rm -f /cli/.akamai-cli/venv/cli-image-manager/lib/python*/site-packages/distutils-precedence.pth \
   # Drop dev dependencies
   && apk del dev \
+  && apk del py3-pip \
   # Drop created wheels
   && rm -rf /workdir/.cache \
   # Drop ~20MB by removing bytecode cache created by pip

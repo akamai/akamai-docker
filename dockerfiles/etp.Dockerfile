@@ -16,11 +16,17 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && git clone --depth 1 https://github.com/akamai/cli-etp.git /cli/.akamai-cli/src/cli-etp \
   && python3 -m venv /cli/.akamai-cli/venv/cli-etp \
   && source /cli/.akamai-cli/venv/cli-etp/bin/activate \
-  && python -m pip install --upgrade pip \
-  && python -m pip install -r /cli/.akamai-cli/src/cli-etp/requirements.txt \
+  && python -m pip install --no-cache-dir --upgrade pip \
+  && python -m pip install --no-cache-dir -r /cli/.akamai-cli/src/cli-etp/requirements.txt \
   && deactivate \
+  && rm -rf /cli/.akamai-cli/venv/cli-etp/bin/pip* \
+  && rm -rf /cli/.akamai-cli/venv/cli-etp/lib/python*/site-packages/pip \
+  && rm -rf /cli/.akamai-cli/venv/cli-etp/lib/python*/site-packages/pip-* \
+  && rm -rf /cli/.akamai-cli/venv/cli-etp/lib/python*/site-packages/_distutils_hack \
+  && rm -f /cli/.akamai-cli/venv/cli-etp/lib/python*/site-packages/distutils-precedence.pth \
   # Drop dev dependencies
   && apk del dev \
+  && apk del py3-pip \
   # Drop created wheels
   && rm -rf /workdir/.cache \
   # Drop ~20MB by removing bytecode cache created by pip

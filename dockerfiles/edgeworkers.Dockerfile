@@ -14,10 +14,13 @@ RUN apk add --no-cache git npm jq \
   # install cli-edgeworkers from git
   && git clone --depth 1 https://github.com/akamai/cli-edgeworkers.git \
   && cd cli-edgeworkers \
-  # Add npm overrides to fix vulnerabilities (excluding tar which causes TypeScript build errors)
-  && jq '.overrides["form-data"] = "^4.0.4" | .overrides["qs"] = "^6.14.1"' package.json > package.json.tmp && mv package.json.tmp package.json \
+  # Fix security vulnerabilities
+  && jq '.overrides["axios"] = "^1.15.2" | .overrides["brace-expansion"] = "^5.0.5" | .overrides["follow-redirects"] = "^1.16.0"' \
+    package.json > package.json.tmp && mv package.json.tmp package.json \
   # we need dev dependencies to transpile
   && npm install \
+  # fix TS error: cast AxiosHeaderValue to string for .indexOf() call (axios >=1.7 widened the type)
+  && sed -i 's/\.indexOf(/\.toString().indexOf(/g' src/edgeworkers/ew-service.ts \
   # we need dev dependencies to transpile
   && npm run build \
   # we can remove src (all .ts has been transpiled to bin/**.js)
