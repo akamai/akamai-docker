@@ -22,7 +22,11 @@ RUN apk add --no-cache git npm \
   && cd cli-sandbox \
   && git apply --ignore-whitespace /tmp/patches/cli-sandbox*.patch  \
   && rm -rf /tmp/patches \
-  && npm pkg set overrides.execa=">=2.0.0" overrides.tar="^7.5.4" overrides.qs="^6.14.1" \
+  # Fix security vulnerabilities
+  && npm pkg set overrides.tar="^7.5.4" overrides.qs="^6.14.1" overrides.axios="^1.15.2" \
+   overrides.flatted="^3.4.2" overrides.minimatch="^10.2.3" overrides.picomatch="^2.3.2" overrides.brace-expansion="^5.0.1" \
+   overrides.follow-redirects="^1.16.0" dependencies.uuid="^11.1.1" overrides.uuid="^11.1.1" \
+   dependencies.lodash="^4.18.0" overrides.lodash="^4.18.0" \
   && npm install --ignore-scripts \
   && npm run build \
   && rm -rf .git node_modules \
