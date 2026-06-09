@@ -1,0 +1,64 @@
+name: On Demand CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      variants:
+        description: |
+          Comma-separated variants to build.
+          Leave empty to build all variants from the variants file.
+          Example: "cli appsec, cli dns" builds appsec and dns.
+        required: false
+        default: ''
+      tests:
+        description: |
+          Comma-separated list of tests to run (matched by Bats --filter regex).
+          Leave empty to run all tests.
+          Use "none" to skip tests entirely.
+          Example: "appsec, dns" runs only tests whose name matches appsec or dns.
+        required: false
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        env:
+          VARIANTS: ${{ inputs.variants }}
+        run: |
+          if [ -z "$VARIANTS" ]; then
+            echo "No variants specified — building all from variants file"
+            ./scripts/build-all.sh
+          else
+            echo "Building selected variant chains"
+            IFS=',' read -ra chains <<< "$VARIANTS"
+            for chain in "${chains[@]}"; do
+              chain=$(echo "$chain" | xargs)
+              if [ -n "$chain" ]; then
+                read -r -a chain_args <<< "$chain"
+                ./scripts/build-chain.sh "${chain_args[@]}"
+              fi
+            done
+          fi
+        shell: bash
+
+      - name: Run tests
+        if: ${{ inputs.tests != 'none' }}
+        env:
+          TESTS: ${{ inputs.tests }}
+        run: |
+          if [ -n "$TESTS" ]; then
+            # Convert comma-separated list to pipe-separated regex, trimming whitespace
+            export BATS_FILTER="$(echo "$TESTS" | sed 's/[[:space:]]*,[[:space:]]*/|/g; s/^[[:space:]]*//; s/[[:space:]]*$//')"
+          fi
+          ./scripts/test.sh
+        shell: bash
