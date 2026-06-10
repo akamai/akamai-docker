@@ -7,7 +7,7 @@ on:
         description: |
           Comma-separated variants to build.
           Leave empty to build all variants from the variants file.
-          Example: "cli appsec, cli dns" builds appsec and dns.
+          Example: "cli appsec,cli dns" builds appsec and dns.
         required: false
         default: ''
       tests:
@@ -15,7 +15,7 @@ on:
           Comma-separated list of tests to run (matched by Bats --filter regex).
           Leave empty to run all tests.
           Use "none" to skip tests entirely.
-          Example: "appsec, dns" runs only tests whose name matches appsec or dns.
+          Example: "appsec,dns" runs only tests whose name matches appsec or dns.
         required: false
         default: ''
 
@@ -42,6 +42,7 @@ jobs:
             echo "Building selected variant chains"
             IFS=',' read -ra chains <<< "$VARIANTS"
             for chain in "${chains[@]}"; do
+              # Trim whitespaces
               chain=$(echo "$chain" | xargs)
               if [ -n "$chain" ]; then
                 read -r -a chain_args <<< "$chain"
@@ -57,7 +58,7 @@ jobs:
           TESTS: ${{ inputs.tests }}
         run: |
           if [ -n "$TESTS" ]; then
-            # Convert comma-separated list to pipe-separated regex, trimming whitespace
+            # Convert comma-separated list to pipe-separated regex, trimming whitespaces
             export BATS_FILTER="$(echo "$TESTS" | sed 's/[[:space:]]*,[[:space:]]*/|/g; s/^[[:space:]]*//; s/[[:space:]]*$//')"
           fi
           ./scripts/test.sh
