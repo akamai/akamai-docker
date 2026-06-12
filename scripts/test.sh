@@ -42,7 +42,7 @@ containerId=$(docker run -d --name test --pull=never "${image}" sleep 3600)
 
 # Run the tests
 docker cp ./test.bats "${containerId}":/test.bats
-docker exec -i "${containerId}" bash <<EOF
+docker exec -i -e BATS_FILTER="${BATS_FILTER}" "${containerId}" bash <<'EOF'
 set -e
 
 apk add --no-cache git bash
@@ -50,5 +50,9 @@ git clone https://github.com/bats-core/bats-core.git
 cd bats-core
 ./install.sh /usr/local
 cd /
-bats /test.bats
+if [ -n "${BATS_FILTER:-}" ]; then
+  bats --filter "$BATS_FILTER" /test.bats
+else
+  bats /test.bats
+fi
 EOF
