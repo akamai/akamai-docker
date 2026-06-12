@@ -1,4 +1,5 @@
 name: On Demand CI
+run-name: "On Demand CI - Variants: ${{ inputs.variants || 'All' }} | Tests: ${{ inputs.tests || 'All' }}"
 
 on:
   workflow_dispatch:
@@ -7,7 +8,7 @@ on:
         description: |
           Comma-separated variants to build.
           Leave empty to build all variants from the variants file.
-          Example: "cli appsec,cli dns" builds appsec and dns.
+          Example: "base,base cli,cli appsec,appsec shell" builds shell with appsec.
         required: false
         default: ''
       tests:
@@ -23,6 +24,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Print inputs
+        run: |
+          echo "========================================="
+          echo "Workflow Execution Inputs"
+          echo "========================================="
+          echo "Variants : ${{ inputs.variants || 'All (Default)' }}"
+          echo "Tests    : ${{ inputs.tests || 'All (Default)' }}"
+          echo "========================================="
       - uses: actions/checkout@v4
 
       - name: Set up QEMU
