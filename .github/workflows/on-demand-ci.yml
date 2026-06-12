@@ -45,8 +45,7 @@ jobs:
               # Trim whitespaces
               chain=$(echo "$chain" | xargs)
               if [ -n "$chain" ]; then
-                read -r -a chain_args <<< "$chain"
-                ./scripts/build-chain.sh "${chain_args[@]}"
+                ./scripts/build-chain.sh $chain
               fi
             done
           fi
