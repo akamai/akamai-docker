@@ -1,5 +1,5 @@
 name: On Demand CI
-run-name: "On Demand CI - Variants: ${{ inputs.variants || 'All' }} | Tests: ${{ inputs.tests || 'All' }}"
+run-name: "On Demand CI - Variants: '${{ inputs.variants || 'All' }}' | Tests: '${{ inputs.tests || 'All' }}'"
 
 on:
   workflow_dispatch:
