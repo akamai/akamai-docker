@@ -6,9 +6,10 @@ on:
     inputs:
       variants:
         description: |
-          Comma-separated variants to build.
+          Space-separated image names to build (dependency chains are resolved automatically).
           Leave empty to build all variants from the variants file.
-          Example: "base,base cli,cli appsec,appsec shell" builds shell with appsec.
+          Example: "purge dns" builds purge and dns.
+          Example: "shell:terraform,api-gateway" builds shell with only terraform and api-gateway.
         required: false
         default: ''
       tests:
@@ -48,14 +49,9 @@ jobs:
             echo "No variants specified — building all from variants file"
             ./scripts/build-all.sh
           else
-            echo "Building selected variant chains"
-            IFS=',' read -ra chains <<< "$VARIANTS"
-            for chain in "${chains[@]}"; do
-              # Trim whitespaces
-              chain=$(echo "$chain" | xargs)
-              if [ -n "$chain" ]; then
-                ./scripts/build-chain.sh $chain
-              fi
+            echo "Building selected images"
+            for image in $VARIANTS; do
+              python3 scripts/build.py "$image"
             done
           fi
         shell: bash
