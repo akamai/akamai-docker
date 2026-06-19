@@ -58,8 +58,14 @@ def resolve_shell_chain(spec: str) -> list[tuple[str, ...]]:
         if d not in VARIANTS:
             sys.exit(f"error: unknown dependency '{d}'")
 
-    # Flatten and deduplicate preserving order via dict keys
-    calls = list(dict.fromkeys(c for d in deps for c in VARIANTS[d]))
+    # Flatten and deduplicate preserving order
+    seen = set()
+    calls = []
+    for d in deps:
+        for c in VARIANTS[d]:
+            if c not in seen:
+                seen.add(c)
+                calls.append(c)
     validate_no_conflicting_paths(calls)
     calls.append(tuple(deps) + ("shell",))
     return calls
