@@ -6,9 +6,11 @@ on:
     inputs:
       variants:
         description: |
-          Comma-separated variants to build.
-          Leave empty to build all variants from the variants file.
-          Example: "base,base cli,cli appsec,appsec shell" builds shell with appsec.
+          A single image name to build (dependency chain is resolved automatically).
+          Leave empty to build full shell chain.
+          To build multiple images, use the shell syntax: "shell:terraform,api-gateway".
+          Example: "purge" builds purge.
+          Example: "shell:terraform,api-gateway" builds shell with only terraform and api-gateway.
         required: false
         default: ''
       tests:
@@ -34,6 +36,17 @@ jobs:
           echo "========================================="
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run unit tests for test_build.py
+        run: |
+          pip install pytest -q
+          python3 -m pytest scripts/test_build.py -v
+        shell: bash
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -42,22 +55,10 @@ jobs:
 
       - name: Build
         env:
-          VARIANTS: ${{ inputs.variants }}
+          VARIANTS: ${{ inputs.variants || 'shell' }}
         run: |
-          if [ -z "$VARIANTS" ]; then
-            echo "No variants specified — building all from variants file"
-            ./scripts/build-all.sh
-          else
-            echo "Building selected variant chains"
-            IFS=',' read -ra chains <<< "$VARIANTS"
-            for chain in "${chains[@]}"; do
-              # Trim whitespaces
-              chain=$(echo "$chain" | xargs)
-              if [ -n "$chain" ]; then
-                ./scripts/build-chain.sh $chain
-              fi
-            done
-          fi
+          echo "Building '$VARIANTS'"
+          python3 scripts/build.py "$VARIANTS"
         shell: bash
 
       - name: Run tests
