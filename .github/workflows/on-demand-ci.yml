@@ -6,9 +6,10 @@ on:
     inputs:
       variants:
         description: |
-          Space-separated image names to build (dependency chains are resolved automatically).
+          A single image name to build (dependency chain is resolved automatically).
           Leave empty to build all variants from the variants file.
-          Example: "purge dns" builds purge and dns.
+          To build multiple images, use the shell syntax: "shell:terraform,api-gateway".
+          Example: "purge" builds purge.
           Example: "shell:terraform,api-gateway" builds shell with only terraform and api-gateway.
         required: false
         default: ''
@@ -40,7 +41,7 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Run unit tests
+      - name: Run unit tests for test_build.py
         run: |
           pip install pytest -q
           python3 -m pytest scripts/test_build.py -v
