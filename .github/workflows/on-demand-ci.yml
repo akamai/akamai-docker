@@ -62,9 +62,7 @@ jobs:
             ./scripts/build-all.sh
           else
             echo "Building selected images"
-            for image in $VARIANTS; do
-              python3 scripts/build.py "$image"
-            done
+            python3 scripts/build.py "$VARIANTS"
           fi
         shell: bash
 
