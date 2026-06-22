@@ -7,7 +7,7 @@ on:
       variants:
         description: |
           A single image name to build (dependency chain is resolved automatically).
-          Leave empty to build all variants from the variants file.
+          Leave empty to build full shell chain.
           To build multiple images, use the shell syntax: "shell:terraform,api-gateway".
           Example: "purge" builds purge.
           Example: "shell:terraform,api-gateway" builds shell with only terraform and api-gateway.
@@ -55,15 +55,10 @@ jobs:
 
       - name: Build
         env:
-          VARIANTS: ${{ inputs.variants }}
+          VARIANTS: ${{ inputs.variants || 'shell' }}
         run: |
-          if [ -z "$VARIANTS" ]; then
-            echo "No variants specified — building all from variants file"
-            ./scripts/build-all.sh
-          else
-            echo "Building selected images"
-            python3 scripts/build.py "$VARIANTS"
-          fi
+          echo "Building '$VARIANTS'"
+          python3 scripts/build.py "$VARIANTS"
         shell: bash
 
       - name: Run tests
