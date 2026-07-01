@@ -17,7 +17,7 @@ RUN apk add --no-cache git jq \
   && git clone --depth 1 https://github.com/akamai/cli-appsec.git \
   && cd cli-appsec \
   # Add npm overrides to fix vulnerabilities
-  && jq '.overrides["form-data"] = "^4.0.4" | .overrides["axios"] = "^1.13.2" | .overrides["flatted"] = "^3.4.2"' package.json > package.json.tmp && mv package.json.tmp package.json \
+  && jq '.overrides["form-data"] = "^4.0.4" | .overrides["axios"] = "^1.13.2" | .overrides["flatted"] = "^3.4.2" | .overrides["uuid"] = "^11.1.1"' package.json > package.json.tmp && mv package.json.tmp package.json \
   && npm install --production \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
   && rm -rf /cli/.akamai-cli/src/cli-appsec/.git

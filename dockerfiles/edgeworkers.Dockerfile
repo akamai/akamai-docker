@@ -15,7 +15,7 @@ RUN apk add --no-cache git npm jq \
   && git clone --depth 1 https://github.com/akamai/cli-edgeworkers.git \
   && cd cli-edgeworkers \
   # Fix security vulnerabilities
-  && jq '.overrides["axios"] = "^1.15.2" | .overrides["brace-expansion"] = "^5.0.5" | .overrides["follow-redirects"] = "^1.16.0"' \
+  && jq '.overrides["axios"] = "^1.15.2" | .overrides["brace-expansion"] = "^5.0.5" | .overrides["follow-redirects"] = "^1.16.0" | .overrides["uuid"] = "^11.1.1"' \
     package.json > package.json.tmp && mv package.json.tmp package.json \
   # we need dev dependencies to transpile
   && npm install \
