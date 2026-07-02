@@ -57,6 +57,9 @@ current_build_tags | grep -Ev "$DOCKER_REPOSITORY/(base|.*-chain)" |
       # push temporary image tags
       docker push "$image:$ARMTAG"
       docker push "$image:$AMDTAG"
+      # give Docker Hub time to sync the newly pushed tags
+      echo "Waiting 10 seconds for Docker Hub to sync layers..."
+      sleep 10
       # couple the temporary tags into one manifest
       docker manifest create "$image:$tag" --amend "$image:$ARMTAG" --amend "$image:$AMDTAG"
       docker manifest push "$image:$tag"
