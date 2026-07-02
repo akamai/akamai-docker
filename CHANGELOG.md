@@ -1,5 +1,11 @@
 # Release notes
 
+## v2.33.8 (Jul 2, 2026)
+
+* Upgraded Terraform to version `1.15.5`.
+* Upgraded Akamai Terraform Provider to `v10.3.0`.
+* Updated various dependencies to fix security vulnerabilities in `appsec` and `edgeworkers` images.
+
 ## v2.33.7 (May 14, 2026)
 
 * Upgraded Akamai Terraform Provider to `v10.2.0`.
