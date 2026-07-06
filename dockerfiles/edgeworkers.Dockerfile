@@ -8,7 +8,7 @@ ARG BASE=akamai/base
 # BUILDER
 #########
 
-FROM node:20-alpine3.23 AS builder
+FROM node:24-alpine3.23 AS builder
 
 RUN apk add --no-cache git npm jq \
   # install cli-edgeworkers from git
