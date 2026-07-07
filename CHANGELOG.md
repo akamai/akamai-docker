@@ -1,5 +1,9 @@
 # Release notes
 
+## x.x.x (X X, X)
+
+* Upgraded Node.js to version `24` in `appsec`, `edgeworkers`, `property-manager` and `sandbox` images.
+
 ## v2.33.8 (Jul 2, 2026)
 
 * Upgraded Terraform to version `1.15.5`.
