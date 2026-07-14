@@ -63,7 +63,6 @@ This project provides images in two flavors:
 | akamai/cps                   | [GitHub](https://github.com/akamai/cli-cps)                                |
 | akamai/cloudlets             | [GitHub](https://github.com/akamai/cli-cloudlets)                          |
 | akamai/appsec                | [GitHub](https://github.com/akamai/cli-appsec)                             |
-| akamai/api-gateway           | [GitHub](https://github.com/akamai/cli-api-gateway)                        |
 | akamai/adaptive-acceleration | [GitHub](https://github.com/akamai/cli-adaptive-acceleration)              |
 | akamai/etp                   | [GitHub](https://github.com/akamai/cli-etp)                                | 
 | akamai/gtm                   | [GitHub](https://github.com/akamai/cli-gtm)                                |

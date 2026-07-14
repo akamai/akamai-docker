@@ -8,9 +8,9 @@ on:
         description: |
           A single image name to build (dependency chain is resolved automatically).
           Leave empty to build full shell chain.
-          To build multiple images, use the shell syntax: "shell:terraform,api-gateway".
+          To build multiple images, use the shell syntax: "shell:terraform,appsec".
           Example: "purge" builds purge.
-          Example: "shell:terraform,api-gateway" builds shell with only terraform and api-gateway.
+          Example: "shell:terraform,appsec" builds shell with only terraform and appsec.
         required: false
         default: ''
       tests:

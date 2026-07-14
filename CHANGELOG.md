@@ -2,6 +2,7 @@
 
 ## x.x.x (X X, X)
 
+* Removed the `api-gateway` image as the corresponding project was archived.
 * Upgraded Node.js to version `24` in `appsec`, `edgeworkers`, `property-manager` and `sandbox` images.
 
 ## v2.33.8 (Jul 2, 2026)

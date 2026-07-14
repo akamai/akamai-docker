@@ -33,27 +33,6 @@ akamai_command_installed() {
   [[ "$output" =~ "ERROR: missing adaptive-acceleration command." ]]
 }
 
-@test "cli: api-gateway: api-gateway is executable" {
-  run akamai_command_installed api-gateway
-  [ "$status" -eq 0 ]
-  run akamai api-gateway --help
-  [ "$status" -eq 0 ]
-}
-
-@test "cli: api-gateway: api-keys is executable" {
-  run akamai_command_installed api-keys
-  [ "$status" -eq 0 ]
-  run akamai api-keys --help
-  [ "$status" -eq 0 ]
-}
-
-@test "cli: api-gateway: api-security is executable" {
-  run akamai_command_installed api-security
-  [ "$status" -eq 0 ]
-  run akamai api-security --help
-  [ "$status" -eq 0 ]
-}
-
 @test "cli: appsec is executable" {
   run akamai_command_installed appsec
   [ "$status" -eq 0 ]

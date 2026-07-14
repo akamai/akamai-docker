@@ -13,7 +13,6 @@ base cli
 
 # specialized variants
 cli adaptive-acceleration
-cli api-gateway
 cli appsec
 cli cloudlets
 cli cps
@@ -39,4 +38,4 @@ base httpie
 base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox terraform terraform-cli etp gtm test-center shell
+cli adaptive-acceleration appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox terraform terraform-cli etp gtm test-center shell

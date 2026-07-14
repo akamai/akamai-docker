@@ -60,13 +60,13 @@ DRY_RUN_CASES = [
         "  $ ./scripts/build-chain.sh terraform shell\n",
     ),
     (
-        "shell:terraform,api-gateway",
-        "Building 'shell': base -> terraform -> cli -> api-gateway -> shell\n"
+        "shell:terraform,appsec",
+        "Building 'shell': base -> terraform -> cli -> appsec -> shell\n"
         "  $ ./scripts/build-chain.sh base\n"
         "  $ ./scripts/build-chain.sh base terraform\n"
         "  $ ./scripts/build-chain.sh base cli\n"
-        "  $ ./scripts/build-chain.sh cli api-gateway\n"
-        "  $ ./scripts/build-chain.sh terraform api-gateway shell\n",
+        "  $ ./scripts/build-chain.sh cli appsec\n"
+        "  $ ./scripts/build-chain.sh terraform appsec shell\n",
     ),
 ]
 
@@ -107,7 +107,7 @@ class TestEdgeCases:
         assert "unknown dependency 'bad-dep'" in result.stdout + result.stderr
 
     def test_shell_whitespace_in_deps_is_stripped(self):
-        result = run_dry("shell: terraform , api-gateway ")
+        result = run_dry("shell: terraform , appsec ")
         assert result.returncode == 0
 
     def test_no_args_exits_with_error(self):
