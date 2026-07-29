@@ -1,9 +1,10 @@
 # Release notes
 
-## x.x.x (X X, X)
+## v3.0.0 (Jul 30, 2026)
 
 * Removed the `api-gateway` image as the corresponding project was archived.
 * Upgraded Node.js to version `24` in `appsec`, `edgeworkers`, `property-manager` and `sandbox` images.
+* Upgraded Akamai Terraform Provider to `v10.4.0`.
 
 ## v2.33.8 (Jul 2, 2026)
 
