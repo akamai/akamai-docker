@@ -18,6 +18,8 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && git clone https://github.com/akamai/cli-cloudlets.git /cli/.akamai-cli/src/cli-cloudlets \
   && git -C /cli/.akamai-cli/src/cli-cloudlets apply --ignore-whitespace /tmp/patches/cli-cloudlets.patch \
   && rm -rf /tmp/patches \
+  # Fix security vulnerability: upgrade click to address CVE-2026-7246 \
+  && sed -i 's/click==8.1.3/click>=8.3.3/' /cli/.akamai-cli/src/cli-cloudlets/requirements.txt \
   && python3 -m venv /cli/.akamai-cli/venv/cli-cloudlets \
   && source /cli/.akamai-cli/venv/cli-cloudlets/bin/activate \
   && python -m pip install --no-cache-dir --upgrade pip \

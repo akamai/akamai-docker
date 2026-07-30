@@ -9,7 +9,6 @@ VARIANTS: dict[str, list[tuple[str, ...]]] = {
     "base":                    [("base",)],
     "cli":                     [("base",), ("base", "cli")],
     "adaptive-acceleration":   [("base",), ("base", "cli"), ("cli", "adaptive-acceleration")],
-    "api-gateway":             [("base",), ("base", "cli"), ("cli", "api-gateway")],
     "appsec":                  [("base",), ("base", "cli"), ("cli", "appsec")],
     "cloudlets":               [("base",), ("base", "cli"), ("cli", "cloudlets")],
     "cps":                     [("base",), ("base", "cli"), ("cli", "cps")],
@@ -32,7 +31,7 @@ VARIANTS: dict[str, list[tuple[str, ...]]] = {
 }
 
 DEFAULT_SHELL_DEPS: list[str] = [
-    "cli", "adaptive-acceleration", "api-gateway", "appsec", "cloudlets", "cps", "dns",
+    "cli", "adaptive-acceleration", "appsec", "cloudlets", "cps", "dns",
     "eaa", "edgeworkers", "firewall", "httpie", "image-manager", "jsonnet", "property-manager",
     "onboard", "purge", "sandbox", "terraform", "terraform-cli", "etp", "gtm", "test-center"
 ]
@@ -82,7 +81,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Build akamai-docker images with automatic dependency resolution.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="examples:\n  %(prog)s base\n  %(prog)s shell\n  %(prog)s \"shell:terraform,api-gateway\""
+        epilog="examples:\n  %(prog)s base\n  %(prog)s shell\n  %(prog)s \"shell:terraform,appsec\""
     )
     parser.add_argument("image", metavar="IMAGE", help="Image to build. Supports 'shell:img1,img2'.")
     parser.add_argument("--dry-run", action="store_true", help="Print commands without executing.")
