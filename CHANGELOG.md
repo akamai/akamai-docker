@@ -5,6 +5,7 @@
 * Removed the `api-gateway` image as the corresponding project was archived.
 * Upgraded Node.js to version `24` in `appsec`, `edgeworkers`, `property-manager` and `sandbox` images.
 * Upgraded Akamai Terraform Provider to `v10.4.0`.
+* Updated dependency to fix security vulnerabilities in `cloudlets` image.
 
 ## v2.33.8 (Jul 2, 2026)
 
