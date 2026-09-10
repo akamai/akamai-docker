@@ -1,5 +1,9 @@
 # Release notes
 
+## v3.0.1 (Sep 10, 2026)
+
+* Upgraded Akamai Terraform Provider to `v11.0.0`.
+
 ## v3.0.0 (Jul 30, 2026)
 
 * Removed the `api-gateway` image as the corresponding project was archived.
