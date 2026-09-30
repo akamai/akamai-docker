@@ -17,7 +17,7 @@ RUN apk add --no-cache python3 py3-pip \
   && python3 -m venv /venv \
   # Activate the virtual environment
   && . /venv/bin/activate \
-  && python -m pip install --no-cache-dir --upgrade pip setuptools \
+  && python -m pip install --no-cache-dir --upgrade pip 'setuptools>=83.0.0' \
   && pip install --no-cache-dir httpie httpie-edgegrid \
   && deactivate \
   && rm -rf /venv/bin/pip* \
