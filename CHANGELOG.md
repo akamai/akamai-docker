@@ -9,6 +9,7 @@
   * Updated Python dependencies to address vulnerabilities in `cloudlets`, `firewall`, `httpie`, and `onboard` images.
   * Updated Node.js dependencies to address vulnerabilities in `appsec`, `property-manager`, and `sandbox` images.
   * Removed development-only tools (`pre-commit`, `flake8`) from the `cloudlets` image.
+* Upgraded Akamai Terraform Provider to `v11.1.0`.
 
 ## v3.0.1 (Sep 10, 2026)
 
