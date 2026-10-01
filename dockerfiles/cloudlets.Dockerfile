@@ -20,10 +20,14 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && rm -rf /tmp/patches \
   # Fix security vulnerability: upgrade click to address CVE-2026-7246 \
   && sed -i 's/click==8.1.3/click>=8.3.3/' /cli/.akamai-cli/src/cli-cloudlets/requirements.txt \
+  # Drop dev-only tools: pre-commit pulls virtualenv, whose bundled seed wheels (old pip/setuptools/urllib3/msgpack) are flagged by scanners \
+  && sed -i '/^pre-commit==/d; /^flake8==/d' /cli/.akamai-cli/src/cli-cloudlets/requirements.txt \
   && python3 -m venv /cli/.akamai-cli/venv/cli-cloudlets \
   && source /cli/.akamai-cli/venv/cli-cloudlets/bin/activate \
   && python -m pip install --no-cache-dir --upgrade pip \
   && python -m pip install --no-cache-dir --only-binary :all: -r /cli/.akamai-cli/src/cli-cloudlets/requirements.txt \
+  && python -m pip install --no-cache-dir --upgrade --force-reinstall \
+    'urllib3>=2.7.0' 'msgpack>=1.2.1' 'setuptools>=83.0.0' \
   && deactivate \
   # Remove pip from the venv to reduce attack surface
   && rm -rf /cli/.akamai-cli/venv/cli-cloudlets/bin/pip* \
@@ -39,4 +43,3 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && find / -name __pycache__ | xargs rm -rf \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
   && rm -rf /cli/.akamai-cli/src/cli-cloudlets/.git
-

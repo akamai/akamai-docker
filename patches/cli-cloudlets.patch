@@ -10,7 +10,8 @@ diff --git a/requirements.txt b/requirements.txt
 +++ b/requirements.txt	(date 1772190587146)
 @@ -5,7 +5,7 @@
  openpyxl==3.1.2
- pandas==2.2.2
+-pandas==2.2.2
++pandas>=2.3.3,<3
  pre-commit==3.3.3
 -prettytable==1.0.0
 +prettytable==3.17.0
