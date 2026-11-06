@@ -1,5 +1,12 @@
 # Release notes
 
+## v3.0.3 (Nov 6, 2026)
+
+* Upgraded Akamai Terraform Provider to `v12.0.0`.
+* Resolved multiple security vulnerabilities across Docker images:
+  * Updated Python dependencies to address vulnerabilities in the `cps` image.
+  * Updated Node.js dependencies to address vulnerabilities in `appsec`, `edgeworkers`, and `sandbox` images.
+
 ## v3.0.2 (Oct 1, 2026)
 
 * Upgraded Alpine to `3.24` in all images.
