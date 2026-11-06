@@ -15,7 +15,7 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && apk add --no-cache --virtual dev git gcc python3-dev py3-setuptools libffi-dev musl-dev openssl-dev \
   && git clone --depth 1 https://github.com/akamai/cli-cps.git /cli/.akamai-cli/src/cli-cps \
   # Fix vulnerabilities
-  && sed -i 's/urllib3==2.6.3/urllib3>=2.7.0/' /cli/.akamai-cli/src/cli-cps/requirements.txt \
+  && sed -i 's/^urllib3==.*/urllib3>=2.8.0,<3/' /cli/.akamai-cli/src/cli-cps/requirements.txt \
   && python3 -m venv /cli/.akamai-cli/venv/cli-cps \
   && source /cli/.akamai-cli/venv/cli-cps/bin/activate \
   && python -m pip install --no-cache-dir --upgrade pip \
@@ -35,4 +35,3 @@ RUN mkdir -p /cli/.akamai-cli/src \
   && find / -name __pycache__ | xargs rm -rf \
   # git dir not needed, drops a few hundred KB (just a few hundred, thanks to shallow clone)
   && rm -rf /cli/.akamai-cli/src/cli-cps/.git
-
